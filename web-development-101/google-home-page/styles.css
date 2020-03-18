@@ -1,0 +1,115 @@
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+#navbar {
+    min-height: 70px;
+    height: 10%;
+    max-height: 100px;
+    text-align: end;
+    padding: 10px 10px 0 0;
+}
+.nav-bar-links {
+    text-decoration: none;
+    color: #636363;
+    margin: 0 20px;
+}
+.nav-bar-links:hover {
+    text-decoration: underline;
+}
+#sign-in-button {
+    padding: 8px 15px;
+    background-color: #256dd8;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    margin: 0px 20px;
+}
+#sign-in-button:hover {
+    box-shadow: 0px 0px 3px #636363;
+}
+#google-search {
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
+#search-box {
+    margin-top: 20px;
+    min-width: 400px;
+    width: 40%;
+    height: 35px;
+    border: 1px solid #c5c5c5;
+    border-radius: 20px;
+    padding: 0px 15px;
+    display: flex;
+    align-items: center;
+}
+#search-box:hover {
+    box-shadow: 0px 0px 6px #afafaf;
+}
+#search-image {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+}
+#speech-image {
+    height: 20px;
+    width: 20px;
+    margin-left: 10px;
+}
+#search-text-box {
+    width: 90%;
+    height: 85%;
+    border: none;
+    font-size: 16px;
+}
+.custom-button {
+    margin: 10px 5px;
+    height: 40px;
+    width: 140px;
+    background-color: #f0f0f0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #636363;
+}
+.custom-button:hover {
+    border: 1px solid #c5c5c5;
+    color: black;
+}
+#languages {
+    font-size: 12px;
+}
+#languages a {
+    margin: 3px;
+}
+#footer {
+    background-color: #f0f0f0;
+    min-height: 60px;
+    max-height: 80px;
+    padding: 20px;
+    padding-top: 0px;
+    color: #636363;
+}
+#footer-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;   
+}
+#footer-links a {
+    padding-right: 20px;
+    text-decoration: none;
+    color: inherit;
+}
+#footer-links a:hover {
+    text-decoration: underline;
+}
