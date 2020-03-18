@@ -1,0 +1,196 @@
+* {
+    --primary-color: white;
+    --light-primary-color: #cacaca;
+    --secondary-color: #2A1A5A;
+    --scolor-transparent: #2A1A5Ad3;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: white;
+}
+::-webkit-scrollbar {
+    width: 4px;
+    height: 0;
+  }
+::-webkit-scrollbar-track {
+    background: var(--primary-color);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
+
+#main-container {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+}
+#navbar {
+    text-align: center;
+    height: 10%;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    box-shadow: 0 0 15px black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#calculator-container {
+    height: 500px;
+    margin: auto;
+    box-shadow: 0 0 15px black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+#history-panel {
+    width: 200px;
+    height: 100%;
+    background-color: var(--scolor-transparent);
+    border: 1px solid var(--scolor-transparent);
+    border-left: none;
+    border-right: none;
+    border-radius: 10px 0 0 10px;
+    text-align: right;
+    font-size: 1rem;
+    font-weight: bold;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: black #0cb66700;
+}
+#cursor {
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+    animation-name: cursor-animation;
+    color: white;
+    margin-right: 15px;
+}
+@keyframes cursor-animation {
+    0% {
+        opacity: 0;
+    }
+    65% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+#history-panel p {
+    margin: 0.4rem 0.5rem;
+    font-size: 1.08rem;
+    transition: 100ms;
+    padding-right: 5px;
+    color: var(--light-primary-color);
+}
+#history-panel p:hover{
+    box-shadow: 0 0 5px black;
+}
+#calculator {
+    width: 300px;
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: 0 10px 10px 0;
+}
+#display {
+    height: 35%;
+    text-align: right;
+    padding: 0px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: bold;
+}
+#primary-display {
+    font-size: 2rem;
+    margin: 4px 0px;
+    color: var(--secondary-color);
+}
+#secondary-display {
+    font-size: 1rem;
+    margin: 4px 0px;
+    color: var(--secondary-color);
+    opacity: 0.8
+}
+hr {
+    background-color: var(--secondary-color);
+    height: 1px;
+    margin: 0;
+}
+#button-layout {
+    height: 65%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, minmax(63px, 1fr));
+}
+.button {
+    border: none;
+    background-color: var(--light-primary-color);
+    color: var(--secondary-color);
+    text-align: center;
+    font-size: 1rem;
+    transition: 100ms;
+}
+.button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 8px var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-radius: 0px !important;
+}
+.colored {
+    background-color: var(--secondary-color);
+    color: white;
+}
+.button:last-child {
+    border-radius: 0 0 8px 0;
+    grid-row: 4 / 6;
+    grid-column: 4 / 5;
+}
+
+@media (max-width: 570px) {
+    #history-panel {
+        display: none;
+    }
+    #calculator {
+        border-radius: 10px;
+    }
+}
+@media (max-height: 600px) {
+    body {
+        display: flex;
+    }
+    #navbar {
+        width: 10%;
+        max-width: 60px;
+        height: 100%;
+        box-shadow: none;
+    }
+    #main-container {
+        width: 90%;
+        height: 100%;
+    }
+    #navbar > h2 {
+        font-size: 1.2rem;
+        position: absolute;
+        left: -73px;
+        width: 200px;
+        transform: rotate(270deg);
+    }
+    #calculator-container {
+        height: 90%;
+    }
+    #button-layout {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+    }
+}
