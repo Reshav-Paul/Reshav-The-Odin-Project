@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Etch-a-Sketch</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section id="main">
+        <div id="left-pane">
+            <h2 id="left-pane-header">Tools</h2>
+            <hr>
+            <div>
+            <button id="mono-color-button" class="raised-button non-selected-button">Mono Color Brush</button>
+            <button id="rainbow-color-button" class="raised-button selected-button">Rainbow Brush</button>
+            </div>
+            <hr>
+
+            
+            <div>
+                <label for="grid-size-input">
+                    <strong>Grid Size &nbsp;</strong>
+                    <input type="number" id="grid-size-input" placeholder="Enter grid size" min="2" max="30">
+                </label>
+            <button id="grid-resize-button" class="raised-button non-selected-button">Resize</button>
+            
+            </div>
+            <div>
+            <button id="reset-button" class="raised-button non-selected-button">Reset</button>
+            </div>
+            <hr>
+
+            <div id="color-picker">
+                <strong>Pick a Color</strong>
+                <div>
+                    <input type="color" id="color-picker-input">
+                </div>
+            </div>
+        </div>
+        <div id="center-pane">
+            <h1>Etch-a-Sketch</h1>
+            <div id="paint-area"></div>
+        </div>
+        <div id="right-pane">
+            <h2>Tool Guide</h2>
+            <hr>
+            <h4>Rainbow Brush</h4>
+            <p>
+                Paints with a <strong>new color</strong> everytime when the cell is <strong>white</strong>.
+                <br>
+                When the cell already has a color it <strong>darkens</strong> the existing color.
+            </p>
+            <h4>Mono Color Brush</h4>
+            <p>
+                Colors a cell with your <strong>chosen</strong> color and can repaint an already colored cell.
+                <br>
+                <strong>Pro Tip: </strong>If you want to <strong>change</strong> the mono color of some cells into rainbow color first
+                paint them <strong>white</strong> with the mono brush and then use the rainbow brush.
+            </p>
+        </div>
+    </section>
+    <script src="index.js"></script>
+</body>
+</html>
