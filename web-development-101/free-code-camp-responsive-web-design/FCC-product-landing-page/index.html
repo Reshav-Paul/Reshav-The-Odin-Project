@@ -1,0 +1,254 @@
+<html>
+    <head>
+        <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+    </head>
+    <style>
+        #nav-bar {
+            position: fixed;
+            top: 0px;
+            display: flex;
+            justify-content: space-between;
+            background-color: #dfdbdb;
+            width: 100%;
+            height: 5%;
+            max-height: 100px;
+            padding: 20px 10px;
+            margin: auto;
+        }        
+        #header-img {
+            min-width: 100px;
+            min-height: 35px;
+            max-width: 250px;
+            margin: 0px 10px;
+        }
+        .nav-link {
+            position: relative;
+            top: 7px;
+            margin: 0px 50px 30px 0px;
+            text-decoration: none;
+            color: #ce313e;
+        }
+        .nav-link:hover {
+            color: black;
+        }
+        #description {
+            text-align: center;
+            margin-top: 9%;
+        }
+        @media(max-width: 1024px) {
+            #nav-bar {
+                text-align: center;
+                flex-direction: column;
+                height: 20%;
+                padding: 20px 0px;
+            }
+            #nav-link-div {
+                display: flex;
+                justify-content: center;
+            }
+            #header-img {
+                margin: auto;
+                width: 50%;
+                align-self: center;
+            }
+            .nav-link {
+                margin: 20px 10px;
+            }
+            #description {
+                margin-top: 150px;
+            }
+        }       
+        #form {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+        #email {
+            width: 25%;
+            height: 40px;
+            border-radius: 5px;
+            border-color: #ce313e;
+            border-style: solid;
+            padding: 10px;
+        }
+        .custom-button {
+            margin: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border-color: transparent;
+            border-style: solid;
+            background-color: #ce313e;
+            color: white;
+            font-weight: bold;
+        }
+        .custom-button:hover {
+            border-color: #ce313e;
+            background-color: white;
+            color: #ce313e;
+        }
+
+        #features {
+            margin: 30px 15%;
+        }
+        .feature-div {
+            margin: 15px;
+            padding: 15px;
+            display: flex;
+            flex-direction: row;
+        }
+        .feature-heading {
+            font-weight: 700;
+            margin: 2px 25px;
+        }
+        .feature-description {
+            font-size: 14px;
+            margin: 0px 25px;
+            padding: 0px;
+        }
+        .icon {
+            height: 50px;
+            width: 60px;
+        }
+        #how-it-works {
+            margin: 80px 0px;
+            display: flex;
+            justify-content: center;
+        }
+        #pricing {
+            margin-top: 90px;
+            margin-bottom: 100px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .price-box {
+            font-size: 15px;
+            border-width: 2px;
+            border-color: black;
+            border-style: solid;
+            border-radius: 10px;
+            width: 25%;
+            margin: 20px 0px;
+            text-align: center;
+        }
+
+        .price-box-title {
+            width: 100%;
+            margin: 0px;
+            padding: 15px 0px;
+            text-align: center;
+            background-color: #ce313e;
+            color: white;
+        }
+
+        @media (max-width: 1024px){
+            #pricing {
+                margin-top: 90px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                align-items: center;
+            }
+
+            .price-box {
+                width: 45%;
+            }
+        }
+
+        #footer {
+            background-color: #adaaaa;
+            margin: 0px;
+            padding: 20px;
+            position: relative;
+            bottom: 0px;
+            text-align: right;
+        }
+    </style>
+    <body bgcolor="#dfdbdb" style="margin: 0px; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+        <header id="header">
+            <nav id="nav-bar">
+                <img src="images/company-logo.PNG" id="header-img">
+                <div id="nav-link-div">
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#how-it-works" class="nav-link">How it Works</a>
+                    <a href="#pricing" class="nav-link">Pricing</a>
+                <div>
+            </nav>
+        </header>
+
+        <h2 id="description">Handcrafted, home-made masterpieces</h2>
+        <form id="form" action="https://www.freecodecamp.com/email-submit">
+            <input type="email" id="email" placeholder="Enter your email address"><br>
+            <input type="submit" id="submit" class="custom-button" value="Get Started">
+        </form>
+
+        <section id="features">
+            <div class="feature-div">
+                <img src="images/fire.jpg" class="icon">
+                <div>
+                    <p class="feature-heading">Premium Materials</p>
+                    <p class="feature-description">Our tromboxes use the shiniest brass which is sourced locally. This will increase the longevity of your purchase.</p>
+                </div>
+            </div>
+            <div class="feature-div">
+                <img src="images/truck.png" class="icon">
+                <div>
+                    <p class="feature-heading">Fast Shipping</p>
+                    <p class="feature-description">We make sure you recieve your trombone as soon as we have finished making it. We also provide free returns if you are not satisfied.</p>
+                </div>
+            </div>
+            <div class="feature-div">
+                <img src="images/battery.png" class="icon">
+                <div>
+                    <p class="feature-heading">Quality Assurance</p>
+                    <p class="feature-description">For every purchase you make, we will ensure there are no damages or faults and we will check and test the pitch of your instrument.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works">
+            <iframe id="video" src="https://youtu.be/y8Yv4pnO7qc" allowfullscreen="" height="315" frameborder="0"></iframe>
+        </section>
+
+        <section id="pricing">
+            <div class="price-box">
+                <h5 class="price-box-title">TENOR TROMBONE</h6>
+                <h4>$600</h4>
+                <p>Lorem ipsum.</p>
+                <p>Lorem ipsum.</p>
+                <p>Lorem ipsum dolor.</p>
+                <p>Lorem ipsum.</p>
+                <button type="button" class="custom-button">SELECT</button>
+            </div>
+
+            <div class="price-box">
+                <h5 class="price-box-title">BASS TROMBONE</h6>
+                <h4>$900</h4>
+                <p>Lorem ipsum.</p>
+                <p>Lorem ipsum.</p>
+                <p>Lorem ipsum dolor.</p>
+                <p>Lorem ipsum.</p>
+                <button type="button" class="custom-button">SELECT</button>
+            </div>
+
+            <div class="price-box">
+                <h5 class="price-box-title">VALVE TROMBONE</h6>
+                <h4>$1200</h4>
+                <p>Plays similar to a Trumpet</p>
+                <p>Great for Jazz Bands</p>
+                <p>Lorem ipsum dolor.</p>
+                <p>Lorem ipsum.</p>
+                <button type="button" class="custom-button">SELECT</button>
+            </div>
+        </section>
+
+        <footer id="footer">
+            <div>
+                <a href="" class="nav-link" style="margin-right: 20px;">Privacy</a>
+                <a href="" class="nav-link" style="margin-right: 20px;">Terms</a>
+                <a href="" class="nav-link" style="margin-right: 20px;">Contact</a>
+                <p>Copyright 2016, Original Trombones</p>
+            </div>
+        </footer>
+    </body>
+</html>
