@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Pomodoro</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav id="navbar">
+        <h1>Pomodoro Clock</h1>
+        <a href="#">Theme</a>
+    </nav>
+
+    <!-- main body -->
+    <main id="clock-main">
+        <!-- Time Setting Block -->
+        <div id="time-setter">
+            <h3>Session</h3>
+            <div id="session-time-setter">
+                <a href="#"><i class="fa fa-chevron-up"></i></a>
+                <span>25</span>
+                <a href="#"><i class="fa fa-chevron-down"></i></a>
+            </div>
+            <hr>
+            <h3>Break</h3>
+            <div id="break-time-setter">                
+                <a href="#"><i class="fa fa-chevron-up"></i></a>
+                <span>5</span>
+                <a href="#"><i class="fa fa-chevron-down"></i></a>
+            </div>
+        </div>
+
+        <!-- Time Display Block -->
+        <div id="time-controls">
+            <h3>Session</h3>
+            <div id="time-display">
+                <h1>25:00</h1>
+            </div>
+            <hr>
+            <div class="row">
+                <div id="start-button" class="icon-button">
+                    <i class="fa fa-play"></i>
+                </div>
+                <div id="pause-button" class="icon-button">
+                    <i class="fa fa-pause"></i>
+                </div>
+            </div>
+            <div class="row">
+                <div id="stop-button" class="icon-button">
+                    <i class="fa fa-stop"></i>
+                </div>
+                <div id="reset-button" class="icon-button">
+                    <i class="fa fa-refresh"></i>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
