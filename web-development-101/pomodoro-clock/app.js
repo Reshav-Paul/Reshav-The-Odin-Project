@@ -140,8 +140,18 @@ resetButton.addEventListener('click', resetClock);
 lightButton = document.getElementById('light')
 darkButton = document.getElementById('dark');
 
-lightButton.addEventListener('click', () => 
-    document.querySelector('body').classList.replace('dark', 'light'));
+lightButton.addEventListener('click', () => {
+    document.querySelector('body').classList.replace('dark', 'light');
+    localStorage.setItem('theme', 'light');
+});
 
-darkButton.addEventListener('click', () =>
-    document.querySelector('body').classList.replace('light', 'dark'));
+darkButton.addEventListener('click', () => {
+    document.querySelector('body').classList.replace('light', 'dark')
+    localStorage.setItem('theme', 'dark');
+});
+
+//theme local storage
+const theme = localStorage.getItem('theme');
+if(theme) {
+    document.querySelector('body').classList.add(theme);
+}

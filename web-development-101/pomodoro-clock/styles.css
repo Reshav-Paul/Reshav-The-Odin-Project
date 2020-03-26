@@ -1,37 +1,53 @@
 :root {    
     margin: 0;
     height: 100%;
+    --grey-1: #2d323a;
+    --grey-2: #353b48;
+    --grey-3: #474d5e;
+    --grey-4: #bdbdbd;
+    --grey-5: #e4e4e4;
 }
 .dark {
-    --primary-dark: #2d323a;
-    --primary-light: #353b48;
-    --secondary-dark: #F97F51;
-    --secondary-light: #FEA47F;
+    --bg: var(--grey-3);
+    --bg-dark: var(--grey-2);
+    --text-dark: #F97F51;
+    --text-light: #FEA47F;
+    --button-dark: var(--bg-dark);
+    --button-light: var(--bg-light);
+    --nav-1: var(--grey-1);
+    --nav-2: var(--grey-3);
 }
 .light {
-    --primary-dark: #CAD3C8;
-    --primary-light: #eceaea;
-    --secondary-dark: #006266;
-    --secondary-light: #2C3A47;
+    --bg: var(--grey-5);
+    --bg-dark: var(--grey-4);
+    --text-dark: var(--grey-2);
+    --text-light: var(--grey-3);
+    --button-dark: #F97F51;
+    --button-light: #FEA47F;
+    --nav-1: #F97F51;
+    --nav-2: #FEA47F;
 }
 body {
     margin: 0;
     height: 100%;
-    background-color: var(--primary-light);
-    color: var(--secondary-light);
+    background-color: var(--bg);
+    color: var(--text-light);
     font-family: 'Lucida Sans', 'Lucida Sans Regular', Verdana, sans-serif;
-    transition: background 500ms ease-in-out, color 800ms ease-in-out;
+    transition: background-color 500ms ease-in-out, color 800ms ease-in-out;
 }
 hr {
     width: 100%;
     height: 1px;
     border: none;
-    background-image: linear-gradient(to right, var(--primary-dark), var(--secondary-dark), var(--primary-dark));
+    background-image: linear-gradient(to right, var(--bg-dark), var(--text-dark), var(--bg-dark));
 }
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
+}
+h2, h3 {
+    margin: 0;
 }
 .nav-item > a {
     font-weight: bold;
@@ -39,33 +55,32 @@ ul {
 .hover-style {
     cursor: default;
     text-decoration: none;
-    color: var(--secondary-dark);
+    color: var(--text-dark);
     transition: color 500ms;
 }
 .hover-style:hover {
-    color: var(--secondary-light);
+    color: var(--text-light);
 }
 .icon-button {
     border: none;
-    text-align: center;
     padding: 0.5rem 2rem;
-    background-color: var(--primary-light);
-    color: var(--secondary-dark);
-    transition: transform 200ms, color 400ms;
+    background-color: var(--button-dark);
+    color: var(--text-dark);
+    transition: transform 200ms, color 400ms, background-color 400ms;
     border-radius: 10%;
-    box-shadow: 0 0 1px black;
+    box-shadow: 0 0 3px black;
 }
 .icon-button:hover {
     transform: scale(1.1);
-    color: var(--secondary-light);
-    box-shadow: 0 0 3px black;
+    background-color: var(--button-light);
+    color: var(--text-light);
+    box-shadow: 0 0 5px black;
 }
 #navbar {
-    background-color: var(--primary-dark);
+    background: linear-gradient(var(--nav-1), var(--nav-2));
     padding: 0 5%;
     height: 10%;
-    box-shadow: 0 0 10px black;
-    z-index: 2;
+    box-shadow: 0 0 10px var(--grey-2);    
 }
 #navbar-nav {
     display: flex;
@@ -78,7 +93,7 @@ ul {
     right: 5%;
     z-index: 3;
     opacity: 0;
-    background-color: var(--primary-dark);
+    background-color: var(--bg-dark);
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -86,9 +101,10 @@ ul {
     margin-top: 1rem;
     padding: 0.5rem;
     box-shadow: 0 0 5px black;
-    transition: opacity .3s ease-out;
+    transition: opacity .5s ease-out, visibility .5s;
     border: 1px solid black;
     border-radius: 0.5rem;
+    visibility: hidden;
 }
 
 .dropdown-item {
@@ -97,6 +113,7 @@ ul {
 .has-dropdown:focus-within .dropdown {
     opacity: 1;
     pointer-events: auto;
+    visibility: visible;
 }
 #clock-main {
     display: flex;
@@ -105,9 +122,6 @@ ul {
     justify-content: center;
     height: 90%;
     overflow: auto;
-}
-#clock-main h2,#clock-main  h3 {
-    margin: 0 auto;
 }
 
 #time-setter, #time-controls {
@@ -120,9 +134,10 @@ ul {
     height: 35%;
     margin: 1rem 0;
     padding: 1rem 0;
-    background-color: var(--primary-dark);
+    background-color: var(--bg-dark);
     box-shadow: 0 0 5px black;
     border-radius: 0.5rem;
+    transition: background-color 500ms;
 }
 #time-display {
     margin: 0.7rem 0;
