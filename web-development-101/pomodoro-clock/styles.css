@@ -1,10 +1,18 @@
-:root {
+:root {    
+    margin: 0;
+    height: 100%;
+}
+.dark {
     --primary-dark: #2d323a;
     --primary-light: #353b48;
     --secondary-dark: #F97F51;
     --secondary-light: #FEA47F;
-    margin: 0;
-    height: 100%;
+}
+.light {
+    --primary-dark: #CAD3C8;
+    --primary-light: #eceaea;
+    --secondary-dark: #006266;
+    --secondary-light: #2C3A47;
 }
 body {
     margin: 0;
@@ -12,6 +20,7 @@ body {
     background-color: var(--primary-light);
     color: var(--secondary-light);
     font-family: 'Lucida Sans', 'Lucida Sans Regular', Verdana, sans-serif;
+    transition: background 500ms ease-in-out, color 800ms ease-in-out;
 }
 hr {
     width: 100%;
@@ -19,10 +28,19 @@ hr {
     border: none;
     background-image: linear-gradient(to right, var(--primary-dark), var(--secondary-dark), var(--primary-dark));
 }
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.nav-item > a {
+    font-weight: bold;
+}
 .hover-style {
     cursor: default;
+    text-decoration: none;
     color: var(--secondary-dark);
-    transition: 500ms;
+    transition: color 500ms;
 }
 .hover-style:hover {
     color: var(--secondary-light);
@@ -44,21 +62,49 @@ hr {
 }
 #navbar {
     background-color: var(--primary-dark);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 0 5%;
     height: 10%;
     box-shadow: 0 0 10px black;
     z-index: 2;
 }
+#navbar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+.dropdown {
+    position: absolute;
+    right: 5%;
+    z-index: 3;
+    opacity: 0;
+    background-color: var(--primary-dark);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 3rem;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    box-shadow: 0 0 5px black;
+    transition: opacity .3s ease-out;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+}
 
+.dropdown-item {
+    margin: 0 1rem;
+}
+.has-dropdown:focus-within .dropdown {
+    opacity: 1;
+    pointer-events: auto;
+}
 #clock-main {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 90%;
+    overflow: auto;
 }
 #clock-main h2,#clock-main  h3 {
     margin: 0 auto;
@@ -70,14 +116,16 @@ hr {
     align-items: center;
     justify-content: space-evenly;
     width: 30%;
-    min-height: 10rem;
+    min-height: 12rem;
+    height: 35%;
     margin: 1rem 0;
     padding: 1rem 0;
     background-color: var(--primary-dark);
     box-shadow: 0 0 5px black;
+    border-radius: 0.5rem;
 }
-#time-display h3, #time-display h1 {
-    margin: 0 auto;
+#time-display {
+    margin: 0.7rem 0;
 }
 #session-time-setter, #break-time-setter {
     width: 100%;
@@ -113,5 +161,13 @@ hr {
     }
     #clock-main {
         height: calc(100% - 5rem);
+    }
+}
+@media (max-height: 400px) {
+    #navbar {
+        display: none;
+    }
+    #clock-main {
+        height: 100%;
     }
 }

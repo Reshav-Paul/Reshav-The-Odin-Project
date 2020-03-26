@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
     <title>Pomodoro</title>
 </head>
-<body>
+
+<body class="dark">
     <!-- Navbar -->
     <nav id="navbar">
-        <h1>Pomodoro Clock</h1>
-        <div class="hover-style">Theme</a>
+        <ul id="navbar-nav">
+            <h1 class="nav-item">Pomodoro Clock</h1>
+            
+            <!-- Dropdown -->
+            <li class="nav-item has-dropdown">
+                <a href="#" class="hover-style">Theme</a>
+                <ul class="dropdown">
+                    <li class="dropdown-item"><a id="dark" class="hover-style" href="#">Dark</a></li>
+                    <li class="dropdown-item"><a id="light" class="hover-style" href="#">Light</a></li>
+                </ul>
+            </li>
+        </ul>
     </nav>
 
     <!-- main body -->
@@ -20,26 +33,26 @@
         <div id="time-setter">
             <h3>Session</h3>
             <div id="session-time-setter">
-                <i class="fa fa-chevron-up hover-style"></i>
-                <span>25</span>
-                <i class="fa fa-chevron-down hover-style"></i>
+                <i id="session-inc" class="fa fa-chevron-up hover-style"></i>
+                <span id="session-time">25</span>
+                <i id="session-dec" class="fa fa-chevron-down hover-style"></i>
             </div>
             <hr>
             <h3>Break</h3>
-            <div id="break-time-setter">                
-                <i class="fa fa-chevron-up hover-style"></i>
-                <span>5</span>
-                <i class="fa fa-chevron-down hover-style"></i>
+            <div id="break-time-setter">
+                <i id="break-inc" class="fa fa-chevron-up hover-style"></i>
+                <span id="break-time">5</span>
+                <i id="break-dec" class="fa fa-chevron-down hover-style"></i>
             </div>
         </div>
 
         <!-- Time Display Block -->
         <div id="time-controls">
-            <h3>Session</h3>
-            <div id="time-display">
-                <h1>25:00</h1>
-            </div>
+            <!-- display -->
+            <h3 id="current-activity">Session</h3>
+            <h1 id="time-display">25:00</h1>
             <hr>
+            <!-- controls -->
             <div class="row">
                 <div id="start-button" class="icon-button">
                     <i class="fa fa-play"></i>
@@ -57,6 +70,7 @@
                 </div>
             </div>
         </div>
+
     </main>
 </body>
 </html>
