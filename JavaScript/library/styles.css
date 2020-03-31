@@ -1,0 +1,127 @@
+:root {
+    --sec-dark: #753a88;
+    --sec-light: #cc2b5e;
+    --primary-light: #2e2e3a;
+    --card-font: #ebe0e4;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+    height: 100%;
+    background-color: var(--primary-light);
+}
+h1, h2 {
+    margin: 0;
+}
+hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, var(--sec-dark), var(--sec-light), var(--sec-dark));
+    margin: 0.5rem 0;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(var(--sec-light), var(--sec-dark));
+    box-shadow: 0 0 10px black;
+    height: 70px;
+    padding: 0 1rem;
+}
+input[type='text'], input[type='number'] {
+    max-width: 150px;
+    height: 25px;
+    border: 2px solid black;
+    
+}
+input[type='text']:hover, input[type='number']:hover {
+    box-shadow: inset 0 0 2px var(--primary-light);
+}
+#sidebar {
+    position: fixed;
+    top: 0;
+    right: -260px;
+    transition: 400ms;
+    width: 250px;
+    background: linear-gradient(120deg, var(--sec-dark), var(--sec-light));
+    height: 100%;
+    box-shadow: 0 0 10px black;
+    overflow-x: hidden;
+    z-index: 1;
+}
+#sidebar-close {
+    font-size: 1.6rem;
+    margin: 1rem;
+}
+#new-book-form {
+    padding: 0 1rem;
+}
+.row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 1.5rem 0;
+}
+body > h2:nth-child(2) {
+    margin: 2rem auto;
+    text-align: center;
+}
+#cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    padding: 1rem;
+    margin-bottom: 1rem;
+    gap: 2rem 10%;
+}
+.card {
+    box-shadow: 0 0 10px black;
+    text-align: center;
+    background: linear-gradient(180deg, black, #231725);
+    color: var(--card-font);
+    border-width: 1px;
+    border-style: solid;
+    border-image: linear-gradient(var(--sec-dark), var(--sec-light)) 1;
+    transition: 300ms;
+    text-overflow: ellipsis;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.card:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px black;
+}
+.card p, h4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    padding: 0 1rem;
+    max-height: 85px;
+    overflow: hidden;
+    text-align: left;
+}
+.card i {
+    font-size: 1.5rem;
+    margin: 0 10%;
+    transition: 200ms;
+}
+.custom-button {
+    border: 1px solid var(--primary-light);
+    box-shadow: 0 0 5px var(--primary-light);
+    padding: 0.4rem;
+    background-color: #ebaa48;
+    color: var(--primary-light);
+    min-width: 100px;
+    min-height: 30px;
+    border-radius: 5px;
+}
+.green-check {
+    color: #098d61;
+}
+.red-check {
+    color: #b32525;
+}
