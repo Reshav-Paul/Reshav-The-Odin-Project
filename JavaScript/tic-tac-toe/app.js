@@ -21,7 +21,7 @@ gameboard = (
 
         function _placeMarker(cell) {
             if (_gameOver) return;
-            if(cell.textContent.length > 0) return;
+            if (cell.textContent.length > 0) return;
 
             const marker = currentPlayer.getMarker();
             [x, y] = cell.getAttribute('data-xy').split(',');
@@ -35,10 +35,22 @@ gameboard = (
             const marker = currentPlayer.getMarker();
             const winString = marker + marker + marker;
 
+            let mainDiag = '';
+            let antiDiag = '';
             for (let i = 0; i < 3; ++i) {
-                if (_matrix[i].join('') === winString) {
-                    console.log(currentPlayer.getName() + 'has won');
+                let col = '';
+                let row = '';
+                for (let j = 0; j < 3; ++j) {
+                    if(i === j) mainDiag += _matrix[i][j];
+                    if((i + j) === 2) antiDiag += _matrix[i][j];
+                    row += _matrix[i][j];
+                    col += _matrix[j][i];
+                }
+                if (row === winString || col === winString ||
+                    mainDiag === winString || antiDiag === winString) {
                     _gameOver = true;
+                    document.getElementById('game-over-msg').textContent =
+                        `Game Over! Winner is ${currentPlayer.getName()}`;
                 }
             }
         }
@@ -49,6 +61,7 @@ gameboard = (
             document.querySelectorAll('.cell').forEach(cell => cell.textContent = '');
             currentPlayer = player1;
             _gameOver = false;
+            document.getElementById('game-over-msg').textContent = '';
         }
         return { setup };
     }
