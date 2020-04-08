@@ -32,9 +32,10 @@ const gameboard = (
 
         function detectWinCondition(marker) {
             const winString = marker + marker + marker;
-
             let mainDiag = '';
             let antiDiag = '';
+            let fullMatrixString = '';
+
             for (let i = 0; i < 3; ++i) {
                 let col = '';
                 let row = '';
@@ -43,39 +44,49 @@ const gameboard = (
                     if ((i + j) === 2) antiDiag += _matrix[i][j];
                     row += _matrix[i][j];
                     col += _matrix[j][i];
+                    fullMatrixString += _matrix[i][j];
                 }
-                if (row === winString || col === winString) return true;
+                if (row === winString || col === winString) return gameStatus.won;
             }
-            if (mainDiag === winString || antiDiag === winString) return true;
-            return false;
+            if (mainDiag === winString || antiDiag === winString) return gameStatus.won;
+            if (fullMatrixString.length === 9) return gameStatus.draw;
+            return gameStatus.incomplete;
         }
 
         function _reset() {
             _matrix = [['', '', ''], ['', '', ''], ['', '', '']];
             document.querySelectorAll('.cell').forEach(cell => cell.textContent = '');
             gameController.reset();
-            document.getElementById('game-over-msg').textContent = '';
         }
         return { setup, placeMarker, detectWinCondition };
     }
 )();
 
-gameboard.setup();
-
 const gameController = (
     function () {
-        let _player1 = playerFactory('X');
-        _player1.setName('Player 1');
+        let _player1;
+        let _player2;
+        let _currentPlayer;
+        let _gameOver;
+        let _gameMode;
 
-        let _player2 = playerFactory('O');
-        _player2.setName('Player 2');
+        function setup(gameMode) {
+            _gameMode = gameMode;
+            _player1 = playerFactory('X', 'Player 1');
+            _player2 = playerFactory('O', 'Player 2');
+            _currentPlayer = _player1;
+            _gameOver = false;
 
-        let _currentPlayer = _player1;
-        let _gameOver = false;
-
-        document.querySelectorAll('.cell')
-            .forEach(e => e.addEventListener('click', handleClick));
-
+            document.getElementById('turn').textContent = `It's ${_currentPlayer.getName()}'s turn`;
+            document.querySelectorAll('.cell')
+                .forEach(e => e.addEventListener('click', handleClick));
+            document.getElementById('pl1-name').addEventListener('input', e => _changePlayerName(_player1, e.target));
+            document.getElementById('pl2-name').addEventListener('input', e => _changePlayerName(_player2, e.target));
+        }
+        function _changePlayerName(player, input) {
+            player.setName(input.value.length > 0 ? input.value : input.getAttribute('data-default'));
+            document.getElementById('turn').textContent = `It's ${_currentPlayer.getName()}'s turn`;
+        }
         function handleClick(e) {
             const cell = e.target;
             if (_gameOver) return;
@@ -83,24 +94,42 @@ const gameController = (
 
             gameboard.placeMarker(cell, _currentPlayer.getMarker());
             const result = gameboard.detectWinCondition(_currentPlayer.getMarker());
-            if (result) {
-                document.getElementById('game-over-msg').textContent =
+            if (result === gameStatus.won) {
+                document.getElementById('turn').textContent =
                     `Game Over! Winner is ${_currentPlayer.getName()}`;
                 _gameOver = true;
             }
-            _switchPlayer();
+            else if (result === gameStatus.draw) {
+                document.getElementById('turn').textContent =
+                    `Game Over! It was a Draw`;
+                _gameOver = true;
+            }
+            else _switchPlayer();
         }
         function _switchPlayer() {
             if (_currentPlayer === _player1)
                 _currentPlayer = _player2;
             else
                 _currentPlayer = _player1;
+            document.getElementById('turn').textContent = `It's ${_currentPlayer.getName()}'s turn`;
         }
         function reset() {
             _gameOver = false;
             _currentPlayer = _player1;
-
+            document.getElementById('turn').textContent = `It's ${_currentPlayer.getName()}'s turn`;
         }
-        return { reset };
+        return { setup, reset };
     }
 )();
+
+document.getElementById('sp').addEventListener('click', e => startGame('sp'));
+document.getElementById('mp').addEventListener('click', e => startGame('mp'));
+gameStatus = Object.freeze({'draw':0, 'won': 1, 'incomplete': -1});
+function startGame(mode) {
+    document.getElementById('game-main').classList.remove('invisible');
+    document.getElementById('mode-sel').classList.add('invisible');
+    document.getElementById('pl1-name').value = 'Player 1';
+    document.getElementById('pl2-name').value = 'Player 2';
+    gameboard.setup();
+    gameController.setup(mode);
+}
