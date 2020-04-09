@@ -53,12 +53,27 @@ const gameboard = (
             return gameStatus.incomplete;
         }
 
+        function getRandEmptyCell() {
+            let freePosX = [];
+            let freePosY = [];
+            for (let i = 0; i < 3; ++i)
+                for (let j = 0; j < 3; ++j)
+                    if (_matrix[i][j] === '') {
+                        freePosX.push(i);
+                        freePosY.push(j);
+                    }
+            if (freePosX.length === 0 || freePosY.length === 0) return;
+            const pos = Math.floor(Math.random() * freePosX.length);
+            return document
+                .querySelector(`.cell[data-xy='${freePosX[pos]},${freePosY[pos]}']`);
+        }
+
         function _reset() {
             _matrix = [['', '', ''], ['', '', ''], ['', '', '']];
             document.querySelectorAll('.cell').forEach(cell => cell.textContent = '');
             gameController.reset();
         }
-        return { setup, placeMarker, detectWinCondition };
+        return { setup, placeMarker, detectWinCondition, getRandEmptyCell };
     }
 )();
 
@@ -73,50 +88,87 @@ const gameController = (
         function setup(gameMode) {
             _gameMode = gameMode;
             _player1 = playerFactory('X', 'Player 1');
-            _player2 = playerFactory('O', 'Player 2');
+            _player2 = playerFactory('O', _gameMode === 'mp' ? 'Player 2' : 'Computer');
             _currentPlayer = _player1;
             _gameOver = false;
 
-            document.getElementById('turn').textContent = `It's ${_currentPlayer.getName()}'s turn`;
+            if (_gameMode === 'mp')
+                document.getElementById('turn').textContent =
+                    `It's ${_currentPlayer.getName()}'s turn`;
+            else
+                document.getElementById('turn').textContent =
+                    `It's ${_currentPlayer.getName()} vs the ${_player2.getName()}`;
             document.querySelectorAll('.cell')
                 .forEach(e => e.addEventListener('click', handleClick));
-            document.getElementById('pl1-name').addEventListener('input', e => _changePlayerName(_player1, e.target));
-            document.getElementById('pl2-name').addEventListener('input', e => _changePlayerName(_player2, e.target));
+            document.getElementById('pl1-name')
+                .addEventListener('input', e => _changePlayerName(_player1, e.target));
+            document.getElementById('pl2-name')
+                .addEventListener('input', e => _changePlayerName(_player2, e.target));
         }
+
         function _changePlayerName(player, input) {
-            player.setName(input.value.length > 0 ? input.value : input.getAttribute('data-default'));
-            document.getElementById('turn').textContent = `It's ${_currentPlayer.getName()}'s turn`;
+            let oldName = player.getName();
+            let newName = input.value.length > 0 ? input.value : input.getAttribute('data-default')
+            player.setName(newName);
+            if (_gameMode === 'mp' && player !== _currentPlayer) return;
+
+            const element = document.getElementById('turn');
+            let oldText = element.textContent;
+            element.textContent = oldText.replace(oldName, newName);
         }
+
         function handleClick(e) {
             const cell = e.target;
             if (_gameOver) return;
             if (cell.textContent.length > 0) return;
 
             gameboard.placeMarker(cell, _currentPlayer.getMarker());
+
             const result = gameboard.detectWinCondition(_currentPlayer.getMarker());
-            if (result === gameStatus.won) {
-                document.getElementById('turn').textContent =
-                    `Game Over! Winner is ${_currentPlayer.getName()}`;
-                _gameOver = true;
+            _anounceIfGameOver(result);
+            if (result === gameStatus.incomplete) {
+                if (_gameMode === 'sp') _makeComputerMove();
+                !_gameOver && _switchPlayer();
             }
-            else if (result === gameStatus.draw) {
-                document.getElementById('turn').textContent =
-                    `Game Over! It was a Draw`;
-                _gameOver = true;
-            }
-            else _switchPlayer();
         }
+
         function _switchPlayer() {
             if (_currentPlayer === _player1)
                 _currentPlayer = _player2;
             else
                 _currentPlayer = _player1;
-            document.getElementById('turn').textContent = `It's ${_currentPlayer.getName()}'s turn`;
+            if (_gameMode === 'mp')
+                document.getElementById('turn').textContent = `It's ${_currentPlayer.getName()}'s turn`;
+        }
+        function _makeComputerMove() {
+            _currentPlayer = _player2;
+            const cell = gameboard.getRandEmptyCell();
+            if (!cell) return;
+            gameboard.placeMarker(cell, _currentPlayer.getMarker());
+            const result = gameboard.detectWinCondition(_currentPlayer.getMarker());
+            _anounceIfGameOver(result);
+        }
+        function _anounceIfGameOver(result) {
+            if (result === gameStatus.won) {
+                document.getElementById('turn').textContent =
+                    `Game Over! Winner is ${_currentPlayer.getName()}`;
+                _gameOver = true;
+            }
+            if (result === gameStatus.draw) {
+                document.getElementById('turn').textContent =
+                    `Game Over! It was a Draw`;
+                _gameOver = true;
+            }
         }
         function reset() {
             _gameOver = false;
             _currentPlayer = _player1;
-            document.getElementById('turn').textContent = `It's ${_currentPlayer.getName()}'s turn`;
+            if (_gameMode === 'mp')
+                document.getElementById('turn').textContent =
+                    `It's ${_currentPlayer.getName()}'s turn`;
+            else
+                document.getElementById('turn').textContent =
+                    `It's ${_currentPlayer.getName()} vs the ${_player2.getName()}`;
         }
         return { setup, reset };
     }
@@ -124,12 +176,13 @@ const gameController = (
 
 document.getElementById('sp').addEventListener('click', e => startGame('sp'));
 document.getElementById('mp').addEventListener('click', e => startGame('mp'));
-gameStatus = Object.freeze({'draw':0, 'won': 1, 'incomplete': -1});
+gameStatus = Object.freeze({ 'draw': 0, 'won': 1, 'incomplete': -1 });
+
 function startGame(mode) {
     document.getElementById('game-main').classList.remove('invisible');
     document.getElementById('mode-sel').classList.add('invisible');
     document.getElementById('pl1-name').value = 'Player 1';
-    document.getElementById('pl2-name').value = 'Player 2';
+    document.getElementById('pl2-name').value = mode === 'mp' ? 'Player 2' : 'Computer';
     gameboard.setup();
     gameController.setup(mode);
 }
