@@ -163,13 +163,19 @@ hr {
     #calculator {
         border-radius: 10px;
     }
+    #navbar {
+        width: 3rem;
+    }
+    #navbar > h2 {
+        margin: 0;
+    }
 }
 @media (max-height: 600px) {
     body {
         display: flex;
     }
     #navbar {
-        width: 10%;
+        width: 3rem;
         max-width: 60px;
         height: 100%;
         box-shadow: none;
@@ -181,7 +187,7 @@ hr {
     #navbar > h2 {
         font-size: 1.2rem;
         position: absolute;
-        left: -73px;
+        left: -75px;
         width: 200px;
         transform: rotate(270deg);
     }
