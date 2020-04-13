@@ -19,6 +19,7 @@ html, body {
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
+    margin: 0.5rem 0;
 }
 .invisible {
     display: none;
@@ -94,5 +95,32 @@ input[type='text'] {
 @media (min-width: 585px) {
     input[type='text']:focus {
         width: 12rem;
+    }
+}
+@media (max-width: 580px) {
+    #mode-sel h1 {
+        font-size: 3rem;
+    }
+}
+@media (max-height: 570px) {
+    label[for='pl1-name'], label[for='pl2-name'] {
+        display: none;
+    }
+}
+@media (max-height: 500px) {
+    #mode-sel h1 {
+        font-size: 3rem;
+        padding: 15vh;
+    }
+    #turn {
+        margin: 0;
+        font-size: 1.2rem;
+    }
+    #reset {
+        margin: 0;
+        min-width: 5rem;
+        width: 5.2rem;
+        height: 2.4rem;
+        padding: 0;
     }
 }
