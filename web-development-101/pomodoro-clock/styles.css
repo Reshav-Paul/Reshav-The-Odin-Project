@@ -158,12 +158,12 @@ h2, h3 {
 
 @media (max-width: 850px) {
     #time-setter, #time-controls {
-        width: 40%;
+        width: 50%;
     }
 }
 @media (max-width: 500px) {
     #time-setter, #time-controls {
-        width: 45%;
+        width: 65%;
     }
 }
 @media (max-height: 550px) {
