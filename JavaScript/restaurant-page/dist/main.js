@@ -86,14 +86,27 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/home.js":
+/*!*********************!*\
+  !*** ./src/home.js ***!
+  \*********************/
+/*! exports provided: homepage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"homepage\", function() { return homepage; });\nlet homepage = (\r\n    function () {\r\n        function _setTextContent(element, text) {\r\n            element.textContent = text;\r\n            return element;\r\n        }\r\n        function _getWelcomeMsg() {\r\n            let welcomeMsgDiv = document.createElement('div');\r\n            welcomeMsgDiv.setAttribute('id', 'welcome-msg');\r\n\r\n            welcomeMsgDiv.appendChild(\r\n                _setTextContent(document.createElement('h3'), 'Food Tales'\r\n            ));\r\n            welcomeMsgDiv.appendChild(\r\n                _setTextContent(document.createElement('strong'), 'Special Food'));\r\n            welcomeMsgDiv.appendChild(\r\n                _setTextContent(document.createElement('span'), ' for'));\r\n                \r\n            welcomeMsgDiv.appendChild(document.createElement('br'));\r\n            welcomeMsgDiv.appendChild(\r\n                _setTextContent(document.createElement('span'),\r\n                ' your special Occassion')\r\n            );\r\n            welcomeMsgDiv.appendChild(document.createElement('br'));\r\n            welcomeMsgDiv.appendChild(document.createElement('br'));\r\n\r\n            welcomeMsgDiv.appendChild(\r\n                _setTextContent(document.createElement('h5'),\r\n                'Enjoy meals from the best chefs who pour in all their love')\r\n            );\r\n            welcomeMsgDiv.appendChild(\r\n                _setTextContent(document.createElement('h5'),\r\n                ' and the right spices')\r\n            );\r\n\r\n            const orderButton = document.createElement('button');\r\n            orderButton.setAttribute('id', 'order-btn');\r\n            orderButton.textContent = 'Order Now';\r\n            welcomeMsgDiv.appendChild(orderButton);\r\n            return welcomeMsgDiv;\r\n        }\r\n\r\n        function _getSocialLinks() {\r\n            const links = document.createElement('ul');\r\n            links.setAttribute('id', 'social-links');\r\n            const linkTexts = ['Instagram', 'Twitter', 'Facebook'];\r\n            for (let i in linkTexts) {\r\n                const link = _setTextContent(document.createElement('a'), linkTexts[i]);\r\n                link.setAttribute('href', '#');\r\n                const linkListElement = document.createElement('li');\r\n                linkListElement.appendChild(link);\r\n                links.appendChild(linkListElement);\r\n            }\r\n            return links;\r\n        }\r\n\r\n        function render() {\r\n            const contentDiv = document.getElementById('content');\r\n            contentDiv.appendChild(_getWelcomeMsg());\r\n            const bkImageDiv = document.createElement('div');\r\n            bkImageDiv.setAttribute('id', 'home-img');\r\n            contentDiv.appendChild(bkImageDiv);\r\n            contentDiv.appendChild(_getSocialLinks());\r\n        }\r\n        return { render };\r\n    }\r\n)();\r\n\r\n\n\n//# sourceURL=webpack:///./src/home.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-eval("console.log(\"Hello webpack\");\n\n//# sourceURL=webpack:///./src/index.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _home_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./home.js */ \"./src/home.js\");\n\r\n\r\nconst tabSelectionHandler = (function () {\r\n    let _selectedTabID = 'home-tab';\r\n    function initialize() {\r\n        document.getElementById('home-tab').addEventListener('click', e => _toggleTabUnderline('home-tab'));\r\n        document.getElementById('menu-tab').addEventListener('click', e => _toggleTabUnderline('menu-tab'));\r\n        document.getElementById('loc-tab').addEventListener('click', e => _toggleTabUnderline('loc-tab'));\r\n        document.getElementById('order-tab').addEventListener('click', e => _toggleTabUnderline('order-tab'));\r\n        document.getElementById('about-tab').addEventListener('click', e => _toggleTabUnderline('about-tab'));\r\n    }\r\n    function _toggleTabUnderline(id) {\r\n        document.querySelector(`#${_selectedTabID} .underline`).classList.add('invisible');\r\n        document.querySelector(`#${id} .underline`).classList.remove('invisible');\r\n        _selectedTabID = id;\r\n    }\r\n\r\n    return { initialize };\r\n})();\r\n\r\ntabSelectionHandler.initialize();\r\n_home_js__WEBPACK_IMPORTED_MODULE_0__[\"homepage\"].render();\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ })
 

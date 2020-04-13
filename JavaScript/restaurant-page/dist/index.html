@@ -4,33 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <script src="main.js"></script>
+    <script src="main.js" defer></script>
     <title>Odin's Restaurant</title>
 </head>
 <body>
     <nav id="navbar">
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Menu</a></li>
-            <li><a href="#">Locations</a></li>
-            <li><a href="#">Orders</a></li>
-            <li><a href="#">About Us</a></li>
+            <li id="home-tab"><a href="#">Home
+                <div class="invisible underline"></div>
+            </a></li>
+            <li id="menu-tab"><a href="#">Menu
+                <div class="invisible underline"></div>
+            </a></li>
+            <li id="loc-tab"><a href="#">Locations
+                <div class="invisible underline"></div>
+            </a></li>
+            <li id="order-tab"><a href="#">Orders
+                <div class="invisible underline"></div>
+            </a></li>
+            <li id="about-tab"><a href="#">About Us
+                <div class="invisible underline"></div>
+            </a></li>
         </ul>
     </nav>
     <div id="content">
-        <div id="welcome-msg">
-            <p>
-                <strong>Special Food </strong>for <br>
-                your special occassion
-            </p>
-            <button id="order-btn">Order Now</button>
-        </div>
-        <div id="home-img"></div>
     </div>
-    <ul id="social-links">
-        <li><a href="#">Facebook</a></li>
-        <li><a href="#">Twitter</a></li>
-        <li><a href="#">Instagram</a></li>
-    </ul>
 </body>
 </html>

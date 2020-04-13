@@ -36,10 +36,31 @@ button:hover {
 #navbar ul {
     margin: 0;
     height: 100%;
-    width: 40%;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: flex-start;
+}
+#navbar li {
+    position: relative;
+    margin: 0;
+    padding: 0 1rem;
+    height: 100%;
+    width: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #22910c;
+    height: 2px;
+    width: 100%;
+    transition: 300ms;
+}
+.invisible {
+    width: 0;
 }
 #content {
     text-align: center;
@@ -47,11 +68,15 @@ button:hover {
 }
 #welcome-msg {
     position: absolute;
-    top: 30%;
+    top: 25%;
     left: 2rem;
     text-align: left;
     font-size: 1.2rem;
     line-height: 2rem;
+}
+#welcome-msg h5 {
+    margin: 0;
+    line-height: 1.4rem;
 }
 #welcome-msg strong {
     font-size: 2.5rem;
@@ -74,3 +99,19 @@ button:hover {
     justify-content: space-evenly;
 }
 /* "https://images.pexels.com/photos/735869/pexels-photo-735869.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" */
+@media (max-height: 650px) {
+    #welcome-msg {
+        top: 10%;
+    }
+}
+@media (max-height: 480px) {
+    #welcome-msg {
+        top: 0;
+    }
+    #welcome-msg h5 {
+        display: none;
+    }
+    #welcome-msg > br:nth-child(7) {
+        display: none;
+    }
+}
