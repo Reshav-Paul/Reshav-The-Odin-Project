@@ -55,8 +55,8 @@ h3 {
 #header {
     background-color: var(--primary-color);
     color: var(--secondary-color);
-    margin: 0px;
-    min-height: 20vh;
+    margin: 0;
+    padding: 1.5rem 0;
 }
 #game-title {    
     text-align: center;
@@ -107,6 +107,7 @@ button:hover {
     justify-content: space-between;
     margin: 20px 10%;
     height: 15vh;
+    max-height: 150px;
 }
 td, th {
     padding: 0px 7vw 10px 0px;
