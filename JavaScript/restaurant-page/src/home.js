@@ -10,27 +10,27 @@ let homepage = (
 
             welcomeMsgDiv.appendChild(
                 _setTextContent(document.createElement('h3'), 'Food Tales'
-            ));
+                ));
             welcomeMsgDiv.appendChild(
                 _setTextContent(document.createElement('strong'), 'Special Food'));
             welcomeMsgDiv.appendChild(
                 _setTextContent(document.createElement('span'), ' for'));
-                
+
             welcomeMsgDiv.appendChild(document.createElement('br'));
             welcomeMsgDiv.appendChild(
                 _setTextContent(document.createElement('span'),
-                ' your special Occassion')
+                    ' your special Occassion')
             );
             welcomeMsgDiv.appendChild(document.createElement('br'));
             welcomeMsgDiv.appendChild(document.createElement('br'));
 
             welcomeMsgDiv.appendChild(
                 _setTextContent(document.createElement('h5'),
-                'Enjoy meals from the best chefs who pour in all their love')
+                    'Enjoy meals from the best chefs who pour in all their love')
             );
             welcomeMsgDiv.appendChild(
                 _setTextContent(document.createElement('h5'),
-                ' and the right spices')
+                    ' and the right spices')
             );
 
             const orderButton = document.createElement('button');
@@ -56,6 +56,7 @@ let homepage = (
 
         function render() {
             const contentDiv = document.getElementById('content');
+            contentDiv.innerHTML = '';
             contentDiv.appendChild(_getWelcomeMsg());
             const bkImageDiv = document.createElement('div');
             bkImageDiv.setAttribute('id', 'home-img');
@@ -66,4 +67,4 @@ let homepage = (
     }
 )();
 
-export {homepage};
+export { homepage };
