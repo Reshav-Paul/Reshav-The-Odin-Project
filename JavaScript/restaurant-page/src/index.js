@@ -1,22 +1,31 @@
 import { homepage } from './home.js';
+import { menupage } from './menu.js'
 
 const tabSelectionHandler = (function () {
-    let _selectedTabID = 'home-tab';
+    let _selectedTabID = '';
+    const _tabs = ['home-tab', 'menu-tab', 'loc-tab', 'order-tab', 'about-tab'];
     function initialize() {
-        document.getElementById('home-tab').addEventListener('click', e => _toggleTabUnderline('home-tab'));
-        document.getElementById('menu-tab').addEventListener('click', e => _toggleTabUnderline('menu-tab'));
-        document.getElementById('loc-tab').addEventListener('click', e => _toggleTabUnderline('loc-tab'));
-        document.getElementById('order-tab').addEventListener('click', e => _toggleTabUnderline('order-tab'));
-        document.getElementById('about-tab').addEventListener('click', e => _toggleTabUnderline('about-tab'));
+        _tabs.forEach(tab => 
+            document.getElementById(tab).addEventListener('click', e => _toggleTabUnderline(tab)));
+        _toggleTabUnderline('home-tab');
     }
     function _toggleTabUnderline(id) {
-        document.querySelector(`#${_selectedTabID} .underline`).classList.add('invisible');
+        if(id === _selectedTabID) return;
+        console.log('changing tabs ' + id);
+        _selectedTabID.length > 0 && document.querySelector(`#${_selectedTabID} .underline`).classList.add('invisible');
         document.querySelector(`#${id} .underline`).classList.remove('invisible');
         _selectedTabID = id;
+        _renderPage(_selectedTabID);
+    }
+    function _renderPage(id) {
+        console.log('rendering ' + id);
+        if(id === _tabs[0])
+            homepage.render();
+        else if(id === _tabs[1])
+            menupage.render();
     }
 
     return { initialize };
 })();
 
 tabSelectionHandler.initialize();
-homepage.render();
