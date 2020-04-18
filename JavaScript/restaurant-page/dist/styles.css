@@ -16,6 +16,12 @@ li {
 a {
     text-decoration: none;
     color: white;
+    transition: 600ms;
+}
+hr {
+    border: none;
+    height: 2px;
+    background-color: #22910c;
 }
 button {
     min-width: 8rem;
@@ -45,10 +51,11 @@ button:hover {
     margin: 0;
     padding: 0 1rem;
     height: 100%;
-    width: 72px;
+    width: 75px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-bottom: 3px solid #2a2a2c;
 }
 .underline {
     position: absolute;
@@ -100,30 +107,70 @@ button:hover {
 }
 #menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    margin: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     grid-template-rows: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1rem;
-    padding: 1rem;
+}
+#loc-grid {
+    display: grid;
+    margin: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-rows: repeat(auto-fit, 300px);
+    gap: 1rem;
 }
 .card {
     min-width: 250px;
     min-height: 250px;
-    object-fit: cover;
+    max-height: 380px;
+    border-bottom: 1px solid black;
+    box-shadow: 0 0 5px black;
+    display: flex;
+}
+.card > div:first-child {
+    flex: 1.5;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
+}
+.card > ul {
+    flex: 1;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    border-bottom: 1px solid black;
-    box-shadow: 0 0 5px black;
-    padding: 0 0.5rem 0.8rem 0.5rem;
+    flex-direction: column;
+    margin: 1rem 0.5rem;
 }
-.card > *{
-    margin: 0.3rem;
+.card li {
+    margin: 0.2rem 0;
+    margin-left: 1.3rem;
+    list-style: disc;
+    text-align: start;
 }
-.card h3:nth-child(2) {
+.card h4 {
     color: #22910c;
+    margin: 0;
+    padding-bottom: 0.5rem;
+}
+.loc-info {
+    flex: 0.8;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 1rem;
+    justify-content: center;
+}.loc-info p {
+    margin: 0;
+    padding: 0.5rem 0;
+    background-image: linear-gradient(to right, transparent, #333333, transparent);
+}
+#about-div a, #social-links a {
+    margin: 1rem;
+    color: #22910c;
+    font-weight: bold;
+}
+#about-div a:hover, #social-links a:hover {
+    color: white;
+}
+#about-div h1, #about-div h3 {
+    letter-spacing: 2px;
 }
 @media (max-height: 650px) {
     #welcome-msg {
@@ -131,14 +178,19 @@ button:hover {
     }
 }
 @media (max-height: 500px) {
-    #welcome-msg {
-        top: 10vh;
-    }
     #welcome-msg h5 {
         display: none;
     }
     #welcome-msg > br:nth-child(7) {
         display: none;
+    }
+}
+@media (max-height: 385px) {
+    #social-links {
+        justify-content: flex-end;
+    }
+    #social-links li {
+        margin: 0 1rem;
     }
 }
 @media (max-width: 680px) {
@@ -152,12 +204,13 @@ button:hover {
     #navbar ul{
         justify-content: space-evenly;
     }
-}
-@media (max-height: 385px) {
-    #social-links {
-        justify-content: flex-end;
+    #menu-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        margin: 1rem 0.5rem;
     }
-    #social-links li {
-        margin: 0 1rem;
+    #loc-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        margin: 1rem 0.5rem;
     }
 }
