@@ -4,7 +4,8 @@ html, body {
     margin: 0;
     text-align: center;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    background: linear-gradient(to right, #cfd2dd, white, #cfd2dd);
+    background-color: #242e50;
+    color: white;
 }
 #game-main {
     max-height: 100%;
@@ -33,7 +34,7 @@ html, body {
 button {
     margin: 1rem auto;
     background-color: white;
-    color: #3861e7;
+    color: green;
     padding: 0.4rem;
     min-height: 2.2rem;
     min-width: 8rem;
@@ -41,6 +42,7 @@ button {
     border: none;
     border-radius: 5%;
     letter-spacing: 1px;
+    font-size: 0.9rem;
     font-weight: bold;
     transition: 200ms;
 }
@@ -65,15 +67,15 @@ input[type='text'] {
     width: 10rem;
     padding: 0.1rem 0.5rem;
     border-radius: 10px;
-    border: 1px solid #3861e7;
+    border: 1px solid green;
     transition: 300ms;
 }
 #game-main h2 {
     letter-spacing: 2px;
 }
 .cell {
-    background-color: white;
-    color: #3861e7;
+    background-color: black;
+    color: green;
     height: 150px;
     font-size: 4rem;
     display: flex;
@@ -82,12 +84,11 @@ input[type='text'] {
     transition: 200ms;
 }
 .cell:hover {
-    transform: scale(1.1);
     font-size: 4.3rem;
-    box-shadow: 0 0 0.2rem grey;
-    background-color: #cfd2dd;
+    background-color: #2a2a2a;
+    filter: brightness(1.2);
 }
-@media (max-width: 620px) {
+@media (min-width: 620px) {
     input[type='text']:focus {
         width: 12rem;
     }
@@ -116,7 +117,7 @@ input[type='text'] {
         height: 30vw;
     }
 }
-@media (max-height: 570px) {
+@media (max-height: 620px) {
     label[for='pl1-name'], label[for='pl2-name'] {
         display: none;
     }
