@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Got Todo</title>
+    <script src="main.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <nav id="navbar">
+        <ul id="navlist">
+            <li>Got Todo</li>
+            <li id="add-project"><i class="fa fa-plus"></i></li>
+        </ul>
+    </nav>
+    <div id="left-pane">
+        <ul id="left-navlist">
+            <li id="bookmarks"><a href="#">
+                <i class="fa fa-bookmark" style="color: goldenrod"></i>
+                Bookmarks
+            </a></li>
+            <li><a href="#">
+                <i class="fa fa-exclamation-circle" style="color: crimson"></i>
+                Today
+            </a></li>
+            <li><a href="#">
+                <i class="fa fa-calendar-o" style="color: green"></i>
+                Next 7 days
+            </a></li>
+            <hr>
+            <li>
+                <i class="fa fa-th-list"  style="color: chocolate"></i>Projects
+                <ul id="project-list"></ul>
+            </li>
+        </ul>
+    </div>
+    <div id="right-pane"></div>
+</body>
+</html>

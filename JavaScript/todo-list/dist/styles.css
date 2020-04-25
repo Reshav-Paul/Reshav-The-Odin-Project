@@ -1,0 +1,87 @@
+:root {
+    --primary-light: white;
+    --primary-dark: #f1f2f6;
+    --sec-dark: #3c40c6;
+    --sec-light: #575fcf;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+}
+body {
+    display: grid;
+    grid-template-areas: 
+        'nav nav'
+        'left right';
+    grid-template-columns: minmax(200px, 1.5fr) 8.5fr;
+    grid-template-rows: 70px 1fr;
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+#navbar {
+    grid-area: nav;
+    background-color: var(--sec-dark);
+    color: white;
+}
+#navlist {
+    height: 100%;
+    margin: 0 1rem;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+}
+#add-project {
+    margin: 0 1rem;
+}
+#left-pane {
+    grid-area: left;
+    height: 100%;
+    padding: 0 1rem;
+    background-color: var(--primary-dark);
+}
+#left-pane i {
+    padding: 0 0.5rem 0 0;
+}
+#left-navlist li {
+    margin: 1rem 0;
+    cursor: pointer;
+}
+#left-navlist ul {
+    padding-left: 2rem;
+}
+#right-pane {
+    grid-area: right;
+    padding: 2rem;
+}
+#project-title {
+    margin-bottom: 1rem
+}
+.task-tile {
+    display: grid;
+    grid-template-columns: 50px 2fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 1rem;
+    border-bottom: 1px solid var(--primary-dark);
+}
+.task-tile > * {
+    margin: 1rem;
+}
+.task-tile span {
+    text-align: end;
+}
+.imp {
+    color: #dd7373;
+}
+.not-imp {
+    color: #57aa57;
+}
