@@ -9,6 +9,25 @@
     margin: 0;
     padding: 0;
 }
+input[type='text'] {
+    height: 25px;
+    min-width: 120px;
+    margin: 1rem 0;
+    padding: 0.2rem 0.4rem;
+}
+button {
+    padding: 0.5rem 1.5rem;
+    min-width: 5rem;
+    border: none;
+    background-color: var(--sec-light);
+    color: var(--primary-light);
+    font-weight: bold;
+    border-radius: 0.2rem;
+    transition: background-color 0.4s;
+}
+button:hover {
+    background-color: var(--sec-dark);
+}
 html, body {
     height: 100%;
     margin: 0;
@@ -60,10 +79,39 @@ a {
     padding-left: 2rem;
 }
 #right-pane {
+    position: relative;
     grid-area: right;
     padding: 2rem;
 }
+.fullscreen-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#new-project-form {
+    width: 250px;
+    padding: 1rem;
+    background-color: var(--primary-dark);
+    z-index: 2;
+    box-shadow: 0 0 5px grey;
+}
+#new-project-form > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#new-project-form input {
+    width: 170px;
+}
 #project-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 1rem
 }
 .task-tile {

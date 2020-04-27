@@ -32,7 +32,7 @@ const taskFactory = function(_name, _dueDate, _priority) {
     };
 };
 
-const projectFactory = function(_name, _creationDate = undefined) {
+const projectFactory = function(_id, _name, _creationDate = '') {
     let _tasks = [];
     const addTask = todo => _tasks.push(todo);
     const deleteTask = todo => _tasks = todos.filter(e => e !== todo);
@@ -41,8 +41,10 @@ const projectFactory = function(_name, _creationDate = undefined) {
     const setCreationDate = date => _creationDate = date;
     const getName = () => _name;
     const getCreationDate = () => _creationDate;
+    const getID = () => _id;
 
     return {
+        getID,
         addTask,
         deleteTask,
         getTasks,
