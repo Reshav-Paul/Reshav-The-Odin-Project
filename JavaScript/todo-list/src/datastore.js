@@ -28,6 +28,20 @@ const projectManager = (
         }
         const getProjects = () => _projects;
 
+        function addTaskToProject(projectID, taskName, taskDueDate = '', priority = priorities.medium, isBookmarked = false) {
+            let selectedProject;
+            for(const project of _projects) {
+                if(project.getID() === projectID) {
+                    selectedProject = project;
+                    break;
+                }
+            }
+            selectedProject.addTask(taskFactory(taskName, taskDueDate, priority, isBookmarked));
+            const task = selectedProject.getTasks().slice(-1)[0];
+            if(isBookmarked) bookmarks.addTask(task);
+            return task;
+        }
+
         addProject('Default', '23/04/2020');
         addProject('College', '24/04/2020');
 
@@ -43,7 +57,7 @@ const projectManager = (
         getProject(1).addTask(task3);
         getProject(1).addTask(task4);
 
-        return { addProject, removeProject, getProject, getProjects };
+        return { addProject, removeProject, getProject, getProjects, addTaskToProject };
     }
 )();
 

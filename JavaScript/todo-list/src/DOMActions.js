@@ -91,60 +91,152 @@ const rightPaneActions = (
 
             rightPane.appendChild(headerDiv);
             project.getTasks().forEach(task => rightPane.appendChild(_getTaskTile(task)));
+            if (project.getID() < 0) return;    //return if the project is Bookmarks
+
+            const newTaskDiv = document.createElement('div');
+            newTaskDiv.setAttribute('id', 'new-task');
+            const textSpan = document.createElement('span');
+            textSpan.textContent = 'Add new task';
+            const addIcon = document.createElement('i');
+            addIcon.classList.add('fa', 'fa-plus');
+            newTaskDiv.appendChild(textSpan);
+            newTaskDiv.appendChild(addIcon);
+
+            newTaskDiv.addEventListener('mouseup', displayNewTaskForm);
+            rightPane.appendChild(newTaskDiv);
         }
 
         function displayNewProjectForm() {
             if (document.getElementById('new-project-form')) return;
-            let fullScreenContainer = document.createElement('div');
-            fullScreenContainer.classList.add('fullscreen-container');
-
-            let form = document.createElement('div');
-            form.setAttribute('id', 'new-project-form');
-
-            let header = document.createElement('h3');
-            header.textContent = 'Create a New Project';
-
-            let inputDiv = document.createElement('div');
-            let inputLabel = document.createElement('label');
-            inputLabel.textContent = 'Name';
-            let inputBox = document.createElement('input');
-            inputBox.setAttribute('type', 'text');
-            inputDiv.appendChild(inputLabel);
-            inputDiv.appendChild(inputBox);
-
-            let buttonRow = document.createElement('div');
-
-            let createButton = document.createElement('button');
-            createButton.textContent = 'Create';
-            createButton.addEventListener('mouseup', () => {
+            const handler = function() {
                 const newProject = projectManager.addProject(
                     document.querySelector('#new-project-form input').value);
                 if(!newProject) return;
                 leftPaneActions.addProjectTile(newProject)
                 displayProject(projectManager.getProject(-1));
-                removeNewProjectForm();
+                removeInputForm();
+            };
+            const nameTextBox = document.createElement('input');
+            nameTextBox.setAttribute('type', 'text');
+            nameTextBox.classList.add('name');
+            createForm(
+                'Create new project',
+                'new-project-form',
+                [
+                    {
+                        'title': 'Name',
+                        'element': nameTextBox
+                    }
+                ],
+                handler
+            );
+        }
+
+        function displayNewTaskForm() {
+            if (document.getElementById('new-task-form')) return;
+
+            const nameTextBox = document.createElement('input');
+            nameTextBox.setAttribute('type', 'text');
+            nameTextBox.classList.add('name');
+
+            const bookmarkIcon = document.createElement('i');
+            bookmarkIcon.classList.add('fa', 'fa-bookmark', 'bookmark-check');
+            bookmarkIcon.addEventListener('mouseup', e => {
+                e.target.classList.toggle('checked');
             });
+
+            const dateBox = document.createElement('input');
+            dateBox.setAttribute('type', 'date');
+            dateBox.classList.add('date');
+
+            const priorityDropdown = document.createElement('select');
+            priorityDropdown.classList.add('priority');
+            const lowOption = document.createElement('option');
+            lowOption.setAttribute('value', 'low');
+            lowOption.textContent = 'Low';
+            const mediumOption = document.createElement('option');
+            mediumOption.setAttribute('value', 'medium');
+            mediumOption.textContent = 'medium';
+            const highOption = document.createElement('option');
+            highOption.setAttribute('value', 'high');
+            highOption.textContent = 'High';
+            priorityDropdown.appendChild(lowOption);
+            priorityDropdown.appendChild(mediumOption);
+            priorityDropdown.appendChild(highOption);
+
+            const handler = function () {
+                let checked = false;
+                if(bookmarkIcon.classList.contains('checked')) checked = true;
+                const newTask = projectManager.addTaskToProject(
+                    parseInt(document.getElementById('project-title').getAttribute('data-id')),
+                    document.querySelector('#new-task-form .name').value,
+                    document.querySelector('#new-task-form .date').value,
+                    priorities[document.querySelector('#new-task-form .priority').value],
+                    checked
+                );
+                if(!newTask) return;
+                rightPane.insertBefore(_getTaskTile(newTask), document.getElementById('new-task'));
+                removeInputForm();
+            };
+            
+
+            createForm(
+                'Create new task',
+                'new-task-form',
+                [
+                    { 'title': 'Name', 'element': nameTextBox },
+                    { 'title': 'Bookmark', 'element': bookmarkIcon },
+                    { 'title': 'Due date', 'element': dateBox },
+                    { 'title': 'Priority', 'element': priorityDropdown }
+                ],
+                handler
+            );
+        }
+
+        function createForm(headerText, id, inputs, submitAction) {
+            if (document.getElementById(id)) return;
+            let fullScreenContainer = document.createElement('div');
+            fullScreenContainer.classList.add('fullscreen-container');
+
+            let form = document.createElement('div');
+            form.classList.add('input-form');
+            form.setAttribute('id', id);
+
+            let header = document.createElement('h3');
+            header.textContent = headerText;
+            form.appendChild(header);
+
+            for(const input of inputs) {
+                const inputDiv = document.createElement('div');
+                const inputLabel = document.createElement('label');
+                inputLabel.textContent = input.title;
+                inputDiv.appendChild(inputLabel);
+                inputDiv.appendChild(input.element);
+                form.appendChild(inputDiv);
+            }
+            let buttonRow = document.createElement('div');
+
+            let createButton = document.createElement('button');
+            createButton.textContent = 'Create';
+            createButton.addEventListener('mouseup', submitAction);
 
             let cancelButton = document.createElement('button');
             cancelButton.textContent = 'Cancel';
-            cancelButton.addEventListener('mouseup', removeNewProjectForm);
+            cancelButton.addEventListener('mouseup', removeInputForm);
 
             buttonRow.appendChild(createButton);
             buttonRow.appendChild(cancelButton);
 
-            form.appendChild(header);
-            form.appendChild(inputDiv);
             form.appendChild(buttonRow);
             fullScreenContainer.appendChild(form);
             rightPane.appendChild(fullScreenContainer);
         }
-
-        function removeNewProjectForm() {
-            document.getElementById('new-project-form') &&
+        function removeInputForm() {
+            document.querySelector('.fullscreen-container > .input-form') &&
             rightPane.removeChild(rightPane.lastChild);
         }
 
-        return { displayProject, displayNewProjectForm, removeNewProjectForm };
+        return { displayProject, displayNewProjectForm, removeInputForm };
     }
 )();
 

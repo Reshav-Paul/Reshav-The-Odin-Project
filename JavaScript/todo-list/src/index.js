@@ -17,4 +17,4 @@ document.getElementById('add-project').addEventListener(
 // document.getElementById('right-pane').addEventListener(
 //     'click', DOMActions.rightPaneActions.removeNewProjectForm);    
 document.getElementById('left-pane').addEventListener(
-    'click', DOMActions.rightPaneActions.removeNewProjectForm);
+    'click', DOMActions.rightPaneActions.removeInputForm);

@@ -1,7 +1,6 @@
-const taskFactory = function(_name, _dueDate, _priority) {
+const taskFactory = function(_name, _dueDate, _priority, _isBookmarked) {
     let _description = '';
     let _isComplete = false;
-    let _isBookmarked = false;
     const setBookmark = value => _isBookmarked = value;
     const setCompletion = value => _isComplete = value;
     const setDescription = text => _description = text;
