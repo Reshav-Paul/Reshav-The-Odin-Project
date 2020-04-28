@@ -1,5 +1,5 @@
-import {priorities} from './models.js';
-import {projectManager} from './datastore.js';
+import { priorities } from './models.js';
+import { projectManager, bookmarks } from './datastore.js';
 
 const leftPaneActions = (
     function () {
@@ -59,14 +59,48 @@ const rightPaneActions = (
             const date = document.createElement('span');
             date.textContent = task.getDueDate();
 
+            const deleteIcon = document.createElement('i');
+            deleteIcon.classList.add('fa', 'fa-trash');
+            deleteIcon.addEventListener('mouseup', e => _taskTileDeleteHandler(task, taskTile));
+
+            const bookmarkIcon = document.createElement('i');
+            bookmarkIcon.classList.add('fa', 'fa-bookmark');
+            if (task.isBookmarked()) bookmarkIcon.style.color = 'goldenrod';
+            bookmarkIcon.addEventListener('mouseup', e => _taskTileBookmarkHandler(task, bookmarkIcon, taskTile));
+
             taskTile.appendChild(icon);
             taskTile.appendChild(title);
             taskTile.appendChild(date);
+            taskTile.appendChild(deleteIcon);
+            taskTile.appendChild(bookmarkIcon);
             return taskTile;
         }
 
+        function _taskTileBookmarkHandler(task, bookmarkIcon, taskTile) {
+            if (task.isBookmarked()) {
+                task.setBookmark(false);
+                bookmarks.deleteTask(task);
+                bookmarkIcon.style.color = 'black';
+                //check if the current page is the bookmarks page
+                if (document.getElementById('project-title').getAttribute('data-id') === '-1')
+                    rightPane.removeChild(taskTile);
+            } else {
+                task.setBookmark(true);
+                bookmarks.addTask(task);
+                bookmarkIcon.style.color = 'goldenrod';
+            }
+        }
+
+        function _taskTileDeleteHandler(task, taskTile) {
+            projectManager.removeTaskFromProject(
+                parseInt(document.getElementById('project-title').getAttribute('data-id')),
+                task
+            );
+            rightPane.removeChild(taskTile);
+        }
+
         function displayProject(project) {
-            if(!project) return;
+            if (!project) return;
             rightPane.innerHTML = '';
             const headerDiv = document.createElement('div');
             headerDiv.setAttribute('id', 'project-title');
@@ -76,7 +110,7 @@ const rightPaneActions = (
             projectTitle.textContent = project.getName();
             headerDiv.appendChild(projectTitle);
 
-            if(project.getID() > 0){
+            if (project.getID() > 0) {
                 const deleteIcon = document.createElement('i');
                 deleteIcon.classList.add('fa', 'fa-trash');
                 deleteIcon.style.fontSize = '1.4rem';
@@ -108,10 +142,10 @@ const rightPaneActions = (
 
         function displayNewProjectForm() {
             if (document.getElementById('new-project-form')) return;
-            const handler = function() {
+            const handler = function () {
                 const newProject = projectManager.addProject(
                     document.querySelector('#new-project-form input').value);
-                if(!newProject) return;
+                if (!newProject) return;
                 leftPaneActions.addProjectTile(newProject)
                 displayProject(projectManager.getProject(-1));
                 removeInputForm();
@@ -122,12 +156,7 @@ const rightPaneActions = (
             createForm(
                 'Create new project',
                 'new-project-form',
-                [
-                    {
-                        'title': 'Name',
-                        'element': nameTextBox
-                    }
-                ],
+                [{ 'title': 'Name', 'element': nameTextBox }],
                 handler
             );
         }
@@ -166,7 +195,7 @@ const rightPaneActions = (
 
             const handler = function () {
                 let checked = false;
-                if(bookmarkIcon.classList.contains('checked')) checked = true;
+                if (bookmarkIcon.classList.contains('checked')) checked = true;
                 const newTask = projectManager.addTaskToProject(
                     parseInt(document.getElementById('project-title').getAttribute('data-id')),
                     document.querySelector('#new-task-form .name').value,
@@ -174,11 +203,11 @@ const rightPaneActions = (
                     priorities[document.querySelector('#new-task-form .priority').value],
                     checked
                 );
-                if(!newTask) return;
+                if (!newTask) return;
                 rightPane.insertBefore(_getTaskTile(newTask), document.getElementById('new-task'));
                 removeInputForm();
             };
-            
+
 
             createForm(
                 'Create new task',
@@ -206,7 +235,7 @@ const rightPaneActions = (
             header.textContent = headerText;
             form.appendChild(header);
 
-            for(const input of inputs) {
+            for (const input of inputs) {
                 const inputDiv = document.createElement('div');
                 const inputLabel = document.createElement('label');
                 inputLabel.textContent = input.title;
@@ -224,8 +253,8 @@ const rightPaneActions = (
             cancelButton.textContent = 'Cancel';
             cancelButton.addEventListener('mouseup', removeInputForm);
 
-            buttonRow.appendChild(createButton);
             buttonRow.appendChild(cancelButton);
+            buttonRow.appendChild(createButton);
 
             form.appendChild(buttonRow);
             fullScreenContainer.appendChild(form);
@@ -233,7 +262,7 @@ const rightPaneActions = (
         }
         function removeInputForm() {
             document.querySelector('.fullscreen-container > .input-form') &&
-            rightPane.removeChild(rightPane.lastChild);
+                rightPane.removeChild(rightPane.lastChild);
         }
 
         return { displayProject, displayNewProjectForm, removeInputForm };

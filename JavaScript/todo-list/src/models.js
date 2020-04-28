@@ -8,7 +8,7 @@ const taskFactory = function(_name, _dueDate, _priority, _isBookmarked) {
     const setDueDate = date => _dueDate = date;
     const setPriority = value => _priority = value;
 
-    const getBookmark = () => _isBookmarked;
+    const isBookmarked = () => _isBookmarked;
     const getCompletion = () => _isComplete;
     const getDescription = () => _description;
     const getName = () => _name;
@@ -22,7 +22,7 @@ const taskFactory = function(_name, _dueDate, _priority, _isBookmarked) {
         setDueDate,
         setPriority,
         setName,
-        getBookmark,
+        isBookmarked,
         getCompletion,
         getDescription,
         getDueDate,
@@ -34,7 +34,7 @@ const taskFactory = function(_name, _dueDate, _priority, _isBookmarked) {
 const projectFactory = function(_id, _name, _creationDate = '') {
     let _tasks = [];
     const addTask = todo => _tasks.push(todo);
-    const deleteTask = todo => _tasks = todos.filter(e => e !== todo);
+    const deleteTask = todo => _tasks = _tasks.filter(e => e !== todo);
     const getTasks = () => _tasks;
     const setName = name => _name = name;
     const setCreationDate = date => _creationDate = date;

@@ -123,10 +123,8 @@ a {
 }
 .task-tile {
     margin: 0.2rem;
-    display: grid;
-    grid-template-columns: 50px 2fr 1fr;
-    grid-template-rows: 1fr;
-    gap: 1rem;
+    display: flex;
+    justify-content: space-between;
     border: 1px solid var(--primary-dark);
     transition: box-shadow 100ms;
 }
@@ -137,9 +135,11 @@ a {
     margin: 1rem;
 }
 .task-tile span {
+    flex: 0.3;
     text-align: end;
 }
 .task-tile h4 {
+    flex: 0.6;
     text-align: start;
 }
 #new-task {
