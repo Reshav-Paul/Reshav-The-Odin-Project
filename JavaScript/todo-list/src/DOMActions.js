@@ -1,5 +1,5 @@
 import { priorities } from './models.js';
-import { projectManager, bookmarks } from './datastore.js';
+import { projectManager, bookmarks, localStorageManager } from './datastore.js';
 
 const leftPaneActions = (
     function () {
@@ -77,18 +77,27 @@ const rightPaneActions = (
         }
 
         function _taskTileBookmarkHandler(task, bookmarkIcon, taskTile) {
+            let projectID = parseInt(document.getElementById('project-title').getAttribute('data-id'));
             if (task.isBookmarked()) {
                 task.setBookmark(false);
                 bookmarks.deleteTask(task);
                 bookmarkIcon.style.color = 'black';
                 //check if the current page is the bookmarks page
-                if (document.getElementById('project-title').getAttribute('data-id') === '-1')
+                if (projectID === -1){
                     rightPane.removeChild(taskTile);
+                    projectManager.getProjects().forEach(project => {
+                        project.getTasks().forEach(t => {
+                            if (t === task) projectID = project.getID();
+                        });
+                    });
+                }
             } else {
                 task.setBookmark(true);
                 bookmarks.addTask(task);
                 bookmarkIcon.style.color = 'goldenrod';
             }
+            console.log(projectID);
+            projectID >= 0 && localStorageManager.addProject(projectManager.getProject(projectID));
         }
 
         function _taskTileDeleteHandler(task, taskTile) {

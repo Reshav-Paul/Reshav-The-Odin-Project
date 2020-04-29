@@ -131,6 +131,9 @@ a {
 .task-tile:hover {
     box-shadow: 0 0 3px var(--sec-light);
 }
+.task-tile i {
+    font-size: 1.2rem;
+}
 .task-tile > * {
     margin: 1rem;
 }
