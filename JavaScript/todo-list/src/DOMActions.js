@@ -1,5 +1,6 @@
 import { priorities } from './models.js';
-import { projectManager, bookmarks, localStorageManager } from './datastore.js';
+import { projectManager, bookmarks } from './datastore.js';
+import { localStorageManager } from './localStorageManager.js';
 
 const leftPaneActions = (
     function () {
@@ -7,17 +8,23 @@ const leftPaneActions = (
             const listElement = document.createElement('li');
             listElement.classList.add('project');
             listElement.setAttribute('data-id', project.getID());
+            listElement.setAttribute('tabindex', '-1');
 
             const icon = document.createElement('i');
             icon.classList.add('fa', 'fa-circle');
-            icon.style.color = 'grey';
             listElement.appendChild(icon);
 
             const nameSpan = document.createElement('span');
             nameSpan.textContent = project.getName();
             listElement.appendChild(nameSpan);
 
-            listElement.addEventListener('click', () => rightPaneActions.displayProject(project))
+            listElement.addEventListener('click', () => {
+                rightPaneActions.displayProject(project);
+                document.querySelectorAll('.selected-tile').forEach(tile => {
+                    tile.classList.remove('selected-tile');
+                });
+                listElement.classList.add('selected-tile');
+            });
             return listElement;
         }
         function removeProjectTile(project) {
@@ -83,7 +90,7 @@ const rightPaneActions = (
                 bookmarks.deleteTask(task);
                 bookmarkIcon.style.color = 'black';
                 //check if the current page is the bookmarks page
-                if (projectID === -1){
+                if (projectID === -1) {
                     rightPane.removeChild(taskTile);
                     projectManager.getProjects().forEach(project => {
                         project.getTasks().forEach(t => {
@@ -127,7 +134,6 @@ const rightPaneActions = (
                     leftPaneActions.removeProjectTile(project);
                     displayProject(projectManager.getProject(0));
                     projectManager.removeProject(project.getID());
-                    console.log(projectManager.getProjects());
                 });
                 headerDiv.appendChild(deleteIcon);
             }

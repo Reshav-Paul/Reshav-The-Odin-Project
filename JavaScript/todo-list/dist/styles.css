@@ -77,8 +77,15 @@ a {
     margin: 1rem 0;
     cursor: pointer;
 }
-#left-navlist ul {
-    padding-left: 2rem;
+.project {
+    padding: 0.7rem;
+    padding-left: 1.5rem;
+    margin: 0.5rem 0 !important;
+    border-radius: 0.2rem;
+}
+.selected-tile {
+    background-color: var(--sec-light);
+    color: var(--primary-light);
 }
 #right-pane {
     position: relative;
@@ -127,6 +134,7 @@ a {
     justify-content: space-between;
     border: 1px solid var(--primary-dark);
     transition: box-shadow 100ms;
+    cursor: pointer;
 }
 .task-tile:hover {
     box-shadow: 0 0 3px var(--sec-light);
@@ -152,6 +160,7 @@ a {
     border: 1px solid var(--primary-dark);
     box-shadow: 0 0 1px grey;
     transition: box-shadow 100ms;
+    cursor: pointer;
 }
 #new-task:hover {
     box-shadow: 0 0 3px var(--sec-light)

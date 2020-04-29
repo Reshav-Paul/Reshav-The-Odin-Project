@@ -1,9 +1,10 @@
-import {localStorageManager, projectManager, bookmarks} from './datastore.js';
-import {DOMActions} from './DOMActions.js'
+import { projectManager, bookmarks } from './datastore.js';
+import { localStorageManager } from './localStorageManager.js';
+import { DOMActions } from './DOMActions.js'
 import { priorities } from './models.js';
 
 // const defaultProject = projectManager.getProject(0);
-if(!localStorage.getItem('got-todo-projects')) {
+if (!localStorage.getItem('got-todo-projects')) {
     localStorage.setItem('got-todo-projects', JSON.stringify([{
         'id': 0, 'name': 'Default', 'creationDate': '',
         'tasks': [{
@@ -11,7 +12,8 @@ if(!localStorage.getItem('got-todo-projects')) {
             'name': 'Welcome to GotTodo',
             'dueDate': '',
             'priority': priorities.low,
-            'isBookmarked': true}]
+            'isBookmarked': true
+        }]
     }]));
 }
 localStorageManager.getProjects().forEach(localProject => {
