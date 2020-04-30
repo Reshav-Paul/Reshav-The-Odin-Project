@@ -36,7 +36,10 @@ DOMActions.rightPaneActions.displayProject(projectManager.getProject(0));
 document.querySelector('.project:first-child').classList.add('selected-tile');
 
 document.getElementById('bookmarks').addEventListener(
-    'click', () => DOMActions.rightPaneActions.displayProject(bookmarks));
+    'click', e => {
+        DOMActions.leftPaneActions.selectedTileStyler(e.currentTarget);
+        DOMActions.rightPaneActions.displayProject(bookmarks);
+    });
 
 document.getElementById('add-project').addEventListener(
     'click', () => DOMActions.rightPaneActions.displayNewProjectForm());

@@ -20,12 +20,15 @@ const leftPaneActions = (
 
             listElement.addEventListener('click', () => {
                 rightPaneActions.displayProject(project);
-                document.querySelectorAll('.selected-tile').forEach(tile => {
-                    tile.classList.remove('selected-tile');
-                });
-                listElement.classList.add('selected-tile');
+                selectedTileStyler(listElement);
             });
             return listElement;
+        }
+        function selectedTileStyler(selectedTile) {
+            document.querySelectorAll('.selected-tile').forEach(tile => {
+                tile.classList.remove('selected-tile');
+            });
+            selectedTile.classList.add('selected-tile');
         }
         function removeProjectTile(project) {
             const projectTile = document.querySelector(`.project[data-id='${project.getID()}']`);
@@ -35,10 +38,10 @@ const leftPaneActions = (
             const projectList = document.getElementById('project-list');
             projectList.appendChild(_getProjectTile(project));
         }
-
         return {
             addProjectTile,
-            removeProjectTile
+            removeProjectTile,
+            selectedTileStyler
         };
     }
 )();
@@ -74,10 +77,6 @@ const rightPaneActions = (
             bookmarkIcon.classList.add('fa', 'fa-bookmark', 'bookmark-icon');
             if (task.isBookmarked()) bookmarkIcon.style.color = 'goldenrod';
             bookmarkIcon.addEventListener('mouseup', e => _taskTileBookmarkHandler(task, bookmarkIcon, taskTile));
-
-            // icon.addEventListener('mouseup', () => _showTaskDetails(task));
-            // title.addEventListener('mouseup', () => _showTaskDetails(task));
-            // date.addEventListener('mouseup', () => _showTaskDetails(task));
             taskTile.addEventListener('mouseup', e => _showTaskDetails(task, e));
 
             taskTile.appendChild(icon);
@@ -136,7 +135,10 @@ const rightPaneActions = (
                 deleteIcon.style.fontSize = '1.4rem';
                 deleteIcon.addEventListener('mouseup', () => {
                     leftPaneActions.removeProjectTile(project);
-                    displayProject(projectManager.getProject(0));
+                    const firstProject = projectManager.getProjects()[0];
+                    const firstTile = document.querySelector(`.project[data-id='${firstProject.getID()}']`);
+                    leftPaneActions.selectedTileStyler(firstTile);
+                    displayProject(firstProject);
                     projectManager.removeProject(project.getID());
                 });
                 headerDiv.appendChild(deleteIcon);
@@ -154,8 +156,7 @@ const rightPaneActions = (
             addIcon.classList.add('fa', 'fa-plus');
             newTaskDiv.appendChild(textSpan);
             newTaskDiv.appendChild(addIcon);
-
-            newTaskDiv.addEventListener('mouseup', displayNewTaskForm);
+            newTaskDiv.addEventListener('mouseup', _displayNewTaskForm);
             rightPane.appendChild(newTaskDiv);
         }
 
@@ -172,7 +173,7 @@ const rightPaneActions = (
             const nameTextBox = document.createElement('input');
             nameTextBox.setAttribute('type', 'text');
             nameTextBox.classList.add('name');
-            createForm(
+            _createForm(
                 'Create new project',
                 'new-project-form',
                 [{ 'title': 'Name', 'element': nameTextBox }],
@@ -180,7 +181,7 @@ const rightPaneActions = (
             );
         }
 
-        function displayNewTaskForm() {
+        function _displayNewTaskForm() {
             const nameTextBox = document.createElement('input');
             nameTextBox.setAttribute('type', 'text');
             nameTextBox.classList.add('name');
@@ -232,7 +233,7 @@ const rightPaneActions = (
             };
 
 
-            createForm(
+            _createForm(
                 'Create new task',
                 'new-task-form',
                 [
@@ -246,7 +247,7 @@ const rightPaneActions = (
             );
         }
 
-        function createForm(headerText, id, inputs, submitAction) {
+        function _createForm(headerText, id, inputs, submitAction) {
             if(document.querySelector('.fullscreen-container')) return;
             let fullScreenContainer = document.createElement('div');
             fullScreenContainer.classList.add('fullscreen-container');

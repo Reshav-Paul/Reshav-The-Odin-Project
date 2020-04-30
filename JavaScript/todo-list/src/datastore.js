@@ -57,7 +57,12 @@ const projectManager = (
         function removeTaskFromProject(projectID, task) {
             if (projectID < 0) {
                 bookmarks.deleteTask(task);
-                _projects.forEach(project => project.deleteTask(task));
+                _projects.forEach(project => {
+                    if(project.getTasks().indexOf(task) >= 0){
+                        project.deleteTask(task);
+                        localStorageManager.addProject(project);
+                    }
+                });
                 return;
             }
             let selectedProject = getProject(projectID);
