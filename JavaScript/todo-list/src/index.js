@@ -12,23 +12,28 @@ if (!localStorage.getItem('got-todo-projects')) {
             'name': 'Welcome to GotTodo',
             'dueDate': '',
             'priority': priorities.low,
-            'isBookmarked': true
+            'isBookmarked': true,
+            'description': 'Use your time to get things done'
         }]
     }]));
 }
 localStorageManager.getProjects().forEach(localProject => {
     const project = projectManager.addProjectFromLocalStorage(localProject.id, localProject.name, localProject.creationDate);
     const tasks = localProject.tasks;
-    tasks.forEach(task => projectManager.addTaskToProject(
-        project.getID(),
-        task.name,
-        task.dueDate,
-        task.priority,
-        task.isBookmarked
-    ));
+    tasks.forEach(task => 
+        projectManager.addTaskToProject(
+            project.getID(),
+            task.name,
+            task.dueDate,
+            task.priority,
+            task.isBookmarked,
+            task.description
+        )
+    );
 });
 projectManager.getProjects().forEach(DOMActions.leftPaneActions.addProjectTile);
 DOMActions.rightPaneActions.displayProject(projectManager.getProject(0));
+document.querySelector('.project:first-child').classList.add('selected-tile');
 
 document.getElementById('bookmarks').addEventListener(
     'click', () => DOMActions.rightPaneActions.displayProject(bookmarks));

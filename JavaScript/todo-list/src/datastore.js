@@ -42,10 +42,13 @@ const projectManager = (
         }
         const getProjects = () => _projects;
 
-        function addTaskToProject(projectID, taskName, taskDueDate = '', priority = priorities.medium, isBookmarked = false) {
+        function addTaskToProject(projectID, taskName, taskDueDate = '',
+            priority = priorities.medium, isBookmarked = false, description = '') {
+
             let selectedProject = getProject(projectID);
             selectedProject.addTask(taskFactory(taskName, taskDueDate, priority, isBookmarked));
             const task = selectedProject.getTasks().slice(-1)[0];
+            if (description.length > 0) task.setDescription(description);
             if (isBookmarked) bookmarks.addTask(task);
             localStorageManager.addProject(selectedProject);
             return task;

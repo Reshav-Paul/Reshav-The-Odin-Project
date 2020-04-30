@@ -67,13 +67,18 @@ const rightPaneActions = (
             date.textContent = task.getDueDate();
 
             const deleteIcon = document.createElement('i');
-            deleteIcon.classList.add('fa', 'fa-trash');
+            deleteIcon.classList.add('fa', 'fa-trash', 'delete-icon');
             deleteIcon.addEventListener('mouseup', e => _taskTileDeleteHandler(task, taskTile));
 
             const bookmarkIcon = document.createElement('i');
-            bookmarkIcon.classList.add('fa', 'fa-bookmark');
+            bookmarkIcon.classList.add('fa', 'fa-bookmark', 'bookmark-icon');
             if (task.isBookmarked()) bookmarkIcon.style.color = 'goldenrod';
             bookmarkIcon.addEventListener('mouseup', e => _taskTileBookmarkHandler(task, bookmarkIcon, taskTile));
+
+            // icon.addEventListener('mouseup', () => _showTaskDetails(task));
+            // title.addEventListener('mouseup', () => _showTaskDetails(task));
+            // date.addEventListener('mouseup', () => _showTaskDetails(task));
+            taskTile.addEventListener('mouseup', e => _showTaskDetails(task, e));
 
             taskTile.appendChild(icon);
             taskTile.appendChild(title);
@@ -103,7 +108,6 @@ const rightPaneActions = (
                 bookmarks.addTask(task);
                 bookmarkIcon.style.color = 'goldenrod';
             }
-            console.log(projectID);
             projectID >= 0 && localStorageManager.addProject(projectManager.getProject(projectID));
         }
 
@@ -156,10 +160,10 @@ const rightPaneActions = (
         }
 
         function displayNewProjectForm() {
-            if (document.getElementById('new-project-form')) return;
             const handler = function () {
-                const newProject = projectManager.addProject(
-                    document.querySelector('#new-project-form input').value);
+                const name = document.querySelector('#new-project-form input').value;
+                if(!name || name.length === 0) return;
+                const newProject = projectManager.addProject(name);
                 if (!newProject) return;
                 leftPaneActions.addProjectTile(newProject)
                 displayProject(projectManager.getProject(-1));
@@ -177,8 +181,6 @@ const rightPaneActions = (
         }
 
         function displayNewTaskForm() {
-            if (document.getElementById('new-task-form')) return;
-
             const nameTextBox = document.createElement('input');
             nameTextBox.setAttribute('type', 'text');
             nameTextBox.classList.add('name');
@@ -208,15 +210,21 @@ const rightPaneActions = (
             priorityDropdown.appendChild(mediumOption);
             priorityDropdown.appendChild(highOption);
 
+            const descriptionTextBox = document.createElement('textarea');
+            descriptionTextBox.classList.add('description');
+
             const handler = function () {
+                const name = document.querySelector('#new-task-form input').value;
+                if(!name || name.length === 0) return;
                 let checked = false;
                 if (bookmarkIcon.classList.contains('checked')) checked = true;
                 const newTask = projectManager.addTaskToProject(
                     parseInt(document.getElementById('project-title').getAttribute('data-id')),
-                    document.querySelector('#new-task-form .name').value,
+                    name,
                     document.querySelector('#new-task-form .date').value,
                     priorities[document.querySelector('#new-task-form .priority').value],
-                    checked
+                    checked,
+                    descriptionTextBox.value
                 );
                 if (!newTask) return;
                 rightPane.insertBefore(_getTaskTile(newTask), document.getElementById('new-task'));
@@ -231,14 +239,15 @@ const rightPaneActions = (
                     { 'title': 'Name', 'element': nameTextBox },
                     { 'title': 'Bookmark', 'element': bookmarkIcon },
                     { 'title': 'Due date', 'element': dateBox },
-                    { 'title': 'Priority', 'element': priorityDropdown }
+                    { 'title': 'Priority', 'element': priorityDropdown },
+                    { 'title': 'Description', 'element': descriptionTextBox}
                 ],
                 handler
             );
         }
 
         function createForm(headerText, id, inputs, submitAction) {
-            if (document.getElementById(id)) return;
+            if(document.querySelector('.fullscreen-container')) return;
             let fullScreenContainer = document.createElement('div');
             fullScreenContainer.classList.add('fullscreen-container');
 
@@ -261,7 +270,7 @@ const rightPaneActions = (
             let buttonRow = document.createElement('div');
 
             let createButton = document.createElement('button');
-            createButton.textContent = 'Create';
+            createButton.textContent = 'Submit';
             createButton.addEventListener('mouseup', submitAction);
 
             let cancelButton = document.createElement('button');
@@ -279,7 +288,47 @@ const rightPaneActions = (
             document.querySelector('.fullscreen-container > .input-form') &&
                 rightPane.removeChild(rightPane.lastChild);
         }
+        function _showTaskDetails(task, event) {
+            if(document.querySelector('.fullscreen-container')) return;
+            if(event.target.classList.contains('delete-icon')) return;
+            if(event.target.classList.contains('bookmark-icon')) return;
 
+            let fullScreenContainer = document.createElement('div');
+            fullScreenContainer.classList.add('fullscreen-container');
+
+            const detailBox = document.createElement('div');
+            detailBox.setAttribute('id', 'task-detail');
+
+            const headerDiv = document.createElement('div');
+            const nameHeader = document.createElement('h4');
+            nameHeader.textContent = 'Title: ' + task.getName();
+            const priorityIcon = document.createElement('i');
+            priorityIcon.classList.add('fa', 'fa-circle');
+            priorityIcon.style.color = _getPriorityColor(task.getPriority());
+            headerDiv.appendChild(nameHeader);
+            headerDiv.appendChild(priorityIcon);
+
+            const closeButton = document.createElement('button');
+            closeButton.textContent = 'Close';
+            closeButton.addEventListener('mouseup', () => rightPane.removeChild(fullScreenContainer));
+
+            detailBox.appendChild(headerDiv);
+
+            if(task.getDueDate().length > 0) {
+                const dueDateLabel = document.createElement('label');
+                dueDateLabel.textContent = 'Got Todo by ' + task.getDueDate();
+                detailBox.appendChild(dueDateLabel);
+            }
+            if(task.getDescription().length > 0) {
+                const description = document.createElement('p');
+                description.textContent = 'Description: ' + task.getDescription();
+                detailBox.appendChild(description);
+            }
+            detailBox.appendChild(closeButton);
+
+            fullScreenContainer.appendChild(detailBox);
+            rightPane.appendChild(fullScreenContainer);
+        }
         return { displayProject, displayNewProjectForm, removeInputForm };
     }
 )();

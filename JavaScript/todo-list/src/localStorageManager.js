@@ -8,7 +8,8 @@ const localStorageManager = (
                     'name': task.getName(),
                     'dueDate': task.getDueDate(),
                     'priority': task.getPriority(),
-                    'isBookmarked': task.isBookmarked()
+                    'isBookmarked': task.isBookmarked(),
+                    'description': task.getDescription()
                 });
             });
             return objectList;
