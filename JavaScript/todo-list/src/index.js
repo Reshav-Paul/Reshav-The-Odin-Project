@@ -1,9 +1,8 @@
-import { projectManager, bookmarks } from './datastore.js';
+import { projectManager, bookmarks, todaysTasks } from './datastore.js';
 import { localStorageManager } from './localStorageManager.js';
 import { DOMActions } from './DOMActions.js'
-import { priorities } from './models.js';
+import { priorities, projectFactory } from './models.js';
 
-// const defaultProject = projectManager.getProject(0);
 if (!localStorage.getItem('got-todo-projects')) {
     localStorage.setItem('got-todo-projects', JSON.stringify([{
         'id': 0, 'name': 'Default', 'creationDate': '',
@@ -46,3 +45,15 @@ document.getElementById('add-project').addEventListener(
 
 document.getElementById('left-pane').addEventListener(
     'click', DOMActions.rightPaneActions.removeInputForm);
+
+document.getElementById('today').addEventListener('click', e => {
+    DOMActions.leftPaneActions.selectedTileStyler(e.currentTarget);
+    DOMActions.rightPaneActions.displayProject(todaysTasks);
+});
+
+document.getElementById('menu-icon').addEventListener('click', DOMActions.leftPaneActions.toggleMenuCollapse);
+window.onload = () => {
+    if(document.body.offsetWidth <= 640) {
+        DOMActions.leftPaneActions.toggleMenuCollapse();
+    }
+}

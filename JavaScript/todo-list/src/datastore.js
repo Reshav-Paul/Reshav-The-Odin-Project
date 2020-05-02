@@ -2,6 +2,12 @@ import { projectFactory, taskFactory, priorities } from './models.js'
 import { localStorageManager } from './localStorageManager.js';
 
 const bookmarks = projectFactory(-1, 'Bookmarks');
+const todaysTasks = projectFactory(-2, 'Got Todo Today');
+
+function _getDateString(date) {
+    if (typeof date === 'string') return date;
+    return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+}
 
 const projectManager = (
     function () {
@@ -45,18 +51,27 @@ const projectManager = (
         function addTaskToProject(projectID, taskName, taskDueDate = '',
             priority = priorities.medium, isBookmarked = false, description = '') {
 
+            if(typeof taskDueDate === 'string' && taskDueDate.length > 0) {
+                const date = taskDueDate.split(/\D/);
+                taskDueDate = new Date(date[0], --date[1], date[2]);
+            }
             let selectedProject = getProject(projectID);
             selectedProject.addTask(taskFactory(taskName, taskDueDate, priority, isBookmarked));
             const task = selectedProject.getTasks().slice(-1)[0];
             if (description.length > 0) task.setDescription(description);
             if (isBookmarked) bookmarks.addTask(task);
+            const dateString = _getDateString(task.getDueDate());
+            if (dateString.length >= 0 && dateString === _getDateString(new Date(Date.now()))) {
+                todaysTasks.addTask(task);
+            }
             localStorageManager.addProject(selectedProject);
             return task;
         }
 
         function removeTaskFromProject(projectID, task) {
             if (projectID < 0) {
-                bookmarks.deleteTask(task);
+                if (projectID === -1) bookmarks.deleteTask(task);
+                if (projectID === -2) todaysTasks.deleteTask(task);
                 _projects.forEach(project => {
                     if(project.getTasks().indexOf(task) >= 0){
                         project.deleteTask(task);
@@ -68,6 +83,7 @@ const projectManager = (
             let selectedProject = getProject(projectID);
             selectedProject.deleteTask(task);
             task.isBookmarked && bookmarks.deleteTask(task);
+            if (todaysTasks.getTasks().indexOf(task) >= 0) todaysTasks.deleteTask(task);
             localStorageManager.addProject(selectedProject);
         }
 
@@ -79,11 +95,4 @@ const projectManager = (
     }
 )();
 
-
-for (let project of projectManager.getProjects()) {
-    for (let task of project.getTasks()) {
-        task.isBookmarked() === true && bookmarks.addTask(task);
-    }
-}
-
-export { bookmarks, projectManager, localStorageManager };
+export { bookmarks, projectManager, localStorageManager, todaysTasks };

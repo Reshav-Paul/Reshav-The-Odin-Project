@@ -11,7 +11,10 @@
 <body>
     <nav id="navbar">
         <ul id="navlist">
-            <li>Got Todo</li>
+            <li>
+                <i class="fa fa-bars" id="menu-icon"></i>
+                <span>Got Todo</span>
+            </li>
             <li id="add-project">
                 <span>Add Project</span>
                 <i class="fa fa-plus"></i>
@@ -20,21 +23,17 @@
     </nav>
     <div id="left-pane">
         <ul id="left-navlist">
-            <li id="bookmarks"><span>
+            <li id="bookmarks"  class="collapsible-menu-item">
                 <i class="fa fa-bookmark" style="color: goldenrod"></i>
-                Bookmarks
-            </span></li>
-            <li><a href="#">
+                <span>Bookmarks</span>
+            </li>
+            <li id="today" class="collapsible-menu-item">
                 <i class="fa fa-exclamation-circle" style="color: crimson"></i>
-                Today
-            </a></li>
-            <li><a href="#">
-                <i class="fa fa-calendar-o" style="color: green"></i>
-                Next 7 days
-            </a></li>
-            <hr>
-            <li>
-                <i class="fa fa-th-list"  style="color: chocolate"></i>Projects
+                <span>Today</span>
+            </li>
+            <li class="collapsible-menu-item" id="project-list-container">
+                <i class="fa fa-th-list"  style="color: chocolate"></i>
+                <span>Projects</span>
                 <ul id="project-list"></ul>
             </li>
         </ul>

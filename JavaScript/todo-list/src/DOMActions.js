@@ -4,6 +4,27 @@ import { localStorageManager } from './localStorageManager.js';
 
 const leftPaneActions = (
     function () {
+
+        function toggleMenuCollapse() {
+            const leftPane = document.getElementById('left-pane');
+            leftPane.classList.toggle('collapsed');
+            if(leftPane.classList.contains('collapsed')) {
+                document.getElementById('right-pane').style.marginLeft = '52px';
+                document.getElementById('project-list-container').addEventListener('click', toggleSubmenu);
+            } else {
+                if(document.body.offsetWidth > 640) document.getElementById('right-pane').style.marginLeft = '232px';
+                document.getElementById('project-list-container').removeEventListener('click', toggleSubmenu);
+                document.getElementById('project-list').classList.remove('expanded-submenu');
+            }
+        }
+        function toggleSubmenu() {
+            document.getElementById('project-list').classList.toggle('expanded-submenu');
+            if(document.getElementById('project-list').classList.contains('expanded-submenu')) {
+                document.getElementById('right-pane').style.zIndex = '-1';
+            } else {
+                document.getElementById('right-pane').style.zIndex = '1';
+            }
+        }
         function _getProjectTile(project) {
             const listElement = document.createElement('li');
             listElement.classList.add('project');
@@ -39,6 +60,8 @@ const leftPaneActions = (
             projectList.appendChild(_getProjectTile(project));
         }
         return {
+            toggleMenuCollapse,
+            toggleSubmenu,
             addProjectTile,
             removeProjectTile,
             selectedTileStyler
@@ -55,6 +78,10 @@ const rightPaneActions = (
             if (priority === priorities.high) return '#dd7373';
             return '#fae05c';
         }
+        function _getDateString(date) {
+            if (typeof date === 'string') return date;
+            return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+        }
         function _getTaskTile(task) {
             const taskTile = document.createElement('div');
             taskTile.classList.add('task-tile');
@@ -67,7 +94,7 @@ const rightPaneActions = (
             title.textContent = task.getName();
 
             const date = document.createElement('span');
-            date.textContent = task.getDueDate();
+            date.textContent = _getDateString(task.getDueDate());
 
             const deleteIcon = document.createElement('i');
             deleteIcon.classList.add('fa', 'fa-trash', 'delete-icon');
@@ -77,6 +104,7 @@ const rightPaneActions = (
             bookmarkIcon.classList.add('fa', 'fa-bookmark', 'bookmark-icon');
             if (task.isBookmarked()) bookmarkIcon.style.color = 'goldenrod';
             bookmarkIcon.addEventListener('mouseup', e => _taskTileBookmarkHandler(task, bookmarkIcon, taskTile));
+
             taskTile.addEventListener('mouseup', e => _showTaskDetails(task, e));
 
             taskTile.appendChild(icon);
@@ -96,13 +124,23 @@ const rightPaneActions = (
                 //check if the current page is the bookmarks page
                 if (projectID === -1) {
                     rightPane.removeChild(taskTile);
+                }
+                if (projectID < 0) {
                     projectManager.getProjects().forEach(project => {
                         project.getTasks().forEach(t => {
                             if (t === task) projectID = project.getID();
                         });
                     });
                 }
+                
             } else {
+                if (projectID === -2) {
+                    projectManager.getProjects().forEach(project => {
+                        project.getTasks().forEach(t => {
+                            if (t === task) projectID = project.getID();
+                        });
+                    });
+                }
                 task.setBookmark(true);
                 bookmarks.addTask(task);
                 bookmarkIcon.style.color = 'goldenrod';
@@ -315,9 +353,9 @@ const rightPaneActions = (
 
             detailBox.appendChild(headerDiv);
 
-            if(task.getDueDate().length > 0) {
+            if(_getDateString(task.getDueDate()).length > 0) {
                 const dueDateLabel = document.createElement('label');
-                dueDateLabel.textContent = 'Got Todo by ' + task.getDueDate();
+                dueDateLabel.textContent = 'Got Todo by ' + _getDateString(task.getDueDate());
                 detailBox.appendChild(dueDateLabel);
             }
             if(task.getDescription().length > 0) {
