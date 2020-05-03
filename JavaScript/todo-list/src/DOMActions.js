@@ -15,14 +15,20 @@ const leftPaneActions = (
                 if(document.body.offsetWidth > 640) document.getElementById('right-pane').style.marginLeft = '232px';
                 document.getElementById('project-list-container').removeEventListener('click', toggleSubmenu);
                 document.getElementById('project-list').classList.remove('expanded-submenu');
+                document.getElementById('right-pane').classList.remove('disabled');
             }
         }
         function toggleSubmenu() {
             document.getElementById('project-list').classList.toggle('expanded-submenu');
+            const rightPane = document.getElementById('right-pane');
+            if(document.querySelector('.fullscreen-container')) {
+                rightPane.removeChild(rightPane.lastChild);
+            }
             if(document.getElementById('project-list').classList.contains('expanded-submenu')) {
-                document.getElementById('right-pane').style.zIndex = '-1';
+                rightPane.classList.add('disabled');
+                
             } else {
-                document.getElementById('right-pane').style.zIndex = '1';
+                rightPane.classList.remove('disabled')
             }
         }
         function _getProjectTile(project) {

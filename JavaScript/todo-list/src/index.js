@@ -45,7 +45,6 @@ document.getElementById('add-project').addEventListener(
 
 document.getElementById('left-pane').addEventListener(
     'click', DOMActions.rightPaneActions.removeInputForm);
-
 document.getElementById('today').addEventListener('click', e => {
     DOMActions.leftPaneActions.selectedTileStyler(e.currentTarget);
     DOMActions.rightPaneActions.displayProject(todaysTasks);

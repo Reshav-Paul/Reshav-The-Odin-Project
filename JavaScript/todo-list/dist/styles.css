@@ -84,6 +84,9 @@ a {
     align-items: center;
     justify-content: space-between;
 }
+#add-project:hover {
+    color: var(--primary-dark);
+}
 #left-pane {
     position: fixed;
     top: 70px;
@@ -92,10 +95,11 @@ a {
     padding: 0.2rem 1rem;
     background-color: var(--primary-dark);
     transition: 400ms;
+    box-shadow: 0 0 5px grey;
     z-index: 3;
 }
 .collapsed {
-    margin-left: -154px;
+    margin-left: -150px;
     padding: 0 !important;
 }
 .collapsed .collapsible-menu-item {
@@ -111,12 +115,12 @@ a {
     display: none;
 }
 .collapsed #left-navlist i {
-    padding: 1rem 0;
-    margin: 0.2rem;
+    padding: 1rem;
+    margin: 0;
     right: 10px;
 }
 .collapsed #left-navlist > li {
-    padding: 0 1rem !important;
+    padding: 0 !important;
     border-radius: 0;
 }
 .expanded-submenu {
@@ -178,6 +182,11 @@ a {
     transition: margin 400ms;
     z-index: 1;
     overflow-x: hidden;
+}
+.disabled {
+    z-index: -1 !important;
+    filter: grayscale(1);
+    background-color: var(--primary-dark);
 }
 .fullscreen-container {
     position: absolute;
@@ -245,21 +254,25 @@ a {
 #new-task {
     margin: 1rem auto;
     padding: 1rem;
+    color: var(--primary-light);
+    background-color: var(--sec-light);
     display: inline-block;
-    border: 1px solid var(--primary-dark);
+    border: none;
+    border-radius: 5px;
     box-shadow: 0 0 1px grey;
-    transition: box-shadow 100ms;
+    transition: box-shadow 100ms bacground-color 200ms;
     cursor: pointer;
 }
 #new-task:hover {
-    box-shadow: 0 0 3px var(--sec-light)
+    background-color: var(--sec-dark);
+    box-shadow: 0 0 5px var(--sec-dark)
 }
 #new-task > * {
     margin: 0 0.5rem;
 }
 #task-detail {
-    min-width: 15rem;
-    max-width: 17rem;
+    width: 80%;
+    max-width: 280px;
     min-height: 5rem;
     background-color: var(--primary-dark);
     padding: 1rem;
