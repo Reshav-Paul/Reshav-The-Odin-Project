@@ -36,40 +36,69 @@ function createCarousel(images) {
     function _getNavDot(index) {
         const navDot = document.createElement('div');
         navDot.classList.add('carousel-nav-dot');
+        index === 0 && navDot.classList.add('active');
         navDot.style.height = '1rem';
         navDot.style.width = '1rem';
         navDot.style.margin = '0 1rem';
         navDot.style.borderRadius = '50%';
-        navDot.style.background = 'white';
+        navDot.style.background = index === 0? 'white' : 'black';
+        navDot.style.border = '2px solid white';
         navDot.addEventListener('mouseup', () => {
             if (index === _currentIndex) return;
-            const firstImage = document.querySelector('.carousel-image:first-child');
             _currentIndex = index;
-            firstImage.style.marginLeft = `calc(${-(index)} * 100%)`;
+            _changeCurrentDot();
+            _changeMargin();
         });
         return navDot;
+    }
+    function _changeCurrentDot() {
+        const currentDot = document.querySelector('.carousel-nav-dot.active');
+        currentDot.classList.remove('active');
+        currentDot.style.background = 'black';
+
+        const newDot = document.querySelector(`.carousel-nav-dot:nth-child(${_currentIndex + 1})`);
+        newDot.classList.add('active');
+        newDot.style.backgroundColor = 'white';
+    }
+
+    function _nextImage() {
+        _currentIndex = (_currentIndex + 1) % images.length;
+        _changeCurrentDot();
+        _changeMargin();
+    }
+
+    function _previousImage() {
+        _currentIndex = _currentIndex === 0? (images.length - 1) : (_currentIndex - 1);
+        _changeCurrentDot();
+        _changeMargin();
+    }
+
+    function _changeMargin() {
+        const firstImage = document.querySelector('.carousel-image:first-child');
+        firstImage.style.marginLeft = `calc(${-(_currentIndex)} * 100%)`;
+    }
+
+    let _autoSwitchInterval;
+    function startAutoSwitch(ms = 5000) {
+        _autoSwitchInterval = setInterval(_nextImage, ms);
+    }
+
+    function stopAutoSwitch() {
+        clearInterval(_autoSwitchInterval);
     }
 
     const nextButton = document.createElement('i');
     nextButton.classList.add('fa', 'fa-chevron-right');
     nextButton.style.right = '1rem';
     _applyButtonStyles(nextButton);
-    nextButton.addEventListener('click', e => {
-        _currentIndex = (_currentIndex + 1) % images.length;
-        const firstImage = document.querySelector('.carousel-image:first-child');
-        firstImage.style.marginLeft = `calc(${-(_currentIndex)} * 100%)`;
-    });
+    nextButton.addEventListener('click', _nextImage);
 
     const previousButton = document.createElement('i');
     previousButton.classList.add('fa', 'fa-chevron-left');
 
     previousButton.style.left = '1rem';
     _applyButtonStyles(previousButton);
-    previousButton.addEventListener('click', e => {
-        _currentIndex = _currentIndex === 0? (images.length - 1) : (_currentIndex - 1);
-        const firstImage = document.querySelector('.carousel-image:first-child');
-        firstImage.style.marginLeft = `calc(${-(_currentIndex)} * 100%)`;
-    });
+    previousButton.addEventListener('click', _previousImage);
 
     const navDotsDiv = document.createElement('div');
     navDotsDiv.style.position = 'absolute';
@@ -86,10 +115,16 @@ function createCarousel(images) {
         carousel.appendChild(_getImage(image));
         navDotsDiv.appendChild(_getNavDot(_dotIndex++));
     });
+    
     carousel.appendChild(previousButton);
     carousel.appendChild(nextButton);
     carousel.appendChild(navDotsDiv);
-    return carousel;
+
+    return {
+        carousel,
+        startAutoSwitch,
+        stopAutoSwitch,
+    };
 }
 
 export {createCarousel};
