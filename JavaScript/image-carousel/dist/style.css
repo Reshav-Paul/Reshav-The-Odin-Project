@@ -1,20 +1,8 @@
-/* #carousel {
-    max-width: 100%;
-    max-height: 500px;
-    overflow-x: hidden;
+body {
+    margin: 0;
+    background-color: #333;
 }
-#carousel > div {
-    height: 500px;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    background-size: cover;
+h1 {
+    color: white;
+    text-align: center;
 }
-#carousel > div:first-child {
-    background-image: url('https://cdn1-www.playstationlifestyle.net/assets/uploads/2020/05/ac-valhalla-god-of-war.jpg');
-}
-#carousel > div:last-child {
-    background-image: url('https://cdn3-www.playstationlifestyle.net/assets/uploads/2020/04/BossLogic-AC-Valhalla-setting-art.jpg');
-}
-#carousel > div:nth-child(2) {
-    background-image: url('https://cdn1-www.playstationlifestyle.net/assets/uploads/2020/05/ac-valhalla-warriors.jpg');
-} */
