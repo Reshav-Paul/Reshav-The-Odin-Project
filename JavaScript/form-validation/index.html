@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js" defer></script>
+    <title>Form Validation</title>
+</head>
+<body>
+    <h2>Form</h2>
+    <form id="input-form">
+        <div class='input-div'>
+            <label for="email">Email</label>
+            <input type="email" name="email" required>
+        </div>
+        <div id="email-err-msg" class="error-msg"></div>
+
+        <div class='input-div'>
+            <label for="country">Country</label>
+            <input type="text" name="country">
+        </div>
+        <div id="country-err-msg" class="error-msg"></div>
+
+        <div class='input-div'>
+            <label for="zip-code">Zip Code</label>
+            <input type="text" name="zip-code">
+        </div>
+        <div id="zip-err-msg" class="error-msg"></div>
+
+        <div class='input-div'>
+            <label for="password">Password</label>
+            <input type="password" name='password' minlength="8" maxlength="64" required>
+        </div>
+        <div id="pwd-err-msg" class="error-msg"></div>
+
+        <div class='input-div'>
+            <label for="confirm-password">Confirm password</label>
+            <input type="password" name='confirm-password' minlength="8" maxlength="64" required>
+        </div>
+        <div id="pwd-confirm-err-msg" class="error-msg"></div>
+
+        <input type="submit" id="form-submit" class="btn" value="Submit">
+        <div id="form-err"></div>
+    </form>
+</body>
+</html>
