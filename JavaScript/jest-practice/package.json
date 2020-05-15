@@ -1,0 +1,15 @@
+{
+  "name": "jest-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "stringFunctions.js",
+  "scripts": {
+    "test": "jest",
+    "test-watch": "jest --watch \".js\""
+  },
+  "author": "Reshav Paul",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^26.0.1"
+  }
+}
