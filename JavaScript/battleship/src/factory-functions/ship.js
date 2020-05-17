@@ -6,6 +6,7 @@ const Ship = function(_id, _length = 1) {
     }
 
     const hit = index => {
+        if (index < 0 || index >= _hitBoxes.length) return;
         if (_hitBoxes[index]) return false;
         _hitBoxes[index] = true;
         return true;

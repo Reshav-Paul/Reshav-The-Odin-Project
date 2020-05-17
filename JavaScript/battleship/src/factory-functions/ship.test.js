@@ -16,6 +16,12 @@ describe('Ship Tests', () => {
         }
     });
 
+    it('hit() returns undefined for invalid indices', () => {
+        const ship = Ship(1, 4);
+        expect(ship.hit(-1)).toBe(undefined);
+        expect(ship.hit(4)).toBe(undefined);
+    });
+
     it('isSunk() Works', () => {
         const ship = Ship(1, 4);
         
