@@ -37,9 +37,21 @@ const Gameboard = function() {
             for (let i = 0; i < length; i++) {
                 boardData.board[x][y + i] = ship;
             }
+            boardData.ships.push(shipWrapper);
+            return ship;
+            
+        } else {
+            //check if any of the locations is occupied
+            for (let i = 0; i < length; i++) {
+                if (boardData.board[x + i][y] !== cellTypes.water) return;
+            }
+            //place the ship if all locations free
+            for (let i = 0; i < length; i++) {
+                boardData.board[x + i][y] = ship;
+            }
+            boardData.ships.push(shipWrapper);
+            return ship;
         }
-        boardData.ships.push(shipWrapper);
-        return ship;
     }
 
     function _getHitIndex(ship, x, y) {

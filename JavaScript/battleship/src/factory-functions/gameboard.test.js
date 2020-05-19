@@ -9,14 +9,18 @@ describe('gameboard tests', () => {
 
             const firstShip = gameboard.placeShip(0, 0, 4);
             expect(gameboard.nShips()).toBe(1);
-            expect(toString(firstShip)).toBe(toString(Ship(0, 4)));
+            expect(toString(firstShip)).toBeDefined();
 
             const secondShip = gameboard.placeShip(1, 0, 2);
-            expect(toString(secondShip)).toBe(toString(Ship(1, 4)));
+            expect(toString(secondShip)).toBeDefined();
             expect(gameboard.nShips()).toBe(2);
+
+            const thirdShip = gameboard.placeShip(3, 2, 3, orientations.vertical);
+            expect(toString(thirdShip)).toBeDefined();
+            expect(gameboard.nShips()).toBe(3);
         });
     
-        it('placement is rejected on invalid locations', () => {
+        it('placement is rejected on invalid locations for horizontal ships', () => {
             const gameboard = Gameboard();
             let firstShip = gameboard.placeShip(10, 0, 4);
             expect(firstShip).toBeUndefined();
@@ -51,6 +55,41 @@ describe('gameboard tests', () => {
             expect(gameboard.nShips()).toBe(1);
         });
 
+        it('placement is rejected on invalid locations for vertical ships', () => {
+            const gameboard = Gameboard();
+            let firstShip = gameboard.placeShip(10, 0, 4, orientations.vertical);
+            expect(firstShip).toBeUndefined();
+            expect(gameboard.nShips()).toBe(0);
+    
+            firstShip = gameboard.placeShip(0, 10, 4, orientations.vertical);
+            expect(firstShip).toBeUndefined();
+            expect(gameboard.nShips()).toBe(0);
+    
+            firstShip = gameboard.placeShip(10, 10, 4, orientations.vertical);
+            expect(firstShip).toBeUndefined();
+            expect(gameboard.nShips()).toBe(0);
+    
+            firstShip = gameboard.placeShip(-1, 0, 4, orientations.vertical);
+            expect(firstShip).toBeUndefined();
+            expect(gameboard.nShips()).toBe(0);
+    
+            firstShip = gameboard.placeShip(0, -1, 4, orientations.vertical);
+            expect(firstShip).toBeUndefined();
+            expect(gameboard.nShips()).toBe(0);
+    
+            firstShip = gameboard.placeShip(9, 0, 4, orientations.vertical);
+            expect(firstShip).toBeUndefined();
+            expect(gameboard.nShips()).toBe(0);
+    
+            firstShip = gameboard.placeShip(7, 0, 4, orientations.vertical);
+            expect(firstShip).toBeUndefined();
+            expect(gameboard.nShips()).toBe(0);
+    
+            firstShip = gameboard.placeShip(6, 0, 4, orientations.vertical);
+            expect(toString(firstShip)).toBe(toString(Ship(0, 4)));
+            expect(gameboard.nShips()).toBe(1);
+        });
+
         it('placement is rejected if the location is occupied', () => {
             const gameboard = Gameboard();
             const firstShip = gameboard.placeShip(0, 2, 4);
@@ -65,6 +104,20 @@ describe('gameboard tests', () => {
             const secondShip = gameboard.placeShip(0, 6, 3);
             expect(secondShip).toBeDefined();
             expect(gameboard.nShips()).toBe(2);
+
+            for (let i = 2; i < 9; ++i) {
+                const thirdShip = gameboard.placeShip(0, i, 2, orientations.vertical);
+                expect(thirdShip).toBeUndefined();
+            }
+            const thirdShip = gameboard.placeShip(1, 3, 4, orientations.vertical);
+            expect(thirdShip).toBeDefined();
+
+            for (let i = 1; i < 5; ++i) {
+                const fourthShip = gameboard.placeShip(i, 3, 3, orientations.vertical);
+                expect(fourthShip).toBeUndefined();
+            }
+            const fourthShip = gameboard.placeShip(5, 3, 3, orientations.vertical);
+            expect(fourthShip).toBeDefined();
         });
     })
     
