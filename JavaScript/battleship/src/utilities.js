@@ -23,4 +23,4 @@ function makeRandomMove(gameboard) {
     }
 }
 
-export { makeRandomMove };
+export { makeRandomMove, shuffleArray };

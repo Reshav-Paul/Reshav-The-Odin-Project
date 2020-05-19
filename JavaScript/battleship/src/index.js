@@ -14,18 +14,10 @@ DOMActions.createBoard(computerDOMBoard);
 
 const playerShipCoords = [
     { x: 0, y: 1, length: 4, orientation: orientations.vertical },
-    { x: 2, y: 8, length: 1 },
+    { x: 2, y: 8, length: 2 },
     { x: 3, y: 3, length: 3 },
     { x: 7, y: 6, length: 3, orientation: orientations.vertical },
-    { x: 9, y: 2, length: 1 }
-];
-
-const computerShipCoords = [
-    { x: 0, y: 4, length: 3 },
-    { x: 2, y: 1, length: 4 },
-    { x: 3, y: 6, length: 3, orientation: orientations.vertical },
-    { x: 7, y: 1, length: 1 },
-    { x: 9, y: 5, length: 1 }
+    { x: 9, y: 2, length: 2 }
 ];
 
 function handlePlayerClick(e) {
@@ -53,9 +45,10 @@ playerShipCoords.forEach(coord => {
     );
 });
 
-computerShipCoords.forEach(coord => {
-    const newShip = computerBoard.placeShip(coord.x, coord.y, coord.length, coord.orientation);
-    newShip && DOMActions.placeShip(
-        newShip, coord.x, coord.y, coord.orientation, computerDOMBoard
+const shipWrappers = computerBoard.placeShipsRandomly();
+shipWrappers.forEach(shipWrapper => {
+    DOMActions.placeShip(
+        shipWrapper.ship, shipWrapper.startCoords.x,shipWrapper.startCoords.y,
+        shipWrapper.orientation, computerDOMBoard
     );
 });
