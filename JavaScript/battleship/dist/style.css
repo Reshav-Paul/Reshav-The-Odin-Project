@@ -1,0 +1,22 @@
+#player-board, #computer-board {
+    display: grid;
+    grid-template-columns: repeat(10, 30px);
+    grid-template-rows: repeat(10, 30px);
+}
+
+.cell {
+    background-color: skyblue;
+    border: 1px solid black;
+}
+
+.ship {
+    background-color: white;
+}
+
+.destroyed.ship {
+    background-color: grey;
+}
+
+.destroyed.water {
+    background-color: darkblue;
+}
