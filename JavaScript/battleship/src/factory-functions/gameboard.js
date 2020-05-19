@@ -1,4 +1,5 @@
-import Ship from "./ship";
+import Ship from './ship';
+import { shuffleArray } from '../utilities';
 
 const cellTypes = Object.freeze({water: 0, ship: 1, destroyed: 2});
 const orientations = Object.freeze({horizontal: 0, vertical: 1});
@@ -54,6 +55,33 @@ const Gameboard = function() {
         }
     }
 
+    function placeShipsRandomly() {
+        if (nShips() > 0) return;
+        let rowPairs = shuffleArray([[3, 0], [2, 7], [5, 8], [4, 1], [6, 9]]);
+        let rows = [];
+        rowPairs.forEach(pair => rows.push(...pair));
+        let cols = shuffleArray([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        const sizes = [2, 2, 3, 4, 4];
+
+        for (let i of rows) {
+            for (let j of cols) {
+                const orientation = Math.random() < 0.5
+                    ? orientations.horizontal
+                    : orientations.vertical;
+                const size = sizes.pop()
+
+                const newShip = placeShip(i, j, size, orientation);
+                if (newShip) {
+                    cols = shuffleArray(cols);
+                    break;
+                } else {
+                    sizes.push(size)
+                }
+            }
+            if (sizes.length === 0) return boardData.ships;
+        }
+    }
+
     function _getHitIndex(ship, x, y) {
         for (const shipWrapper of boardData.ships) {
             if (shipWrapper.ship === ship) {
@@ -98,7 +126,7 @@ const Gameboard = function() {
         return cellTypes.ship;
     }
 
-    return { placeShip, recieveAttack, nSunk, allSunk, nShips }
+    return { placeShip, placeShipsRandomly, recieveAttack, nSunk, allSunk, nShips }
 }
 
 export default Gameboard;

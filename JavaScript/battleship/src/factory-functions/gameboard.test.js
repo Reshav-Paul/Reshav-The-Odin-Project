@@ -119,6 +119,26 @@ describe('gameboard tests', () => {
             const fourthShip = gameboard.placeShip(5, 3, 3, orientations.vertical);
             expect(fourthShip).toBeDefined();
         });
+
+        it('places 5 ships randomly', () => {
+            let gameboard = Gameboard();
+            let ships = gameboard.placeShipsRandomly();
+            ships.forEach(ship => expect(ship).toBeDefined());
+            expect(gameboard.nShips()).toBe(5);
+
+            gameboard = Gameboard();
+            ships = gameboard.placeShipsRandomly();
+            ships.forEach(ship => expect(ship).toBeDefined());
+            expect(gameboard.nShips()).toBe(5);
+        });
+
+        it('doest not place ships randomly if the board has even 1 ship already present', () => {
+            let gameboard = Gameboard();
+            gameboard.placeShip(0, 0, 3);
+            let ships = gameboard.placeShipsRandomly();
+            expect(ships).toBeUndefined();
+            expect(gameboard.nShips()).toBe(1);
+        })
     })
     
     describe('hit and sinking tests', () => {
