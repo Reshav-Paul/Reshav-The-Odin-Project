@@ -7,7 +7,7 @@ function shuffleArray(array) {
     }
     return array;
 }
-function makeRandomMove(gameboard) {
+function makeRandomMove(gameboard, DOMBoard) {
     let rowIndices = shuffleArray([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
     let colIndices = shuffleArray([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
@@ -16,7 +16,7 @@ function makeRandomMove(gameboard) {
             const isHit = gameboard.recieveAttack(i, j);
             if (isHit !== undefined) {
                 DOMActions.markCellDestroyed(
-                    document.querySelector(`#computer-board > .cell[data-xy='${i} ${j}']`));
+                    document.querySelector(`#${DOMBoard.getAttribute('id')} > .cell[data-xy='${i} ${j}']`));
                 return isHit;
             }
         }

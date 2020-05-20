@@ -15,18 +15,22 @@ describe('player tests', () => {
 
         gameboard.recieveAttack(0, 0);
         gameboard.recieveAttack(1, 0);
-        expect(player.getScore(gameboard)).toBe(0);
+        player.updateScore(gameboard);
+        expect(player.getScore()).toBe(0);
 
         gameboard.recieveAttack(1, 1);
         gameboard.recieveAttack(1, 2);
-        expect(player.getScore(gameboard)).toBe(0);
+        player.updateScore(gameboard);
+        expect(player.getScore()).toBe(0);
 
         gameboard.recieveAttack(0, 1);
         gameboard.recieveAttack(3, 4);
-        expect(player.getScore(gameboard)).toBeCloseTo(0.5);
+        player.updateScore(gameboard);
+        expect(player.getScore()).toBeCloseTo(0.5);
 
         gameboard.recieveAttack(3, 5);
         gameboard.recieveAttack(3, 6);
-        expect(player.getScore(gameboard)).toBeCloseTo(1);
+        player.updateScore(gameboard);
+        expect(player.getScore()).toBeCloseTo(1);
     })
 })

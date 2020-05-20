@@ -1,54 +1,81 @@
 import Gameboard, { cellTypes, orientations } from "./factory-functions/gameboard";
+import Player from './factory-functions/player';
 import DOMActions from "./dom-interface";
 import { makeRandomMove } from "./utilities";
 
 let gameOver = false;
+let gameStarted = false;
+
 const playerBoard = Gameboard();
 const computerBoard = Gameboard();
+let shipLengths = [2, 2, 3, 4 ,4];
 
 const playerDOMBoard = document.getElementById('player-board');
 const computerDOMBoard = document.getElementById('computer-board');
 
-DOMActions.createBoard(playerDOMBoard, handlePlayerClick);
-DOMActions.createBoard(computerDOMBoard);
+DOMActions.createBoard(playerDOMBoard, handleShipPlacement);
+DOMActions.createBoard(computerDOMBoard, handlePlayerClick);
 
-const playerShipCoords = [
-    { x: 0, y: 1, length: 4, orientation: orientations.vertical },
-    { x: 2, y: 8, length: 2 },
-    { x: 3, y: 3, length: 3 },
-    { x: 7, y: 6, length: 3, orientation: orientations.vertical },
-    { x: 9, y: 2, length: 2 }
-];
+const player = Player('Player');
+const computer = Player('Computer');
 
 function handlePlayerClick(e) {
     if (gameOver) return;
+    if (!gameStarted) return;
     const coords = e.target.getAttribute('data-xy').split(' ');
-    const hitType = playerBoard.recieveAttack(coords[0], coords[1]);
+    const hitType = computerBoard.recieveAttack(coords[0], coords[1]);
     if (hitType !== cellTypes.water && hitType !== cellTypes.ship) return;
     DOMActions.markCellDestroyed(e.target);
-    if (playerBoard.nSunk() === 5) {
-        gameOver = true;
-        DOMActions.declareWinner('player');
-        return;
-    }
-    !gameOver && makeRandomMove(computerBoard);
+    player.updateScore(computerBoard);
     if (computerBoard.nSunk() === 5) {
         gameOver = true;
-        DOMActions.declareWinner('computer');
+        DOMActions.declareWinner(player.getName());
+        return;
+    }
+    if (!gameOver) {
+        makeRandomMove(playerBoard, playerDOMBoard);
+        computer.updateScore(playerBoard);
+    }
+    DOMActions.updateScores(player, computer);
+    if (playerBoard.nSunk() === 5) {
+        gameOver = true;
+        DOMActions.declareWinner(computer.getName());
     }
 }
 
-playerShipCoords.forEach(coord => {
-    const newShip = playerBoard.placeShip(coord.x, coord.y, coord.length, coord.orientation);
-    newShip && DOMActions.placeShip(
-        newShip, coord.x, coord.y, coord.orientation, playerDOMBoard, handlePlayerClick
-    );
-});
+function handleShipPlacement(e) {
+    if (gameStarted || shipLengths.length === 0) return;
+
+    const cell = e.target;
+    const length = shipLengths.pop();
+    const coords = cell.getAttribute('data-xy').split(' ');
+    const x = parseInt(coords[0]);
+    const y = parseInt(coords[1]);
+    const orientation = 
+        document.getElementById('orientation').value === 'horizontal'
+        ? orientations.horizontal
+        : orientations.vertical;
+
+    const newShip = playerBoard.placeShip(x, y, length, orientation);
+
+    if(newShip) {
+        DOMActions.placeShip(newShip, x, y, playerDOMBoard, orientation);
+        DOMActions.updateShipPlacementInfo((playerBoard.nShips() + 1),
+            shipLengths[shipLengths.length - 1]);
+    }
+    !newShip && shipLengths.push(length);
+    if (playerBoard.nShips() === 5) {
+        gameStarted = true;
+        DOMActions.removeShipPlacementInfo();
+        DOMActions.updateScores(player, computer);
+    }
+}
 
 const shipWrappers = computerBoard.placeShipsRandomly();
+
 shipWrappers.forEach(shipWrapper => {
     DOMActions.placeShip(
         shipWrapper.ship, shipWrapper.startCoords.x,shipWrapper.startCoords.y,
-        shipWrapper.orientation, computerDOMBoard
+        computerDOMBoard, shipWrapper.orientation
     );
 });

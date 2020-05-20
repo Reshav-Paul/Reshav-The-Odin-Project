@@ -8,8 +8,42 @@
     <title>Battleship</title>
 </head>
 <body>
-    <div id="player-board"></div>
-    <br>
-    <div id="computer-board"></div>
+    <nav id="navbar">
+        <h2>Battleship</h2>
+    </nav>
+    <div id="main">
+        <div class="column container">
+            <h3>Player's Board</h3>
+            <div id="player-board"></div>
+            <h3 id="ship-num">Place Ship No. 1 on the board</h3>
+            <span id="length">This ship has a length of 4</span>
+            <div class="container" id="orientation-choice">
+                <label for="orientation">Choose an orientation for your ship</label>
+                <select name="orientation" id="orientation">
+                    <option value="horizontal">Horizontal</option>
+                    <option value="vertical">Vertical</option>
+                </select>
+            </div>
+            <strong id="comp-score"></strong>
+        </div>
+        <div class="column container">
+            <h3>Computer's Board</h3>
+            <div id="computer-board"></div>
+            <br>
+            <strong id="player-score"></strong>
+        </div>
+    </div>
+    <div id="help">
+        <h4>Placing the ships</h4>
+        <p>
+            The information regarding the current ship to be placed on the board
+            is shown. This includes the ship no. and its length. Its orientation can
+            be chosen by you. Then click on the the appropriate cell which you think
+            should be then starting location of your ship.
+            If you click in a location where the ship cannot be placed you wont see
+            the ship being placed. Click on a <strong>valid</strong> location and your
+            ship would appear.
+        </p>
+    </div>
 </body>
 </html>

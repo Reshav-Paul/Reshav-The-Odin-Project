@@ -1,7 +1,46 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#main {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 70px;
+}
+
+select {
+    margin: 0 1rem;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 0.4rem;
+}
+
+#navbar {
+    position: fixed;
+    top: 0;
+    height: 70px;
+    width: 100%;
+    text-align: center;
+    background-image: linear-gradient(to bottom, black, #434343);
+    color: white;
+}
+
 #player-board, #computer-board {
     display: grid;
     grid-template-columns: repeat(10, 30px);
     grid-template-rows: repeat(10, 30px);
+}
+
+.container {
+    margin: 1rem;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .cell {
@@ -13,10 +52,48 @@
     background-color: white;
 }
 
+#computer-board > .ship {
+    background-color: skyblue;
+}
+
+#computer-board > .destroyed.ship {
+    background-color: #434343;
+}
+
 .destroyed.ship {
-    background-color: grey;
+    background-color: #434343;
 }
 
 .destroyed.water {
-    background-color: darkblue;
+    background-color: #111168;
+}
+#ship-num {
+    text-align: center;
+}
+#player-score {
+    margin: 1rem 0;
+}
+
+#help {
+    padding: 1rem;
+    background-image: linear-gradient(to right, black, #434343);
+    color: #e4e4e4;
+}
+
+@media (max-width: 820px) {
+    #main {
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    #orientation-choice {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    select {
+        margin-top: 0.5rem;
+    }
 }
