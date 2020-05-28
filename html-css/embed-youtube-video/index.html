@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Youtube</title>
+</head>
+<body>
+    <nav id="navbar">
+        <div>
+            <i class="fa fa-bars"></i>
+            <div id="logo"></div>
+        </div>
+        <div id="search">
+            <input type="text" class="text-box" placeholder="Search"><button class="btn"><i class="fa fa-search"></i></button>
+        </div>
+        <ul id="nav-links">
+            <li><i class="fa fa-search search"></i></li>
+            <li><i class="fa fa-video-camera"></i></li>
+            <li><i class="fa fa-th"></i></li>
+            <li><i class="fa fa-bell"></i></li>
+            <li><div class="user-pic">R</div></li>
+        </ul>
+    </nav>
+    <div id="main">
+
+        <div id="video">
+            <iframe src="https://www.youtube.com/embed/V74l_zS1x8E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p id="title">Contributing to Open Source Part I: The Easy Way</p>
+            <div id="info">
+                <div id="info-text">
+                    <span id="count">57,002 views</span>
+                    •
+                    <span id="date">Feb 27, 2014</span>
+                </div>
+                <div id="stats-options">
+                    <div><i class="fa fa-thumbs-up"></i> 421</div>
+                    <div><i class="fa fa-thumbs-down"></i> 17</div>
+                    <div><i class="fa fa-share"></i> SHARE</div>
+                    <div><i class="fa fa-list"></i> SAVE</div>
+                    <div><i class="fa fa-ellipsis-h"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="next">
+            <div class="controls">
+                <p>Up Next</p>
+                <div>
+                    Autoplay
+                    <i class="fa fa-caret-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
