@@ -200,6 +200,7 @@ hr {
     margin-bottom: 0;
     height: 94px;
     cursor: pointer;
+    text-overflow: ellipsis;
 }
 
 #next-videos .vid-card .thumbnail {
@@ -271,5 +272,40 @@ hr {
     #video > #player > iframe {
         width: 100%;
         height: calc((100vw - 24px) * 9 / 16);
+    }
+}
+
+@media (max-width: 360px) {
+    #navbar > div:first-child {
+        margin: 0 1rem;
+    }
+    #logo {
+        margin: 0;
+    }
+    #nav-links {
+        margin: 0 0.5rem;
+    }
+    #nav-links > li {
+        margin: 0 0.5rem;
+    }
+    #main {
+        padding: 0.5rem;
+    }
+    #info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    #stats-options {
+        width: 100%;
+    }
+    #next {
+        min-width: 0;
+        max-width: 100%;
+    }
+    #next-videos .vid-card {
+        margin: 0;
+        margin-bottom: 0.5rem;
+        max-width: 100vw;
     }
 }
