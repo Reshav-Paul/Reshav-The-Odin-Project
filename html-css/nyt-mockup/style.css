@@ -9,10 +9,11 @@ body {
     margin: 0;
 }
 a {
-    color: #2a5ab4;
+    color: black;
+    text-decoration: none;
 }
 a:hover {
-    text-decoration: none;
+    text-decoration: underline;
 }
 hr {
     height: 1px;
@@ -35,6 +36,8 @@ br {
 li {
     list-style: none;
 }
+
+/* Utility classes */
 .row {
     display: flex;
     align-items: center;
@@ -59,11 +62,23 @@ span.small {
     padding: 0.4rem 0.6rem;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+.icon.row i {
+    margin: 0 0 0 0.7rem;
+    padding: 10px 12px;
+    background-color: #eee;
+    border-radius: 50%;
+    border: 2px solid #eee;
+}
+.icon.row i:hover {
+    background-color: white;
+}
 .container {
     max-width: 85%;
     margin: 0 auto;
     padding: 1rem 0;
 }
+
+/* Main page grid layout */
 .main-grid {
     display: grid;
     grid-template-columns: 2fr 1fr 0.5fr minmax(600px, 8fr) 0.5fr 1fr 2fr;
@@ -81,6 +96,26 @@ span.small {
 .grid-center-wider {
     grid-column: 2 / -2;
 }
+.grid-right-wide {
+    grid-column: span 2 / -1;
+}
+
+/* Side Notes Styling and Positioning */
+.side-note .row {
+    margin: 0.5rem 0;
+}
+.side-note p {
+    font-size: 0.9rem;
+    line-height: 1rem;
+    padding: 0 0.5rem;
+    color: black !important;
+}
+.side-note img {
+    height: 80px;
+    width: 80px;
+}
+
+/* Navbar */
 #navbar {
     position: fixed;
     width: 100%;
@@ -99,6 +134,7 @@ span.small {
 .logo {
     max-width: 200px;
     height: 100%;
+    max-height: 40px;
 }
 #navbar i {
     font-size: 0.9rem;
@@ -115,10 +151,12 @@ span.small {
     font-size: 0.9rem;
 }
 
+/* Main Aricle */
 #article {
     padding-top: 50px;
 }
 
+/* Header */
 #header {
     margin-bottom: 1rem;
 }
@@ -127,12 +165,17 @@ span.small {
     margin: 2rem auto 1rem auto;
     font-style: italic;
 }
-.icon.row i {
-    margin: 0 0.5rem;
-    padding: 10px;
-    background-color: #ccc;
-    border-radius: 50%;
+
+/* Content */
+#content p.grid-center a {
+    color: #2a5ab4;
+    text-decoration: underline;
 }
+#content p.grid-center a:hover {
+    text-decoration: none;
+}
+
+/* The Theory of Inflation Illustration */
 #toi-container {
     overflow: auto;
     scrollbar-width: thin;
@@ -160,7 +203,10 @@ span.small {
 .toi-caption p {
     font-size: 12px;
     line-height: 18px;
+    padding: 0 0.2rem;
 }
+
+/* More Articles Section */
 #more {
     width: 80%;
     min-width: 600px;
@@ -177,6 +223,8 @@ span.small {
     gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
+
+/* Article Card */
 .article-card {
     display: flex;
     flex-direction: column;
@@ -197,6 +245,8 @@ span.small {
     text-align: right;
     margin: 0.3rem 0;
 }
+
+/* Most Popular Articles Section */
 #most-popular {
     margin-left: 1.5rem;
 }
@@ -213,6 +263,7 @@ span.small {
     color: #777;
 }
 
+/* Footer */
 #footer {
     width: 80%;
     margin: 1rem auto;
@@ -223,12 +274,7 @@ span.small {
     gap: 1rem;
 }
 #footer-links a {
-    color: black;
-    text-decoration: none;
     font-size: 0.9rem;
-}
-#footer-links a:hover {
-    text-decoration: underline;
 }
 #footer-links div strong:first-child {
     font-size: 0.8rem;
@@ -250,6 +296,23 @@ span.small {
     margin: 0.2rem 0;
 }
 
+/* Media Queries */
+@media (max-width: 1280px) {
+    .side-note img {
+        display: none;
+    }
+    .side-note > * {
+        border-bottom: 1px solid #ccc;
+    }
+    .side-note p {
+        padding: 0;
+    }
+}
+@media (max-width: 1080px) {
+    .side-note {
+        display: none;
+    }
+}
 @media (max-width: 1000px) {
     #navbar {
         height: 50px;
@@ -286,6 +349,9 @@ span.small {
     #sub-link {
         display: none;
     }
+    #header .title {
+        margin-top: 0.5rem;
+    }
     #header .description {
         padding: 0 0.5rem;
     }
@@ -317,11 +383,17 @@ span.small {
 }
 
 @media (max-width: 600px) {
+    p {
+        font-size: 1.15rem;
+    }
     .main-grid {
         grid-template-columns: 1fr;
         margin: 1rem;
     }
     .grid-center {
         grid-column: 1/-1;
+    }
+    .icon.row i {
+        margin: 0 0 0 0.3rem;
     }
 }
