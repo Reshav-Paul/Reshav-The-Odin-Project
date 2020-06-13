@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+:root {
+    font-family: 'Lucida Grande', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+img {
+    max-height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+}
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 3fr 1fr;
+    max-height: 100vh;
+    box-sizing: border-box;
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+}
+#home-bg {
+    background-image: url('https://web.archive.org/web/20140228114747im_/http://images.apple.com/v/home/as/images/your_verse_hero.jpg');
+    background-position: 0% 100%;
+    grid-column: 1/-1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+h1, h3, h4 {
+    font-weight: 200;
+    margin: 0.5rem auto;
+    max-width: 60vw;
+    text-align: center;
+}
+h1 {
+    font-size: 2.5rem;
+}
+h3 {
+    font-size: 1.6rem;
+}
+h4 {
+    font-size: 1.3rem;
+}
+#navbar {
+    position: absolute;
+    top: 85px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 0.75rem;
+    box-shadow: 0 1px 3px #555;
+    border: 1px solid #555;
+}
+#navbar-nav {
+    display: flex;
+    align-items: center;
+    background-image: linear-gradient(to bottom, #6c6c6c 20%, #5e5e5e 50%, #767676 20%, #888);
+}
+#navbar-nav li {
+    padding: 0.25rem 2rem;
+    border-right: 0.5px solid #444;
+    border-left: 0.5px solid #999;
+}
+#navbar-nav li a {
+    font-weight: 100;
+    color: white;
+}
+#navbar-nav li:last-child {
+    padding: 0.25rem 1.2rem;
+    border-right: none;
+}
+#navbar-nav li:first-child {
+    border-left: none;
+}
+#navbar-nav input[type='text'] {
+    background-color: transparent;
+    border: none;
+    box-shadow: 0 1px 3px black inset;
+    border-bottom: 1px solid #999;
+    padding: 0.18rem 0.5rem;
+    margin: 1px auto;
+    font-size: 0.8rem;
+    border-radius: 10px;
+    color: white;
+    max-width: 100px;
+}
+#navbar-nav input[type='text']::placeholder {
+    color: white;
+    font-size: 0.8rem;
+}
