@@ -1,0 +1,219 @@
+:root {
+    font-family: 'Source Sans Pro';
+    color: white;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+img {
+    max-height: 100%;
+}
+li {
+    list-style: none;
+}
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.highlighted {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+.light {
+    font-weight: 200;
+    color: #ccc;
+}
+.italics {
+    font-style: italic;
+}
+#navbar {
+    background-color: #6a6a6a;
+    padding: 0.4rem 0;
+}
+#navbar .logo {
+    height: 100%;
+    max-height: 100px;
+    max-width: 100px;
+}
+#navbar .nav-list {
+    width: 100%;
+    padding: 0 1rem;
+    margin: 1rem;
+    justify-content: space-evenly;
+}
+#navbar .nav-item {
+    margin: 0 1rem;
+    font-size: 1.25rem;
+    color: white;
+    letter-spacing: 1px;
+    font-weight: bold;
+    padding: 0.8rem;
+    border-radius: 10px;
+}
+#navbar .nav-item:hover {
+    background-color: #555;
+}
+#navbar .search-wrapper {
+    position: relative;
+}
+#navbar .search-wrapper > i {
+    position: absolute;
+    left: 1.8rem;
+    font-size: 1.2rem;
+    top: 50%;
+    color: #6a6a6a;
+    transform: translateY(-50%);
+}
+#navbar .search {
+    padding: 0.8rem 1rem 0.8rem 2.6rem;
+    margin: 1rem;
+    border: none;
+    font-size: 1.1rem;
+    border-radius: 6px;
+}
+#featured-articles {
+    padding: 2rem 0;
+}
+#featured-articles .header {
+    display: flex;
+}
+#featured-articles .header .header-text {
+    text-align: center;
+    flex: 2.2;
+    position: relative;
+}
+#featured-articles .header .header-text > h1 {
+    position: absolute;
+    top: -20px;
+    right: 0;
+}
+#featured-articles .header .header-text span {
+    background-color: #333;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 900;
+    padding: 0.25em 0.4em;
+    line-height: 150%;
+    text-transform: capitalize;
+    box-decoration-break: clone;
+}
+.header-text .block-shadow {
+    width: 200px;
+    height: 20px;
+    border-radius: 50%;
+    background-image: radial-gradient(#ccc, #eee, white);
+    position: absolute;
+    right: 120px;
+    top: 120px;
+}
+#color-setting {
+    flex: 1;
+    justify-content: flex-end;
+}
+.icon {
+    position: relative;
+    top: 22px;
+    height: 50px;
+    width: 50px;
+    border: 5px solid white;
+    box-shadow: 0 0 1px #ccc;
+    background-color: #6a6a6a;
+    border-radius: 8px;
+    transform-origin: bottom left;
+    transform: rotate(-10deg);
+    transition: all 200ms;
+    z-index: 1;
+}
+.icon:hover {
+    transform: rotate(0);
+}
+.icon-shadow {
+    position: relative;
+    margin-top: 15px;
+    left: -10px;
+    height: 12px;
+    width: 60px;
+    border-radius: 50%;
+    transition: all 200ms;
+    background-image: radial-gradient(#bbb 15%, #ddd 40%, white 80%);
+    z-index: -1;
+}
+.icon:hover + .icon-shadow {
+    background-image: radial-gradient(transparent, transparent);
+}
+#color-setting .prompt {
+    margin: 0.5rem 1rem 0.5rem 1.5rem;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: 4px solid #999;
+    color: #444;
+    border-radius: 6px;
+}
+#featured-article-grid {
+    margin-top: 10rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+}
+.featured-article {
+    position: relative;
+    padding: 1rem 0 5.5rem 4rem;
+    background-color: #555;
+    min-height: 90vh;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.profile.row {
+    justify-content: start;
+}
+.profile .icon {
+    height: 70px;
+    width: 70px;
+    left: 20px;
+    z-index: 3;
+}
+.profile .icon-shadow {
+    width: 80px;
+    left: 10px;
+    background-image: radial-gradient(#111 15%, #333 40%, #555 80%);
+    z-index: 2;
+}
+.profile .name {
+    margin: 0 0.5rem 0 1.8rem;
+}
+.featured-article .header h1 {
+    font-size: 3rem;
+    line-height: 1.2;
+    font-weight: 900;
+    text-transform: capitalize;
+}
+.comment {
+    justify-content: flex-start;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 1.5rem 0;
+}
+.tags.row {
+    justify-content: flex-start;
+    margin: 2rem 0;
+}
+.tag {
+    margin: 1rem 2rem 1rem 0;
+}
+.tag span {
+    margin-right: 0.3rem;
+    font-weight: bold;
+}
+.tag span:last-child {
+    font-size: 0.8rem;
+    transform: translateY(-5px);
+}
+.featured-article .more {
+    position: absolute;
+    bottom: 0;
+    left: 4rem;
+    font-size: 2rem;
+    padding: 1.5rem 0;
+}
