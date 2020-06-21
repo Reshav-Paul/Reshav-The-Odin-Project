@@ -1,6 +1,7 @@
 :root {
     font-family: 'Source Sans Pro';
     color: white;
+    background-color: #777;
 }
 * {
     margin: 0;
@@ -28,6 +29,12 @@ li {
 .italics {
     font-style: italic;
 }
+.uppercase {
+    text-transform: uppercase;
+}
+.capitalize {
+    text-transform: capitalize;
+}
 #navbar {
     background-color: #6a6a6a;
     padding: 0.4rem 0;
@@ -42,6 +49,7 @@ li {
     padding: 0 1rem;
     margin: 1rem;
     justify-content: space-evenly;
+    flex-wrap: wrap;|
 }
 #navbar .nav-item {
     margin: 0 1rem;
@@ -76,7 +84,7 @@ li {
 #featured-articles {
     padding: 2rem 0;
 }
-#featured-articles .header {
+#featured-articles > .header {
     display: flex;
 }
 #featured-articles .header .header-text {
@@ -103,7 +111,7 @@ li {
     width: 200px;
     height: 20px;
     border-radius: 50%;
-    background-image: radial-gradient(#ccc, #eee, white);
+    background-image: radial-gradient(#222 15%, #444 40%, #5d5d5d 80%);
     position: absolute;
     right: 120px;
     top: 120px;
@@ -137,11 +145,11 @@ li {
     width: 60px;
     border-radius: 50%;
     transition: all 200ms;
-    background-image: radial-gradient(#bbb 15%, #ddd 40%, white 80%);
+    background-image: radial-gradient(#222 15%, #444 40%, #5d5d5d 80%);
     z-index: -1;
 }
 .icon:hover + .icon-shadow {
-    background-image: radial-gradient(transparent, transparent);
+    background-image: radial-gradient(transparent, transparent) !important;
 }
 #color-setting .prompt {
     margin: 0.5rem 1rem 0.5rem 1.5rem;
@@ -155,14 +163,15 @@ li {
 #featured-article-grid {
     margin-top: 10rem;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+    max-width: 100%;
+    box-sizing: border-box;
+    /* grid-template-columns: repeat(auto-fit, minmax(50%, 1fr)); */
+    grid-template-columns: 1fr 1fr;
 }
 .featured-article {
     position: relative;
-    padding: 1rem 0 5.5rem 4rem;
+    padding: 1rem 2rem 25vh 2rem;
     background-color: #555;
-    min-height: 90vh;
-    box-sizing: border-box;
     cursor: pointer;
 }
 .profile.row {
@@ -184,7 +193,7 @@ li {
     margin: 0 0.5rem 0 1.8rem;
 }
 .featured-article .header h1 {
-    font-size: 3rem;
+    font-size: calc(1.4rem + 1.75vw);
     line-height: 1.2;
     font-weight: 900;
     text-transform: capitalize;
@@ -198,6 +207,7 @@ li {
 .tags.row {
     justify-content: flex-start;
     margin: 2rem 0;
+    flex-wrap: wrap;
 }
 .tag {
     margin: 1rem 2rem 1rem 0;
@@ -213,7 +223,401 @@ li {
 .featured-article .more {
     position: absolute;
     bottom: 0;
-    left: 4rem;
+    left: 2rem;
     font-size: 2rem;
     padding: 1.5rem 0;
+}
+#latest-posts .row {
+    align-items: stretch;
+    margin-bottom: 2rem;
+    padding-right: 3rem;
+    background-color: #777;
+}
+#latest-posts .card {
+    cursor: pointer;
+    position: relative;
+    width: calc(100% - 1rem);
+    background-color: #777;
+    box-sizing: border-box;
+    padding: 2.5rem 2.5rem 7.5rem 2.5rem;
+    transition: all 200ms;
+}
+#latest-posts .card h1 {
+    font-size: 1.8rem;
+    margin-top: 1rem;
+}
+#latest-posts .card .author {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: underline;
+}
+#latest-posts .card .description {
+    font-size: 1.2rem;
+    line-height: 2rem;
+}
+#latest-posts .card a {
+    color: #0d3974;
+}
+#latest-posts .card .more {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 2rem;
+    padding: 1.5rem 2.5rem;
+}
+#latest-posts .card:hover  .more {
+    background-color: #1265d1;
+}
+#latest-posts .card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 5px #333;
+    z-index: 1;
+}
+#smashing-ad {
+    text-align: center;
+    background-color: #333 !important;
+}
+#smashing-ad h1 a {
+    color: #eee !important;
+    font-size: 2.5rem !important;
+}
+.alpha-underline {
+    line-height: 1.3;
+    background-image: linear-gradient(#777,#777);
+    background-size: 100% 1px;
+    text-decoration: none;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+}
+#smashing-ad p {
+    font-size: 1.1rem;
+    line-height: 2rem;
+    margin-bottom: 1rem;
+}
+#smashing-ad a {
+    letter-spacing: 1.3px;
+    text-decoration: none !important;
+    border-bottom: 2px solid #999;
+    color: #aaa !important;
+}
+.explore-button {
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    margin: 1rem auto;
+    background-color: white;
+    color: #1265d1;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+#smashing-ad:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+#smashing-new {
+    box-sizing: border-box;
+    max-height: 90vh;
+    min-height: 540px;
+    margin: 0 2rem 1rem 2rem;
+    padding: 1rem 2rem 3rem 2rem;
+    text-align: center;
+    border-radius: 1rem;
+    background-color: #333;
+}
+#smashing-new img {
+    margin: 1rem auto;
+    max-height: 30vh;
+}
+#smashing-new h1 a {
+    display: inline-block;
+    color: #eee;
+    background-size: 100% 3px;
+    margin-bottom: 1.5rem;
+    font-size: 3rem;
+}
+#smashing-new p {
+    max-width: 50%;
+    font-size: 1.2rem;
+    margin: 1.5rem auto;
+}
+#smashing-new a {
+    color: #1265d1;
+}
+#all-articles-link {
+    text-align: center;
+}
+#all-articles-link a {
+    text-decoration: none;
+    color: #ccc;
+    border-bottom: 2px solid #ccc;
+}
+#click-ad {
+    background-color: #333;
+    padding: 3.5rem 2.5rem 2.5rem 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#click-ad > * {
+    max-width: 60%;
+}
+#click-ad h1 a {
+    font-size: 3rem;
+    color: #eee;
+    background-size: 100% 3px;
+}
+#click-ad p {
+    font-size: 1.5rem;
+    margin: 1rem auto 2rem auto;
+}
+#click-ad .explore-button {
+    padding: 1.3rem 1.5rem;
+}
+#click-ad img {
+    max-height: 60vh;
+}
+#person-of-the-week {
+    margin: 2.5rem 1.5rem 2.5rem 4rem;
+}
+#person-of-the-week .icon {
+    height: 200px;
+    width: 200px;
+    background-color: #333;
+}
+#person-of-the-week .icon-shadow {
+    width: 100%;
+    height: 20px;
+    background-image: radial-gradient(#333, #555 50%, #777);
+}
+#person-of-the-week .description {
+    margin: 0 0 1.5rem 1.5rem;
+}
+#person-of-the-week .description p {
+    margin: 1.5rem 0 0 0;
+    font-size: 1.25rem;
+    line-height: 2.2rem;
+}
+#person-of-the-week .description a {
+    color: #07397a;
+}
+#community-posts {
+    max-width: 100%;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+    margin-left: 1rem;
+    align-items: flex-start;
+}
+.community-link {
+    flex: 1;
+    align-items: flex-start;
+    flex-basis: 50%;
+    padding: 1.5rem 2.5rem;
+    box-sizing: border-box;
+}
+.community-link .post {
+    margin: 1rem 1rem 1.5rem 1.5rem;
+}
+.community-link .post .author {
+    font-size: 1.2rem;
+}
+.community-link .post .author span {
+    text-decoration: underline;
+    margin-right: 5px;
+}
+.community-link .post .header {
+    font-size: 2.1rem;
+    margin: 0.6rem 1rem 1.5rem 0;
+}
+.community-link .icon {
+    margin-top: 1rem;
+    background-color: #444;
+}
+.community-link .post .description {
+    font-size: 1.25rem;
+    line-height: 2rem;
+}
+.community-link .post a {
+    color: #07397a;
+}
+.community-link .post .date {
+    font-size: 1rem;
+}
+#community-articles-twitter-link {
+    text-align: center;
+    margin: 1rem auto;
+}
+#community-articles-twitter-link span {
+    padding-bottom: 2px;
+    border-bottom: 3px solid #aaa;
+}
+#design-systems-ad {
+    position: relative;
+    margin: 4rem 0 2rem 0;
+    box-sizing: border-box;
+    background-color: #333;
+}
+#design-systems-ad .description {
+    flex: 7;
+    padding: 2rem 2rem 1rem 2rem;
+    box-sizing: border-box;
+}
+#design-systems-ad .description > * {
+    margin: 1.5rem 0;
+}
+#design-systems-ad .description .header a {
+    font-size: 2.5rem;
+    color: #eee;
+    background-size: 100% 3px;
+}
+#design-systems-ad .description p {
+    font-size: 1.25rem;
+    line-height: 2.1rem;
+}
+#design-systems-ad .book-img {
+    box-sizing: border-box;
+    position: relative;
+    top: -4rem;
+    left: 0;
+    flex: 3;
+    text-align: start;
+    text-align: left;
+    padding: 0 1.5rem;
+}
+#design-systems-ad .book-img img {
+    max-width: 100%;
+    max-height: 50vh;
+}
+#design-systems-ad .icon {
+    height: auto;
+    width: auto;
+    background-color: transparent;
+    border: none;
+    border-radius: none;
+    box-shadow: none;
+}
+#design-systems-ad .icon-shadow {
+    position: absolute;
+    left: 0;
+    width: 65%;
+    height: 3vh;
+    z-index: 1;
+    background-image: radial-gradient(#000 15%, #111 40%, #222 80%);
+}
+#guides {
+    flex-wrap: wrap;
+    flex-basis: 100%;
+    justify-content: space-evenly;
+    align-items: stretch;
+    margin: 4rem 0;
+}
+#guides .card {
+    box-sizing: border-box;
+    flex-basis: 45%;
+    padding: 1.5rem 2.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 5px #333;
+    border-radius: 10px;
+}
+#guides .card > * {
+    margin: 1rem 0;
+}
+#guides .card .header {
+    font-size: 2.5rem;
+    color: #2a2a2a;
+    margin: 0.2rem 0 1.8rem 0;
+}
+#guides .card .description {
+    font-size: 1.25rem;
+    line-height: 2rem;
+}
+#guides .card .explore-button {
+    color: white;
+    background-color: #222;
+    padding: 1.4rem 1.2rem;
+    border-radius: 10px;
+}
+#newsletter-sub-form {
+    padding: 0 !important;
+    background-color: #333;
+    color: white;
+}
+#newsletter-sub-form > * {
+    color: inherit !important;
+    padding: 0 2rem;
+}
+#newsletter-sub-form img {
+    max-width: 100%;
+    padding: 0;
+}
+#newsletter-sub-form form {
+    display: flex;
+    align-items: stretch;
+    margin: 2rem 0 !important;
+}
+#newsletter-sub-form input[type='email'] {
+    flex: 7;
+    height: 7vh;
+    border: none;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    max-height: 150px;
+    box-sizing: border-box;
+}
+#newsletter-sub-form input[type='submit'] {
+    flex: 3;
+    margin: 0;
+    max-height: 150px !important;
+    background-color: #111;
+    color: white;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: none;
+    font-size: 1.2rem;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px black;
+}
+#newsletter-sub-form .footer {
+    min-width: 200px;
+    max-width: 60%;
+    margin: 1rem auto 2.5rem auto;
+    padding: 1rem;
+    background-color: #555;
+    border-radius: 10px;
+    text-shadow: 0 0 1px #222;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    text-align: center;
+}
+#site-footer {
+    text-align: center;
+    background-color: #555;
+    padding: 2rem 1rem;
+}
+#site-footer #categories {
+    flex-wrap: wrap;
+    margin: 1rem 5%;
+    justify-content: center;
+}
+#site-footer #categories li {
+    list-style: disc;
+    margin: 1rem;
+}
+#site-footer #categories li a {
+    color: white;
+    font-size: 1.4rem;
+    text-decoration: none;
+    transition: color 200ms;
+}
+#site-footer #categories li a:hover {
+    color: #111;
+}
+#site-footer .links {
+    margin: 2rem 5%;
+    justify-content: center;
+}
+#site-footer .links li a {
+    margin: 1rem;
+    color: white;
 }
