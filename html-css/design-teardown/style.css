@@ -1,3 +1,6 @@
+/* This page was not made to be responsive because responsive degradation  */
+/* will change the visual hierarchy of the original design  */
+
 :root {
     font-family: 'Source Sans Pro';
     color: white;
@@ -127,12 +130,12 @@ li {
     width: 50px;
     border: 5px solid white;
     box-shadow: 0 0 1px #ccc;
-    background-color: #6a6a6a;
+    background-color: #444;
     border-radius: 8px;
     transform-origin: bottom left;
     transform: rotate(-10deg);
     transition: all 200ms;
-    z-index: 1;
+    z-index: 2;
 }
 .icon:hover {
     transform: rotate(0);
@@ -146,7 +149,7 @@ li {
     border-radius: 50%;
     transition: all 200ms;
     background-image: radial-gradient(#222 15%, #444 40%, #5d5d5d 80%);
-    z-index: -1;
+    z-index: 1;
 }
 .icon:hover + .icon-shadow {
     background-image: radial-gradient(transparent, transparent) !important;
@@ -165,7 +168,6 @@ li {
     display: grid;
     max-width: 100%;
     box-sizing: border-box;
-    /* grid-template-columns: repeat(auto-fit, minmax(50%, 1fr)); */
     grid-template-columns: 1fr 1fr;
 }
 .featured-article {
@@ -243,7 +245,7 @@ li {
     transition: all 200ms;
 }
 #latest-posts .card h1 {
-    font-size: 1.8rem;
+    font-size: calc(1rem + 0.8vw);
     margin-top: 1rem;
 }
 #latest-posts .card .author {
@@ -279,7 +281,7 @@ li {
 }
 #smashing-ad h1 a {
     color: #eee !important;
-    font-size: 2.5rem !important;
+    font-size: calc(1.4rem + 1vw) !important;
 }
 .alpha-underline {
     line-height: 1.3;
@@ -333,7 +335,7 @@ li {
     color: #eee;
     background-size: 100% 3px;
     margin-bottom: 1.5rem;
-    font-size: 3rem;
+    font-size: calc(2rem + 1.2vw);
 }
 #smashing-new p {
     max-width: 50%;
@@ -364,7 +366,7 @@ li {
     max-width: 60%;
 }
 #click-ad h1 a {
-    font-size: 3rem;
+    font-size: calc(2rem + 1.2vw);
     color: #eee;
     background-size: 100% 3px;
 }
@@ -384,7 +386,7 @@ li {
 #person-of-the-week .icon {
     height: 200px;
     width: 200px;
-    background-color: #333;
+    background-color: #222;
 }
 #person-of-the-week .icon-shadow {
     width: 100%;
@@ -406,8 +408,7 @@ li {
     max-width: 100%;
     flex-wrap: wrap;
     flex-basis: 100%;
-    margin-left: 1rem;
-    align-items: flex-start;
+    align-items: stretch;
 }
 .community-link {
     flex: 1;
@@ -427,19 +428,20 @@ li {
     margin-right: 5px;
 }
 .community-link .post .header {
-    font-size: 2.1rem;
+    font-size: calc(1.2rem + 0.9vw);
     margin: 0.6rem 1rem 1.5rem 0;
+    color: black;
 }
 .community-link .icon {
     margin-top: 1rem;
-    background-color: #444;
+    background-color: #292929;
 }
 .community-link .post .description {
     font-size: 1.25rem;
     line-height: 2rem;
 }
 .community-link .post a {
-    color: #07397a;
+    color: #6ca4ee;
 }
 .community-link .post .date {
     font-size: 1rem;
@@ -467,7 +469,7 @@ li {
     margin: 1.5rem 0;
 }
 #design-systems-ad .description .header a {
-    font-size: 2.5rem;
+    font-size: calc(1.6rem + 1vw);
     color: #eee;
     background-size: 100% 3px;
 }
@@ -524,7 +526,7 @@ li {
     margin: 1rem 0;
 }
 #guides .card .header {
-    font-size: 2.5rem;
+    font-size: calc(1.6rem + 1vw);
     color: #2a2a2a;
     margin: 0.2rem 0 1.8rem 0;
 }
@@ -559,11 +561,19 @@ li {
 #newsletter-sub-form input[type='email'] {
     flex: 7;
     height: 7vh;
+    min-height: 2.5rem;
     border: none;
+    padding: 0.5rem 1rem;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     max-height: 150px;
     box-sizing: border-box;
+    font-family: inherit;
+    font-size: 1.2rem;
+}
+#newsletter-sub-form input[type='email']::placeholder {
+    font-family: inherit;
+    font-size: 1.2rem;
 }
 #newsletter-sub-form input[type='submit'] {
     flex: 3;
@@ -592,7 +602,7 @@ li {
 }
 #site-footer {
     text-align: center;
-    background-color: #555;
+    background-color: #444;
     padding: 2rem 1rem;
 }
 #site-footer #categories {
@@ -620,4 +630,47 @@ li {
 #site-footer .links li a {
     margin: 1rem;
     color: white;
+}
+
+/* Changing the background color of elements on the website based on the visual hierarchy */
+/* and the visual weightage of the elements */
+
+#navbar {
+    background-color: #535353 !important;
+}
+#featured-article-grid .featured-article:nth-child(1) {
+    background-color: #333;
+}
+#featured-article-grid .featured-article:nth-child(2) {
+    background-color: #444;
+}
+#featured-article-grid .featured-article:nth-child(3) {
+    background-color: #3a3a3a;
+}
+#featured-article-grid .featured-article:nth-child(4) {
+    background-color: #434343;
+}
+#latest-posts .card:nth-child(3n - 2) {
+    background-color: #434343;
+}
+#latest-posts .card:nth-child(3n - 1) {
+    background-color: #525252;
+}
+#latest-posts .card:nth-child(3n) {
+    background-color: #5c5c5c;
+}
+#community-posts .community-link:nth-child(odd) {
+    background-color: #444;
+}
+#community-posts .community-link:nth-child(even) {
+    background-color: #525252;
+}
+#community-posts .community-link:nth-child(even) .post .header {
+    color: #222;
+}
+#guides .card:nth-child(odd) {
+    background-color: #464646;
+}
+#guides .card:nth-child(2) {
+    background-color: #565656;
 }
