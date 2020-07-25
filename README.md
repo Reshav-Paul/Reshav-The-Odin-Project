@@ -5,3 +5,5 @@ The Odin project is an online active learning course for web development
 For details please visit  https://www.theodinproject.com/
 
 This is a collection of my projects and solutions to exercises from the full stack javascript course.
+
+The projects can be accessed from https://reshav-paul.github.io/Reshav-The-Odin-Project/
