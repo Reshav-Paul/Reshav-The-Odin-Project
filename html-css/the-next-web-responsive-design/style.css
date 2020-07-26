@@ -1,0 +1,485 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+:root {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+body, html {
+    margin: 0;
+    padding: 0;
+}
+.row {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+}
+img {
+    max-width: 100%;
+}
+#nav {
+    box-shadow: 0 0 4px #aaa;
+    display: flex;
+    justify-content: stretch;
+}
+#nav-layers {
+    width: 100%;
+}
+#nav .logo {
+    background: linear-gradient(#e70e68, orangered);
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+/* upper nav */
+#nav .upper a {
+    color: #aaa;
+    font-size: 0.85rem;
+    transition: color 300ms;
+}
+#nav .upper a:hover {
+    color: white;
+}
+#nav .upper {
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+}
+
+#nav .upper li {
+    padding: 0.3rem 0.5rem;
+}
+
+/* lower nav */
+
+#nav  .lower a {
+    color: #aaa;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    transition: color 300ms;
+}
+#nav  .lower a:hover {
+    color: #333;
+}
+#nav  .lower {
+    background-color: #faf9f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#nav  .lower li {
+    padding: 1rem 0.8rem;
+}
+
+#nav .lower .actions {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+#nav i {
+    color: #aaa;
+    transition: color 300ms;
+    padding: 0 0.8rem;
+}
+#nav i:hover {
+    color: #333;
+}
+nav .lower .actions .fa-bars {
+    display: none;
+}
+
+/* articles */
+
+#highlighted-articles {
+    min-height: 300px;
+    height: 70vh;
+    background-image: linear-gradient(to bottom, #ddd, #fff);
+    align-items: stretch;
+    justify-content: stretch;
+    color: white;
+    padding: 4px;
+}
+#highlighted-articles article {
+    margin: 4px;
+}
+#highlighted-articles > article.primary {
+    flex: 7;
+    position: relative;
+    background-image: linear-gradient(170deg, #ff3c23cc 25%, #00000077 60%, black, black), url('https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2020/07/Copy-of-Copy-of-Copy-of-Copy-of-Copy-of-Copy-of-...-17-796x417.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.2rem;
+}
+article.primary .logo-text {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-size: calc(5rem + 3vw);
+}
+article.primary .date {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 0.85rem;
+    color: #fffc;
+}
+article.primary header {
+    font-size: calc(2rem + 1vw);
+    font-weight: bolder;
+    letter-spacing: -1.5px;
+}
+article.primary .details {
+    justify-content: flex-start;
+}
+article.primary .details > * {
+    margin: 0.4rem 1rem 0.4rem 0;
+}
+
+#highlighted-articles > div.secondary {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+article.secondary {
+    height: 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.2rem 0.8rem;
+}
+article.secondary .tag {
+    text-transform: uppercase;
+    font-weight: 100;
+    color: white;
+}
+article.secondary header {
+    font-size: 1.5rem;
+    letter-spacing: -1.3px;
+    font-weight: bold;
+    color: white;
+}
+article .details {
+    justify-content: flex-start;
+    font-size: 0.8rem;
+    color: #bbb;
+}
+article.secondary .details > * {
+    margin: 0.2rem 0.6rem 0.2rem 0;
+}
+#highlighted-articles > div.secondary > article.secondary:first-of-type {
+    background-image: linear-gradient(to top, black, #3335), url('https://img-cdn.tnwcdn.com/image?fit=1280%2C720&url=https%3A%2F%2Fcdn0.tnwcdn.com%2Fwp-content%2Fblogs.dir%2F1%2Ffiles%2F2020%2F07%2Fheader-image-super-mario-bros-apple-stock-nes-worth-more.png&signature=8907f89de25467b52c0470a45be8fb87');
+}
+
+#highlighted-articles > div.secondary > article.secondary:nth-of-type(2) {
+    background-image: linear-gradient(to top, black, #3335), url('https://img-cdn.tnwcdn.com/image?fit=1280%2C720&url=https%3A%2F%2Fcdn0.tnwcdn.com%2Fwp-content%2Fblogs.dir%2F1%2Ffiles%2F2020%2F07%2FSuperStrata_Studio_White_SideView_2370.png&signature=518e42389abdff6959bb556f0f26f7de');
+}
+#latest-news {
+    /* width: 80%; */
+    max-width: 1080px;
+    margin: 1rem auto;
+    padding: 0 0.5rem;
+}
+.more-content-link {
+    color: orangered;
+    font-size: 1.2rem;
+    font-weight: bolder;
+    /* margin-left: 1rem; */
+}
+#latest-news .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+#funding-rounds {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 1rem auto;
+    padding: 1rem;
+    max-width: 1080px;
+}
+
+#funding-rounds > div img {
+    height: 50px;
+    float: left;
+    margin: 1.5rem 1rem;
+}
+#funding-rounds > div .title {
+    background-color: orangered;
+    padding: 1rem 0;
+    color: white;
+}
+#funding-rounds > div .stats {
+    background-color: #ffe6dd;
+    padding: 0.5rem 0;
+}
+#funding-rounds .tags {
+    padding: 1rem;
+    background-color: #fdf2ee;
+}
+#funding-rounds .tag a {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: lighter;
+    margin: 0.3rem 0 0.3rem 0;
+    color: black;
+}
+#funding-rounds > div hr {
+    border: none;
+    width: 100%;
+    height: 1px;
+    background-color: orangered;
+}
+#funding-rounds > div p {
+    background-color: #fdf2ee;
+    font-size: 0.8rem;
+    padding: 1rem;
+    color: grey;
+}
+#categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    margin: 1rem auto;
+    padding: 1rem;
+    max-width: 1080px;
+}
+.category {
+    margin: 0.5rem 0;
+}
+.category article.secondary {
+    height: 18vw;
+    max-height: 320px;
+}
+.category article.secondary header {
+    font-size: 1.2rem;
+}
+.category article.secondary .tag {
+    font-size: 0.8rem;
+}
+.category article.secondary:first-of-type {
+    background-image: linear-gradient(to top, black, #3335), url('https://img-cdn.tnwcdn.com/image?fit=1280%2C720&url=https%3A%2F%2Fcdn0.tnwcdn.com%2Fwp-content%2Fblogs.dir%2F1%2Ffiles%2F2019%2F08%2Fbitcoin_today-header_bitcoin_today.jpg&signature=b75eca35f42accc83310a4fa4e562088');
+}
+.category .latest {
+    display: flex;
+    background-color: #ffe6dd;
+    margin-top: 2px;
+}
+.category .latest img {
+    max-width: 25%;
+}
+.category .latest > div {
+    padding: 0.5rem;
+    color: #ff581b;
+}
+.category .latest header {
+    font-size: 0.85rem;
+    color: orangered;
+    font-weight: bolder;
+}
+
+.news-list li {
+    font-size: 0.8rem;
+    list-style-type: disc;
+    margin: 0 0.8rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #ddd;
+    color: #585858;
+}
+
+#latest-deals{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem 1rem;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+#latest-deals > h1:first-of-type {
+    grid-column: 1/-1;
+}
+#latest-deals > h1:first-of-type a {
+    color: orangered;
+}
+#latest-deals .deal header {
+    margin: 0.3rem 0;
+}
+#latest-deals .deal header a {
+    font-weight: bold;
+    font-size: 0.92rem;
+    color: black;
+}
+#latest-deals .deal header a:hover {
+    color: orangered;
+}
+#latest-deals .deal .price {
+    color: #aaa;
+    text-decoration: line-through;
+    font-size: 0.8rem;
+}
+#latest-deals .deal .offer-price {
+    color: #333;
+    font-size: 0.95rem;
+}
+footer {
+    background-color: #1c1c1c;
+}
+#social-media-links {
+    display: flex;
+    margin-top: 1rem;
+    padding: 2rem 0 1rem 0;
+    justify-content: center;
+}
+#social-media-links > div {
+    margin: 1.2rem 0.8rem;
+    margin-bottom: 0;
+    padding: 0.5rem;
+    background-color: #444;
+    border-radius: 50%;
+    height: 1.25rem;
+    width: 1.25rem;
+    text-align: center;
+    border: 2px solid #555;
+}
+#social-media-links > div:hover {
+    background-color: #191919;
+}
+#social-media-links i {
+    color: white;
+    font-size: 1rem;
+}
+#site-footer-links {
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0 2rem 0;
+}
+#site-footer-links a {
+    color: #aaa;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    margin: 0 1rem;
+}
+.footer-legal {
+    color: #888;
+    text-align: center;
+    font-size: 0.8rem;
+    background-color: #111;
+    padding: 2rem 1rem;
+}
+
+@media (max-width: 1000px) {
+    #nav .logo {
+        display: flex;
+    }
+    #highlighted-articles .secondary header {
+        font-size: 1.1rem;
+    }
+    #highlighted-articles .secondary .shares {
+        display: none;
+    }
+    #funding-rounds > div:last-child {
+        display: none;
+    }
+}
+
+@media (max-width: 756px) {
+    #nav .lower .fa-bars {
+        display: block;
+    }
+
+    #nav .upper .row, #nav .lower .row {
+        display: none;
+    }
+    #nav .lower {
+        height: 100%;
+        justify-content: flex-end;
+    }
+    #highlighted-articles {
+        flex-direction: column;
+        height: auto;
+    }
+    #highlighted-articles .primary .logo-text {
+        display: none;
+    }
+    #highlighted-articles .primary .date {
+        display: none;
+    }
+    #highlighted-articles .primary header {
+        font-size: 1.2rem;
+    }
+    #highlighted-articles article {
+        display: flex;
+        flex-direction: column;
+        min-height: 25vh;
+        height: 25vh;
+    }
+    #latest-news .grid {
+        grid-template-columns: 1fr;
+    }
+    #latest-news .grid article img {
+        max-width: 70px;
+        float: left;   
+        height: 70px;
+        margin-right: 0.5rem;
+    }
+    #latest-news .grid article h4 {
+        font-size:0.9rem;
+    }
+    #funding-rounds {
+        grid-template-columns: 1fr;
+    }
+    #categories {
+        grid-template-columns: 1fr;
+    }
+    #categories article.secondary {
+        height: 60vh;
+        max-height: 60vh;
+    }
+    #latest-deals {
+        grid-template-columns: 1fr;
+    }
+    #latest-deals .deal img {
+        width: 70px;
+        float: left;
+        margin-right: 0.5rem;
+    }
+    #latest-deals .deal header a {
+        font-size: 0.85rem;
+    }
+    #latest-deals .deal .price {
+        font-size: 0.7rem;
+    }
+    #latest-deals .deal .offer-price {
+        font-size: 0.8rem;
+    }
+    #social-media-links > div {
+        margin: 0.6rem 0.3rem;
+    }
+    #site-footer-links {
+        padding-top: 0;
+    }
+    #site-footer-links a {
+        font-size: 0.8rem;
+        margin: 0 0.5rem;
+    }
+}
