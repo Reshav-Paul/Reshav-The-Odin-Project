@@ -1,5 +1,10 @@
 :root {
     background-color: #f8f8f8;
+    max-width: 1200px;
+    margin: auto;
+}
+img {
+    max-width: 100%;
 }
 #category-nav h5 {
     font-size: 1.1rem;
@@ -11,9 +16,68 @@
 .nav .nav-brand {
     text-decoration: none;
 }
-#category-nav .row .nav-link {
+.nav-link.dark {
+    font-weight: bold;
     color: black;
 }
-#category-nav .row .nav-link:hover {
+.nav-link.light {
+    color: #888;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+.nav-link.dark:hover, .nav-link.light:hover {
     color: #dc3545;
+}
+.article {
+    margin-bottom: 1rem;
+}
+.article .header-lg {
+    margin-top: 0.5rem;
+}
+.article .header-lg a {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: black;
+}
+.article .header-lg a:hover {
+    text-decoration-color: #dc3545;
+}
+.article .img {
+    position: relative;
+}
+.article .img .category {
+    background-color: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: orangered;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 0.2rem 1rem;
+}
+.ranking .header-lg {
+    margin: 0.8rem 1rem;
+    letter-spacing: -0.5px;
+}
+#others img.profile-fs {
+    max-height: 80px !important;
+    max-width: 100px !important;
+}
+#others a {
+    color: black;
+    letter-spacing: -0.3px;
+    font-weight: 600;
+}
+#others a:hover {
+    text-decoration-color: #dc3545;
+}
+.author {
+    font-weight: 600;
+}
+
+@media (max-width: 992px) {
+    .nav .nav-brand h1{
+        font-size: 1.5rem;
+        text-align: left;
+    }
 }

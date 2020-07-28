@@ -1,73 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
     <title>Newsweek</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous" defer></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous" defer></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"
+        defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"
+        defer></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"
+        defer></script>
 </head>
-<body class="mx-xl-5">
+
+<body>
     <nav class="nav">
-        <div class="container-fluid bg-danger">
-            <div class="row align-items-center justify-content-between" style="width: 100%;">
-                <div class="col-xl-auto">
+        <div class="container-fluid bg-danger py-2">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-3 d-none d-sm-none d-lg-block">
                     <a href="#" class="nav-link text-white">31° Kolkata, IN ></a>
                     <a href="#" class="nav-link text-white">Sun, Jul 26, 2020</a>
                 </div>
-                <div class="col-xl-auto text-center">
+                <div class="col-6 text-center">
                     <a href="#" class="nav-brand text-white">
                         <h1 class="font-weight-bold">Newsweek</h1>
                     </a>
                 </div>
-                <div class="col-xl-auto">
-                    <div class="row">
-                        <a href="#" class="nav-link text-white">Login</a>
+                <div class="col-6 col-sm-5 col-md-5 col-lg-3 col-xl-3">
+                    <div class="row justify-content-end align-items-center pr-3">
+                        <a href="#" class="d-none d-sm-none d-md-inline nav-link text-white">Login</a>
+                        <i class="fa fa-user pr-2 text-light d-md-none"></i>
                         <button class="btn bg-warning font-weight-bold">SUBSCRIBE</button>
-                    </div>                    
+                        <i class="fa fa-bars pl-2 text-light d-lg-none"></i>
+                    </div>
                 </div>
             </div>
         </div>
-        <div id="category-nav" class="container-fluid border-bottom">
+        <div id="category-nav" class="container-fluid border-bottom d-none d-sm-none d-lg-block">
             <div class="row">
-                <a href="#" class="nav-link py-0 my-2 border-right">
+                <a href="#" class="nav-link dark py-0 my-2 border-right">
                     <h5 class="font-weight-bold">U.S.</h5>
                 </a>
-                <a href="#" class="nav-link py-0 my-2 border-right">
+                <a href="#" class="nav-link dark py-0 my-2 border-right">
                     <h5 class="font-weight-bold">World</h5>
                 </a>
-                <a href="#" class="nav-link py-0 my-2 border-right">
+                <a href="#" class="nav-link dark py-0 my-2 border-right">
                     <h5 class="font-weight-bold">Business</h5>
                 </a>
-                <a href="#" class="nav-link py-0 my-2 border-right">
+                <a href="#" class="nav-link dark py-0 my-2 border-right">
                     <h5 class="font-weight-bold">Tech & Science</h5>
                 </a>
-                <a href="#" class="nav-link py-0 my-2 border-right">
+                <a href="#" class="nav-link dark py-0 my-2 border-right">
                     <h5 class="font-weight-bold">Culture</h5>
                 </a>
-                <a href="#" class="nav-link py-0 my-2 border-right">
+                <a href="#" class="nav-link dark py-0 my-2 border-right">
                     <h5 class="font-weight-bold">Newsgeek</h5>
                 </a>
-                <a href="#" class="nav-link py-0 my-2 border-right">
+                <a href="#" class="nav-link dark py-0 my-2 border-right">
                     <h5 class="font-weight-bold">Sports</h5>
                 </a>
-                <a href="#" class="nav-link py-0 my-2 border-right">
+                <a href="#" class="nav-link dark py-0 my-2 border-right">
                     <h5 class="font-weight-bold">Health</h5>
                 </a>
-                <a href="#" class="nav-link py-0 my-2 border-right">
+                <a href="#" class="nav-link dark py-0 my-2 border-right">
                     <h5 class="font-weight-bold">The Debate</h5>
                 </a>
-                <a href="#" class="nav-link py-0 my-2 border-right">
+                <a href="#" class="nav-link dark py-0 my-2 border-right">
                     <h5 class="font-weight-bold">Vantage</h5>
                 </a>
-                <a href="#" class="nav-link py-0 my-2 border-right">
+                <a href="#" class="nav-link dark py-0 my-2 border-right">
                     <h5 class="font-weight-bold">Weather</h5>
                 </a>
             </div>
         </div>
+        <div class="container-fluid d-none d-sm-none d-lg-block">
+            <div class="row">
+                <span class="nav-link dark text-dark">TRENDING</span>
+                <a href="#" class="nav-link light text-uppercase">donald trump</a>
+                <a href="#" class="nav-link light text-uppercase">joe biden</a>
+                <a href="#" class="nav-link light text-uppercase">china</a>
+                <a href="#" class="nav-link light text-uppercase">coronavirus</a>
+                <a href="#" class="nav-link light text-uppercase">2020 election</a>
+            </div>
+        </div>
     </nav>
+
+    <main class="container-fluid px-3 row mx-0 my-4 justify-content-between">
+        <div class="col-xl-3 col-lg-3 col-md-5 px-0">
+            <section id="featured">
+                <h6 class="text-uppercase text-black-50 font-weight-bold">featured stories</h6>
+
+                <article class="article">
+                    <div class="img">
+                        <img src="https://d.newsweek.com/en/full/1528708/trump-obrien.webp?w=397&h=265&q=90&f=20b686c1f6bdbe8844d5253f710ee6a0"
+                            alt="">
+                        <div class="category"><span class="text-uppercase">U.S.</span></div>
+                    </div>
+                    <header class="header-lg">
+                        <h5><a href="#">Trump's National Security Adviser Tests Positive for COVID-19</a></h5>
+                    </header>
+                    <p>
+                        The White House confirmed Monday that National Security Adviser Robert O'Brien has been
+                        self-isolating and working from home after testing positive for COVID-19.
+                    </p>
+                </article>
+
+                <article class="article">
+                    <div class="img">
+                        <img src="https://d.newsweek.com/en/full/1613988/mcconnell.webp?w=397&h=265&q=90&f=90664e34d11b1c0364c57ab202b387e2"
+                            alt="">
+                        <div class="category"><span class="text-uppercase">Politics</span></div>
+                    </div>
+                    <header class="header-lg">
+                        <h5><a href="#">McConnell's Stimulus Plan Faces a Tall Hurdle—Senate Republicans</a></h5>
+                    </header>
+                    <p>
+                        The Senate majority leader faces a battle to get lawmakers on board amid competing issues and
+                        priorities.
+                    </p>
+                </article>
+
+                <article class="article">
+                    <div class="img">
+                        <img src="https://d.newsweek.com/en/full/1614040/joe-biden-donald-trump.webp?w=397&h=265&q=90&f=ab5c1df15d023286f9973fa93582c353"
+                            alt="">
+                        <div class="category"><span class="text-uppercase">U.S.</span></div>
+                    </div>
+                    <header class="header-lg">
+                        <h5><a href="#">Biden Leads Trump by 7 Points in N.C., Which GOP Won in 2012 and 2016: Poll</a>
+                        </h5>
+                    </header>
+                    <p>
+                        North Carolina has generally gone for Republicans in most presidential elections going back to
+                        1968.
+                    </p>
+                </article>
+
+                <article class="article">
+                    <div class="img">
+                        <img src="https://d.newsweek.com/en/full/1613923/new-york-coronavirus-queue-whole-foods.webp?w=397&h=265&q=90&f=554ce49ef4c744ca0c9420ebc3a4fc6e"
+                            alt="">
+                        <div class="category"><span class="text-uppercase">U.S.</span></div>
+                    </div>
+                    <header class="header-lg">
+                        <h5><a href="#">Americans Back Tough Lockdown Restrictions as Trump Admin Pushes to Reopen</a>
+                        </h5>
+                    </header>
+                    <p>
+                        More than half of Americans told pollsters they would support the forced closure of restaurants
+                        and bars to tackle the spread of the coronavirus.
+                    </p>
+                </article>
+
+                <article class="article">
+                    <div class="img">
+                        <img src="https://d.newsweek.com/en/full/1614005/larry-kudlow-steve-mnuchin.webp?w=397&h=265&q=90&f=9dce190a869aa0f34092c1985ce76a78"
+                            alt="">
+                        <div class="category"><span class="text-uppercase">U.S.</span></div>
+                    </div>
+                    <header class="header-lg">
+                        <h5><a href="#">New Stimulus Legislation Could Ensure a $450 Per Week Raise—Here's Why</a></h5>
+                    </header>
+                    <p>
+                        "The check is there, the re-employment bonus is there," White House economic adviser Larry
+                        Kudlow said.
+                    </p>
+                </article>
+
+                <article class="article ranking">
+                    <div class="img">
+                        <img src="https://d.newsweek.com/en/full/1610683/best-maternity-hospitals-2020.png?w=500&h=333&f=a9a0892bbb71203135a73f0b4693f181"
+                            alt="">
+                        <div class="category text-primary"><span class="text-uppercase">Rankings</span></div>
+                    </div>
+                    <div class="border">
+                        <header class="header-lg">
+                            <h5><a href="#">Best Maternity Hospitals 2020</a></h5>
+                        </header>
+                        <p class="px-3">
+                            The facilities cited by Newsweek are an elite group demonstrating excellence in maternity
+                            care. Check the full list here
+                        </p>
+                    </div>
+                </article>
+                <article class="article ranking">
+                    <div class="img">
+                        <img src="https://d.newsweek.com/en/full/1603109/americas-best-realtors-2020.jpg?w=500&h=333&f=d564ac26330b80cd33b2b013a3e6fc8b"
+                            alt="">
+                        <div class="category text-primary"><span class="text-uppercase">Rankings</span></div>
+                    </div>
+                    <div class="border">
+                        <header class="header-lg">
+                            <h5><a href="#">America’s Best Realtors 2020</a></h5>
+                        </header>
+                        <p class="px-3">
+                            Newsweek partnered with REAL Trends to sort through the data and provide you with a list of
+                            America's Best Real Estate Professionals
+                        </p>
+                    </div>
+                </article>
+                <article class="article ranking">
+                    <div class="img">
+                        <img src="https://d.newsweek.com/en/full/1568509/newsweek-amplify.png?w=500&h=333&f=98c0ebfc554597997a0de3bd6159812a"
+                            alt="">
+                    </div>
+                    <div class="border">
+                        <header class="header-lg">
+                            <h5><a href="#">Newsweek AMPLIFY Launches Strategic Partnership Solutions for Brands</a>
+                            </h5>
+                        </header>
+                        <p class="px-3">
+                            Newsweek AMPLIFY, the company's performance marketing business unit, has launched a new
+                            program to empower digital brands with comprehensive content marketing and advertising
+                            strategies.
+                        </p>
+                    </div>
+                </article>
+            </section>
+        </div>
+
+        <div class="col-xl-6 col-lg-5 col-md-7">
+            <section id="top-stores">
+                <h6 class="text-uppercase text-black-50 font-weight-bold">top story</h6>
+                <article class="article">
+                    <div class="img">
+                        <img src="https://d.newsweek.com/en/full/1613990/us-president-donald-trump.webp?w=591&h=364&f=b0982ce046610ea14cb3ef30f5d8c376"
+                            alt="">
+                        <div class="category"><span class="text-uppercase">U.S.</span></div>
+                    </div>
+                    <header class="header-lg">
+                        <h5><a href="#">Trump Hasn't Led in a Single Florida Poll in Four Months</a></h5>
+                    </header>
+                    <p>
+                        Several new polls conducted across Florida show Trump trailing to presumptive Democratic nominee
+                        Joe Biden.
+                    </p>
+                </article>
+            </section>
+        </div>
+
+        <div class="col-xl-3 col-lg-4 col-md-12 px-0">
+            <section id="others">
+                <span class="text-uppercase text-black-50 font-weight-bold">the debate</span>
+                <section id="the-debate">
+                    <div class="row align-items-center">
+                        <img class="col-3 pr-0 profile-fs"
+                            src="https://d.newsweek.com/en/full/1597218/m-todd-henderson.webp?w=150&h=150&f=cb3ba77c6e54258fd9fa084f35f53b2a"
+                            alt="">
+                        <p class="col-9 my-2 pl-2">
+                            <a href="#" class="topic">Everyone Benefits From Private Equity's Value Creation</a>
+                            <br>
+                            <span class="text-secondary">BY</span>
+                            <span class="author text-uppercase">M. Todd Henderson</span>
+                        </p>
+                    </div>
+                    <div class="text-center text-light font-weight-bold" style="font-size: 0.8rem;">
+                        <span class="bg-dark px-1 py-1 rounded-circle">VS</span>
+                    </div>
+                    <div class="row align-items-center justify-content-between">
+                        <p class="col-9 my-2">
+                            <a href="#" class="topic">Private Equity Captures Rather Than Creates Value</a>
+                            <br>
+                            <span class="text-secondary">BY</span>
+                            <span class="author text-uppercase">Oren Cass</span>
+                        </p>
+                        <img class="col-3  pl-0 profile-fs"
+                            src="https://d.newsweek.com/en/full/1612271/oren-cass.webp?w=150&h=150&f=52efa4c6426ab3f067c65ab237e5a950"
+                            alt="">
+                    </div>
+                </section>
+            </section>
+        </div>
+    </main>
 </body>
+
 </html>
