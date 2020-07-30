@@ -1,10 +1,18 @@
 :root {
     background-color: #f8f8f8;
-    max-width: 1200px;
+    max-width: 1280px;
     margin: auto;
 }
 img {
+    width: 100%;
     max-width: 100%;
+}
+a {
+    color: black;
+}
+a:hover {
+    color: black;
+    text-decoration-color: #dc3545;
 }
 #category-nav h5 {
     font-size: 1.1rem;
@@ -46,7 +54,7 @@ img {
     position: relative;
 }
 .article .img .category {
-    background-color: #fff;
+    background-color: #fffd;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -55,29 +63,100 @@ img {
     font-size: 1rem;
     padding: 0.2rem 1rem;
 }
-.ranking .header-lg {
+.article.alt .header-lg {
     margin: 0.8rem 1rem;
     letter-spacing: -0.5px;
 }
-#others img.profile-fs {
-    max-height: 80px !important;
-    max-width: 100px !important;
+.article.alt .header-lg a {
+    font-size: 1.25rem;
 }
-#others a {
-    color: black;
+#opinions .opinion {
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #ddd;
+}
+#opinions .opinion:last-child {
+    border: none;
+}
+.opinion p {
+    padding: 0 0 0.5rem 0.5rem !important;
+    line-height: 1.3;
+}
+.opinion img.profile-fs {
+    max-height: 80px !important;
+    max-width: 80px !important;
+}
+.opinion a {
     letter-spacing: -0.3px;
     font-weight: 600;
 }
-#others a:hover {
-    text-decoration-color: #dc3545;
-}
 .author {
-    font-weight: 600;
+    font-size: 0.8rem;
+    font-weight: bold;
 }
-
+#culture .article .img .category {
+    background-color: #b6bcc7;
+    color: black;
+    bottom: 16px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    padding: 0 0.3rem;
+}
+#more-stories .article {
+    margin-bottom: 0 !important;
+}
+#more-stories .article::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+#more-stories a {
+    letter-spacing: -0.3px;
+}
+#more-stories p {
+    line-height: 1.3;
+    font-size: 0.95rem;
+    letter-spacing: -0.3px;
+}
+.magazine-article {
+    /* padding-top: 100%;
+    position: relative; */
+    margin-bottom: 1rem;
+}
+.magazine-article h5 {
+    line-height: 1;
+}
+/* .magazine-article img {
+    min-height: 38vh;
+    max-height: 400px;
+} */
 @media (max-width: 992px) {
     .nav .nav-brand h1{
         font-size: 1.5rem;
         text-align: left;
+    }
+    .opinion {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+}
+.form-sm {
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+}
+@media (min-width: 992px) {
+    main > div.row:first-of-type > div:nth-child(2) {
+        padding: 0;
+    }
+}
+@media (min-width: 768px) {
+    main > div.row:first-of-type > div:nth-child(2) {
+        padding-left: 0;
+    }
+    main > div.row:first-of-type > div:last-child .article.alt{
+        max-width: 350px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
