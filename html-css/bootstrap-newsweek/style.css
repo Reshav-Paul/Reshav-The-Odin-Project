@@ -10,6 +10,13 @@ img {
 a {
     color: black;
 }
+input[type="email"] {
+    max-width: 100%;
+    border: 1px solid #ccc;
+}
+input[type="email"]::placeholder {
+    color: #626262 !important;
+}
 a:hover {
     color: black;
     text-decoration-color: #dc3545;
@@ -50,6 +57,15 @@ a:hover {
 .article .header-lg a:hover {
     text-decoration-color: #dc3545;
 }
+.article .header-md {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.article .header-sm {
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+}
 .article .img {
     position: relative;
 }
@@ -61,7 +77,8 @@ a:hover {
     color: orangered;
     font-weight: bold;
     font-size: 1rem;
-    padding: 0.2rem 1rem;
+    padding: 0.2rem 0.5rem;
+    letter-spacing: -0.3px;
 }
 .article.alt .header-lg {
     margin: 0.8rem 1rem;
@@ -119,17 +136,65 @@ a:hover {
     letter-spacing: -0.3px;
 }
 .magazine-article {
-    /* padding-top: 100%;
-    position: relative; */
     margin-bottom: 1rem;
 }
 .magazine-article h5 {
     line-height: 1;
 }
-/* .magazine-article img {
-    min-height: 38vh;
-    max-height: 400px;
-} */
+.category-section .header {
+    color: orangered;
+    font-size: 22px;
+    margin-bottom: 1rem;
+}
+.category-section .article::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.category-section .article .float-left img {
+    max-width: 100px;
+}
+.img-stack-2 {
+    position: relative;
+    min-width: 250px;
+    min-height: 220px;
+}
+#subscription>div::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.img-stack-2 img {
+    height: 200px;
+    min-width: 150px;
+    max-width: 150px;
+}
+.img-stack-2 img:first-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+.img-stack-2 img:last-child {
+    position: absolute;
+    top: 16px;
+    left: 100px;
+    z-index: 2;
+}
+#newsletter .bg-img {
+    min-height: 100%;
+    width: 100%;
+    background-image: url('https://d.newsweek.com/en/full/1541302/starting5-homepage.png?w=397&h=265&q=90&f=742bce9a6f72dd8f19ba2e7fd5db06e5');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+#newsletter button, #newsletter input {
+    width: 100%;
+}
+#newsletter button.btn {
+    font-size: 0.9rem;
+}
 @media (max-width: 992px) {
     .nav .nav-brand h1{
         font-size: 1.5rem;
@@ -158,5 +223,17 @@ a:hover {
         max-width: 350px;
         margin-left: auto;
         margin-right: auto;
+    }
+}
+@media (max-width: 767px) {
+    #sub-img {
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 991px) {
+    #newsletter h6 {
+        margin-top: 1rem;
     }
 }
