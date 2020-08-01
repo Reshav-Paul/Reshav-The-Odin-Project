@@ -1,0 +1,132 @@
+//default styles for html elements
+
+//headings
+@function headings($from:1, $to:6) {
+    @if $from == $to {
+        @return 'h#{$from}';
+    } @else {
+        $selector: 'h#{$from}';
+        @for $index from ($from+1) through $to {
+            $selector: '#{$selector}, h#{$index}';
+        }
+        @return $selector;
+    }
+}
+@for $index from 2 through 6 {
+    h#{$index} {
+         font-size: 1rem + 0.25 * (6 - $index);
+    }
+}
+h1 {
+    font-size: 2.5rem;
+}
+#{headings(2, 6)} {
+    margin: 0;
+    margin-bottom: 0.5rem;
+}
+#{headings(1, 2)} {
+    margin: 0;
+    margin-bottom: 0.75rem;
+}
+
+//paragraphs
+p {
+    margin: 0;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+//links
+a {
+    text-decoration: none;
+    color: var(--color-primary);
+    transition: filter 300ms;
+}
+
+a:hover {
+    filter: brightness(0.8);
+}
+
+//forms
+form {
+    margin-bottom: 1rem;
+}
+
+//form inputs
+input {
+    line-height: inherit;
+}
+
+%default-text-input-style {
+    border: 1px solid var(--color-light);
+    padding: 0.4rem;
+    font-family: inherit;
+    font-size: 0.9rem;
+    margin: 0 0.5rem 0.5rem 0;
+    color: var(--color-darker);
+}
+%default-text-input-placeholder-style {
+    font-size: 0.8rem;
+}
+$text_input_types: ('text', 'email', 'password', 'date', 'time', 'datetime', 'tel');
+@each $type in $text_input_types {
+    input[type=#{$type}] {
+        @extend %default-text-input-style;
+    }
+    input[type=#{$type}]::placeholder {
+        @extend %default-text-input-placeholder-style;
+    }
+}
+%default-button-style {
+    background-color: var(--color-lighter);
+    border: 1px solid var(--color-light);
+    border-radius: 3px;
+    padding: 0.3rem 0.8rem;
+    margin: 0 0.3rem 0.3rem 0;
+    font-family: inherit;
+    transition: filter 200ms;
+    cursor: pointer;
+}
+%default-button-hover-style {
+    filter: brightness(0.95);
+}
+$button_input_types: ('submit', 'button', 'reset');
+@each $button_input_type in $button-input-types {
+    input[type=#{$button-input-type}] {
+        @extend %default-button-style;
+    }
+    input[type=#{$button-input-type}]:hover {
+        @extend %default-button-hover-style;
+    }
+}
+
+// other form elements
+fieldset {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+legend {
+    font-size: 1.4rem;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 0.5rem;
+    line-height: inherit;
+}
+label {
+    display: inline-block;
+}
+textarea {
+    overflow: auto;
+    resize: vertical;
+    line-height: inherit;
+}
+
+
+//buttons
+button {
+    @extend %default-button-style;
+}
+button:hover {
+    @extend %default-button-hover-style;
+}

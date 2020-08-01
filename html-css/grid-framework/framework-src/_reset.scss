@@ -1,0 +1,68 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro);
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span,
+h1, h2, h3, h4, h5, h6,
+p, a, li, strong {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+*, ::after, ::before {
+	box-sizing: border-box;
+}
+:root {
+	--color-lighter: #f5f6f7;
+	--color-light: #e2e3e4;
+	--color-dark: #515253;
+	--color-darker: #141516;
+	--color-primary: #23a54f;
+}
+body {
+	font-family: 'Source Sans Pro', sans-serif;
+	line-height: 1.4;
+	text-align: left;
+	font-weight: 400;
+	background-color: #fff;
+	color: var(--color-darker);
+}
+$list-types: 'ul', 'ol', 'dl';
+#{$list-types} {
+	margin: 0;
+	margin-bottom: 1rem;
+}
+@each $list-type in $list-types {
+	li > #{$list-type} {
+		margin-bottom: 0;
+	}
+}
+dt {
+	font-weight: bold;
+}
+dd {
+	margin-left: 0;
+	margin-bottom: 0.5rem;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
