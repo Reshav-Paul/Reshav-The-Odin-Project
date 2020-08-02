@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <title>Framework Demo</title>
 </head>
-<body>
+<body class="mx-3">
     <h3>Default Styles for html elements</h3>
     <h4>Headings</h4>
     <ul>
@@ -107,5 +107,93 @@
         <input type="button" value="Input Button">
         <input type="reset" value="Input Reset">
     </form>
+
+    <h3>Grid Layout</h3>
+
+    <h4>Containers</h4>
+    <div id="container-demo">
+        <div class="container bg-default">.container - 100% wide until extra small breakpoint</div>
+        <div class="container-sm bg-default">.container-sm - 100% wide until small breakpoint</div>
+        <div class="container-md bg-default">.container-md - 100% wide until medium breakpoint</div>
+        <div class="container-lg bg-default">.container-lg - 100% wide until large breakpoint</div>
+        <div class="container-xl bg-default">.container-xl - 100% wide until extra large breakpoint</div>
+        <div class="container-fluid bg-default">.container-fluid - Always 100% wide</div>
+    </div>
+
+    <section id="grid-demo">
+        <h4>Equal width columns</h4>
+        <div class="container">
+            <div class="row my-2">
+                <div class="col py-3 bg-default br">.col</div>
+                <div class="col py-3 bg-default br">.col</div>
+                <div class="col py-3 bg-default br">.col</div>
+            </div>
+            <div class="row my-3">
+                <div class="col py-3 bg-default br">.col</div>
+                <div class="col py-3 bg-default br">.col</div>
+            </div>
+        </div>
+
+        <h4>Setting column widths</h4>
+        <div class="container">
+            <div class="row my-2">
+                <div class="col py-3 bg-default br">.col</div>
+                <div class="col-6 py-3 bg-default br">.col-6</div>
+                <div class="col py-3 bg-default br">.col</div>
+            </div>
+            <div class="row my-3">
+                <div class="col-4 py-3 bg-default br">.col-4</div>
+                <div class="col-5 py-3 bg-default br">.col-5</div>
+                <div class="col py-3 bg-default br">.col</div>
+            </div>
+            <div class="row my-3">
+                <div class="col-8 py-3 bg-default br">.col-8</div>
+                <div class="col-4 py-3 bg-default br">.col-4</div>
+            </div>
+            <div class="row my-3">
+                <div class="col-2 py-3 bg-default br">.col-2</div>
+                <div class="col-6 py-3 bg-default br">.col-6</div>
+                <div class="col-2 py-3 bg-default br">.col-2</div>
+            </div>
+        </div>
+
+        <h4>Responsive colums</h4>
+        <div class="container">
+            <div class="row my-2">
+                <div class="col bg-default py-3 br">.col</div>
+                <div class="col-4 col-md-6 bg-default py-3 br">.col-4 .col-md-6</div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row my-2">
+                <div class="col-4 col-md-6 bg-default py-3 br">.col-4 .col-md-6</div>
+                <div class="col-4 col-md-6 bg-default py-3 br">.col-4 .col-md-6</div>
+                <div class="col-4 col-md-6 bg-default py-3 br">.col-4 .col-md-6</div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row my-2">
+                <div class="col-md-6 bg-default py-3 br">.col-md-6</div>
+                <div class="col-md-6 bg-default py-3 br">.col-md-6</div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row my-2">
+                <div class="col-8 col-lg-6 col-md-4 col-sm-3 col-xs-12 bg-default py-3 br">
+                    col-8 col-lg-6 col-md-4 col-sm-3 col-xs-12
+                </div>
+                <div class="col-4 col-lg-6 col-md-8 col-sm-9 col-xs-12 bg-default py-3 br">
+                    col-4 col-lg-6 col-md-8 col-sm-9 col-xs-12
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row my-2">
+                <div class="col-6 bg-default py-3 br">.col-6</div>
+                <div class="col-6 col-md-8 bg-default py-3 br">.col-6 .col-md-8</div>
+            </div>
+        </div>
+    </section>
+    
 </body>
 </html>

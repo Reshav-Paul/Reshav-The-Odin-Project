@@ -1,0 +1,68 @@
+$gutter-width: 30px;
+
+.row {
+    display: flex;
+    flex: 1 0 100%;
+    flex-wrap: wrap;
+    margin: 0;
+    margin-left: -($gutter-width / 2);
+    margin-right: -($gutter-width / 2);
+}
+
+.row > * {
+    box-sizing: border-box;
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;    
+}
+
+/* default col styles for all screens */
+$breakpoints: (576px, 768px, 992px, 1200px);
+$breakpoint-abbrs: ('xs', 'sm', 'md', 'lg');
+
+%default-col-styles {
+    position: relative;
+    width: 100%;
+    padding-left: ($gutter-width / 2);
+    padding-right: ($gutter-width / 2);
+}
+.col {
+    @extend %default-col-styles;
+    flex: 1 0 0%;
+}
+@for $index from 1 through 12 {
+    .col-#{$index} {
+        @extend %default-col-styles;
+    }
+}
+@for $index from 1 through 4 {
+    $breakpoint-name: nth($breakpoint-abbrs, $index);
+
+    @for $index from 1 through 12 {
+        .col-#{$breakpoint-name}-#{$index} {
+            @extend %default-col-styles;
+        }
+    }
+}
+
+// for xl screens
+@for $index from 1 through 12 {
+    .col-#{$index} {
+        flex: 0 0 auto;
+        max-width: ($index / 12) * 100%;
+    }
+}
+
+// for lg, md, sm, xs screens
+@for $index from 4 through 1 {
+    $breakpoint-name: nth($breakpoint-abbrs, $index);
+
+    @media (max-width: nth($breakpoints, $index)) {
+        @for $index from 1 through 12 {
+            .col-#{$breakpoint-name}-#{$index} {
+                flex: 0 0 auto;
+                max-width: ($index / 12) * 100%;
+            }
+        }
+    }    
+}

@@ -1,3 +1,19 @@
-:root {
-    margin: 0 1rem;
+.container-demo {
+    margin: 0 -1rem;
+}
+.bg-default {
+    background-color: #a3dabc;
+}
+.br {
+    border-right: 1px solid #76bd97;
+    border-bottom: 1px solid #76bd97;
+}
+#container-demo {
+    margin: 0 -1rem;
+}
+#container-demo > div {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }

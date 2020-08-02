@@ -1,0 +1,79 @@
+$breakpoint-xs: 576px;
+$breakpoint-sm: 768px;
+$breakpoint-md: 992px;
+$breakpoint-lg: 1200px;
+
+$breakpoint-abbrs: ('xs', 'sm', 'md', 'lg');
+
+// containers
+
+$container-types: ('', '-sm', '-md', '-lg', '-xl', '-fluid');
+@function containers($from:1, $to:6) {
+    @if $from == $to {
+        @return 'container#{nth($container-types, $from)}';
+    } @else {
+        $selector: '.container#{nth($container-types, $from)}';
+        @for $index from ($from+1) through $to {
+            $selector: '#{$selector}, .container#{nth($container-types, $index)}';
+        }
+        @return $selector;
+    }
+}
+
+/* default container styles */
+#{containers(1, 6)} {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* default sizing at xl screens */
+.container-fluid {
+    width: 100%;
+    max-width: 100%;
+}
+#{containers(1, 5)} {
+    width: 100%;
+    max-width: 1140px;
+}
+
+/* sizing at lg screens */
+@media (max-width: $breakpoint-lg) {
+    .container-xl {
+        max-width: 100%;
+    }
+    #{containers(1, 4)} {
+        max-width: 960px;
+    }
+}
+
+/* sizing at md screens */
+@media (max-width: $breakpoint-md) {
+    .container-lg {
+        max-width: 100%;
+    }
+    #{containers(1, 3)} {
+        max-width: 720px;
+    }
+}
+
+/* sizing at sm screens */
+@media (max-width: $breakpoint-sm) {
+    .container-md {
+        max-width: 100%;
+    }
+    #{containers(1, 2)} {
+        max-width: 540px;
+    }
+}
+
+/* sizing at xs screens */
+@media (max-width: $breakpoint-xs) {
+    .container-xl {
+        max-width: 100%;
+    }
+    #{containers(1, 1)} {
+        max-width: 100%;
+    }
+}

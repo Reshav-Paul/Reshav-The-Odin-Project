@@ -1,0 +1,29 @@
+$spacer: 1rem;
+$coefficients: (0, 0.25, 0.5, 1, 1.5, 3);
+
+@for $index from 0 through 5 {
+    /* spacing */
+    .m-#{$index} {
+        margin: nth($coefficients, $index + 1) * $spacer;
+    }
+    .mx-#{$index} {
+        margin-left: nth($coefficients, $index + 1) * $spacer;
+        margin-right: nth($coefficients, $index + 1) * $spacer;
+    }
+    .my-#{$index} {
+        margin-top: nth($coefficients, $index + 1) * $spacer;
+        margin-bottom: nth($coefficients, $index + 1) * $spacer;
+    }
+
+    .p-#{$index} {
+        padding: nth($coefficients, $index + 1) * $spacer;
+    }
+    .px-#{$index} {
+        padding-left: nth($coefficients, $index + 1) * $spacer;
+        padding-right: nth($coefficients, $index + 1) * $spacer;
+    }
+    .py-#{$index} {
+        padding-top: nth($coefficients, $index + 1) * $spacer;
+        padding-bottom: nth($coefficients, $index + 1) * $spacer;
+    }
+}

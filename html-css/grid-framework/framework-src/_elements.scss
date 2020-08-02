@@ -20,9 +20,10 @@
 h1 {
     font-size: 2.5rem;
 }
-#{headings(2, 6)} {
+#{headings(3, 6)} {
     margin: 0;
     margin-bottom: 0.5rem;
+    font-weight: 500;
 }
 #{headings(1, 2)} {
     margin: 0;
