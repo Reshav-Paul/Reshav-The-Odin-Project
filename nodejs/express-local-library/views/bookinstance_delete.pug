@@ -1,9 +1,24 @@
 extends layout
 
 block content
-    h1 #{title}: #{bookinstance.imprint} (#{bookinstance._id})
-
+    h1 #{title}: #{bookinstance.imprint}
     p Do you really want to delete this Copy?
+
+    div(style="margin-left:20px")
+
+        p ID: #{bookinstance._id}
+
+        p #[strong Status:] 
+            if bookinstance.status=='Available'
+                span.text-success #{bookinstance.status}
+            else if bookinstance.status=='Maintenance'
+                span.text-danger #{bookinstance.status}
+            else
+                span.text-warning #{bookinstance.status} 
+      
+        if bookinstance.status!='Available'
+            p #[strong Due back:] #{bookinstance.due_back_formatted}
+    
 
         form(method='POST' action='')
             div.form-group

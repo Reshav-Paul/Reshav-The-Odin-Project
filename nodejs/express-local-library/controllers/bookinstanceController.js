@@ -72,8 +72,11 @@ exports.bookinstance_create_post = [
 ];
 exports.bookinstance_delete_get = function(req, res, next) {
     BookInstance.findById(req.params.id).exec(function(err, bookinstance) {
-        if (err) return next(err);
-        res.render('bookinstance_delete', {title: 'Delete this Book Copy', bookinstance: bookinstance});
+        if (bookinstance===undefined || bookinstance===null) {
+            res.redirect('/catalog/bookinstances');
+        }
+        if (err) return next(err);        
+        res.render('bookinstance_delete', {title: 'Delete Book Copy', bookinstance: bookinstance});
     });
 };
 exports.bookinstance_delete_post = function(req, res) {
