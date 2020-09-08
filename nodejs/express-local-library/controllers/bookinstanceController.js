@@ -1,5 +1,6 @@
 const { body, validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
+var async = require('async');
 
 let BookInstance = require('../models/bookinstance');
 var Book = require('../models/book');
