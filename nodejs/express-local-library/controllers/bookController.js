@@ -118,9 +118,9 @@ exports.book_create_post = [
                 },
             }, function (err, results) {
                 if (err) return next(err);
-
+                if (book.genre == undefined) book.genre = [];
                 for (let i = 0; i < results.genres.length; i++) {
-                    if (book.genres.indexOf(results.genres[i]._id) > -1) {
+                    if (book.genre.indexOf(results.genres[i]._id) > -1) {
                         results.genres[i].checked = 'true';
                     }
                 }
