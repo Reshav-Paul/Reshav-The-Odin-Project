@@ -1,0 +1,29 @@
+<%- include('partials/header') %>
+
+    <form action="/new" method="POST">
+        <h1>Mini Messageboard</h1>
+        <p>Welcome to Mini Messageboard</p>
+        <h3><%= title %> </h3>
+        <hr>
+        <br>        
+        <div>
+            <label for="name">Name </label>
+            <input type="text" name="name" id="name" 
+                placeholder="Enter your name"
+                required
+                value= <%= locals.name === undefined? '' : locals.name %>>
+        </div>
+        <br>
+        <div>
+            <textarea placeholder="Enter your message" name="msg" id="msg" cols="30" rows="2" required><%= locals.msg === undefined? '' : locals.msg %></textarea>
+        </div>        
+        <br>
+        <input type="submit" value="Create">
+    </form>
+
+    <% if (locals.error) { %>
+        <br>
+        <strong><%= error %> </strong>
+    <% } %> 
+
+<%- include('partials/footer') %>

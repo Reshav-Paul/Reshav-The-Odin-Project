@@ -1,0 +1,30 @@
+<%
+  function formatDate(dateString) {
+    const elements = dateString.split(' ');
+    return `${elements[2]}-${elements[1]}-${elements[3]}`;
+  }
+%> 
+
+<%- include('partials/header') %>
+
+  <h1><%= title %></h1>
+  <p>Welcome to <%= title %></p>  
+
+  <section id="messages">
+    <% for (message of messages) { %>
+
+      <div class="message">
+        <hr>
+        <h3><%= message.user %></h3>
+        <p><%= message.text %></p>
+        <p>
+          <strong>Added on </strong>
+          <%= formatDate(message.added.toString()) %>
+        </p>
+      </div>
+
+    <% } %> 
+  </section>
+  <hr>
+  <a href="/new" style="color: cadetblue; font-size: 1.1rem;">Add a message</a>
+<%- include('partials/footer') %>
