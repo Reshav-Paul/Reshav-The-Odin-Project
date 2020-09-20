@@ -8,13 +8,13 @@ let GameSchema = new Schema(
         description: {type: String, required: true},
         releaseDate: Date,
         price: Number,
-        imageUrl: String,
-        category: {type: Schema.Types.ObjectId}
+        imageUrl: {type: String, required: true, default: 'https://image.flaticon.com/icons/png/512/94/94733.png'},
+        category: {type: [Schema.Types.ObjectId], required: true}
     }
 );
 
-CategorySchema.virtual('url').get(function() {
+GameSchema.virtual('url').get(function() {
     return '/game/' + this._id;
 });
 
-module.exports = mongoose.model('Category', CategorySchema);
+module.exports = mongoose.model('Game', GameSchema);
