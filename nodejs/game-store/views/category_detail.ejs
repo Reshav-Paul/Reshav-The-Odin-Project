@@ -1,0 +1,51 @@
+<%- include('partials/header') %>
+
+<% if (category) { %>
+<div class="container-fluid px-0 category-banner mb-4">
+    <img src=<%= category.imageUrl %> alt="category-image">
+</div>
+<div class="container">
+    <h1 class="display-3">
+        <%= category.name %>
+        <% if (category.abbreviation) { %>
+        (<%= category.abbreviation %>)
+        <% } %>
+    </h1>
+    <p class="h4"><%= category.description %> </p>
+</div>
+<% } %>
+
+<% if (games) { %>
+<% if (games.length == 0) { %>
+    <div class="container my-5">
+        <h3>No Games in this category yet</h3>
+    </div>
+<% } else { %>
+<div class="container my-5">
+    <h3 class="mb-4">Games in <%= category.abbreviation? category.abbreviation : category.name %> </h3>
+    <div class="row row-cols-2">
+        <% games.forEach(function(game) { %>
+        <div class="col mb-3">
+            <div class="game card shadow-sm h-100">
+                <div class="row no-gutters">
+                    <div class="col-4">
+                        <img src=<%= game.imageUrl %> alt="Category Image" class="card-img-top">
+                    </div>
+                    <div class="col-8">                        
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold"><%= game.name %> </h5>
+                            <p class="card-text max-lines-5"><%= game.description %> </p>
+                            <a href=<%= '/inventory/game/' + game._id %>
+                                class="btn btn-outline-dark font-weight-bold">See Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+</div>
+<% } %>
+<% } %>
+
+<%- include('partials/footer') %>

@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev-start": "nodemon ./bin/www",
-    "start-server": "SET DEBUG=express-local-library:* & npm run dev-start"
+    "serverstart": "SET DEBUG=express-local-library:* & npm run dev-start",
+    "hot-reload": "npx browser-sync start --proxy 'http://localhost:3000' --serveStatic 'public' --files 'views, public' --port '5000'"
   },
   "dependencies": {
     "async": "^3.2.0",
@@ -19,6 +20,7 @@
     "morgan": "~1.9.1"
   },
   "devDependencies": {
+    "browser-sync": "^2.26.12",
     "nodemon": "^2.0.4"
   }
 }

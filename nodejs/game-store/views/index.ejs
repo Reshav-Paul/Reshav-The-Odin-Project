@@ -1,11 +1,37 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
+<%- include('partials/header') %>
+
+  <div class="container mt-4 mb-4">
+    <h1 class="display-4 font-weight-bold">Game Store.</h1>
+    <h3 class="mt-5">Categories</h4>
+  </div>
+  
+  <% if (data) { %>
+    
+    <div class="container">
+      <ul class="list-unstyled row row-cols-3" id="categories">
+        <% data.forEach(function(category) { %>
+
+          <li class="category col mb-4">
+            <div class="card shadow-sm h-100">
+              <img src=<%= category.imageUrl %>  alt="Category Image" class="card-img-top">
+              <h5 class="card-header"><%= category.name %> </h5>
+              <div class="card-body">
+                <p class="card-text"><%= category.description %> </p>
+                <a href=<%= 'inventory/category/' + category._id %> class="btn btn-outline-dark font-weight-bold">See More</a>
+              </div>
+            </div>
+          </li>
+
+        <% }) %> 
+      </ul>
+    </div>
+
+  <% } else { %>
+
+    <div class="container">
+      <h1>Sorry, something went wrong!</h1>
+    </div>
+
+  <% } %> 
+
+<%- include('partials/footer') %>
