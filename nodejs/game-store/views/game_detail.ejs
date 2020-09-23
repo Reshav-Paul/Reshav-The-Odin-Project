@@ -1,0 +1,48 @@
+<%- include('partials/header') %>
+
+<% if (game) { %>
+
+    <div class="container my-4 game-detail">
+        <div class="row">
+            <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-5 offset-lg-0">
+                <img src=<%= game.imageUrl %>  alt="Game Image">
+            </div>
+            <div class="col-12 col-lg-7 offset-lg-0">
+
+                <h1 class="d-none d-xl-block display-3 font-weight-bold"><%= game.name %> </h1>
+                <h1 class="d-none d-md-block d-xl-none mt-3 display-4 font-weight-bold"><%= game.name %> </h1>
+                <h1 class="d-md-none mt-4 display-5 font-weight-bold"><%= game.name %> </h1>
+
+                <p class="mt-4 mb-3 h5">
+                    Release Date - 
+                    <% if (game.releaseDate) {%> 
+                        <span class="h5 font-weight-bold text-monospace">
+                            <%= game.release_date_formatted %>
+                        </span>
+                    <% } else { %> 
+                        <span class="h5 font-weight-bold text-monospace">TBA</span>
+                    <% } %> 
+                    
+                </p>
+
+                <% if (game.price == undefined) {%>
+                    <p class="mb-4 h2">Price - TBA</p>
+                <% } else { %>
+                    <p class="mb-2 h2 font-weight-bold">$<%= game.price %> </p>
+                <% } %>
+
+                <p>
+                    <% if (game.category && game.category.length > 0) { %>
+                        <% game.category.forEach(function(category){ %>
+                            <a href=<%= '/home' + category.url %> class="btn btn-success font-weight-bold" ><%= category.name %> </a>
+                        <% }) %> 
+                    <% } %> 
+                </p>                
+                <p class="h4 my-4"><%= game.description %> </p>
+            </div>
+        </div>
+    </div>
+
+<% } %>
+
+<%- include('partials/header') %>

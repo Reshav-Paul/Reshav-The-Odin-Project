@@ -2,7 +2,11 @@ let async = require('async');
 let Category = require('../models/Category');
 let Game = require('../models/Game');
 
-module.exports.index = function (req, res, next) {
+module.exports.index = function(req, res) {
+    res.redirect('/home/categories');
+};
+
+module.exports.category_list = function (req, res, next) {
     Category.find().exec(function (err, results) {
         if (err) return next(err);
         res.render('index', { error: err, data: results });
