@@ -1,13 +1,12 @@
 <%- include('partials/header') %>
 
-  <div class="container mt-4 mb-4">
-    <h1 class="display-4 font-weight-bold">Game Store.</h1>
+  <div class="container-xl mt-4 mb-4">
     <h3 class="mt-5">Categories</h4>
   </div>
   
   <% if (data) { %>
     
-    <div class="container">
+    <div class="container-xl">
       <ul class="list-unstyled row row-cols-1 row-cols-md-2 row-cols-lg-3" id="categories">
         <% data.forEach(function(category) { %>
 

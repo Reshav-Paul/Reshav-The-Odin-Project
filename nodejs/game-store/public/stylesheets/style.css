@@ -1,6 +1,11 @@
 img {
     max-width: 100%;
 }
+form {
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+}
 .category-banner img {
     width: 100%;
     max-height: 75vh;
@@ -32,4 +37,23 @@ img {
     max-height: 75vh;
     width: 100%;
     object-fit: contain;
+}
+
+.shadow-success {
+    box-shadow: 0 6px 30px -5px rgba(108, 209, 131, 0.7);
+}
+
+.text-light.dropdown-item:hover {
+    background-color: #2c3033;
+}
+form > input[type='submit'].btn {
+    background-color: #28a745;
+    color: white;
+    text-transform: uppercase;
+    padding: 0.7rem 1.75rem;
+    transition: .25s;
+    letter-spacing: 0.6px;
+}
+form > input[type='submit'].btn:hover {
+    filter: brightness(0.9);
 }

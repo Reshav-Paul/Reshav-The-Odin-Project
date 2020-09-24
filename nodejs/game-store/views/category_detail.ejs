@@ -4,7 +4,7 @@
 <div class="container-fluid px-0 category-banner mb-4">
     <img src=<%= category.imageUrl %> alt="category-image">
 </div>
-<div class="container">
+<div class="container-lg">
     <h1 class="d-none d-lg-block display-4 font-weight-bold">
         <%= category.name %>
         <% if (category.abbreviation) { %>
@@ -25,11 +25,11 @@
 
 <% if (games) { %>
 <% if (games.length == 0) { %>
-    <div class="container my-5">
+    <div class="container-lg my-5">
         <h3>No Games in this category yet</h3>
     </div>
 <% } else { %>
-<div class="container my-5">
+<div class="container-lg my-5">
     <h3 class="mb-4">Games in <%= category.abbreviation? category.abbreviation : category.name %> </h3>
     <div class="row row-cols-1 row-cols-md-2">
         <% games.forEach(function(game) { %>

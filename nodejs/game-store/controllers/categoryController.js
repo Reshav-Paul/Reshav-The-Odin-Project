@@ -26,3 +26,7 @@ module.exports.category_detail = function (req, res, next) {
         res.render('category_detail', {category: results.category, games: results.games});
     });
 };
+
+module.exports.category_create_get = function(req, res, next) {
+    res.render('category_create');
+};
