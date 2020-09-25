@@ -10,27 +10,42 @@
 					<div class="input-group-prepend">
 						<div class="input-group-text">@</div>
 					</div>
-					<input type="text" name="name" id="name" class="form-control" placeholder="Name" required>
+					<input type="text" name="name" id="name" class="form-control" placeholder="Name" value="<%= locals.category == undefined? '' : category.name %>" required>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="abbreviation" class="sr-only">Abbreviation</label>
-				<input type="text" name="abbreviation" id="abbreviation" class="form-control" placeholder="Abbreviation">
+				<input type="text" name="abbreviation" id="abbreviation" class="form-control" placeholder="Abbreviation" value="<%= locals.category == undefined? '' : category.abbreviation %>">
 			</div>
 
 			<div class="form-group">
 				<label for="imageUrl" class="sr-only">Image URL</label>
-				<input type="url" name="imageUrl" id="imageUrl" class="form-control" placeholder="Image URL">
+				<input type="url" name="imageUrl" id="imageUrl" class="form-control" placeholder="Image URL" value="<%= locals.category == undefined? '' : category.imageUrl %>">
 			</div>
 
 			<div class="form-group">
 				<label for="description">Description</label>
-				<textarea name="description" id="description" rows="3" class="form-control"></textarea>
+				<textarea name="description" id="description" rows="3" class="form-control" required><%= locals.category == undefined? '' : category.description %></textarea>
 			</div>
 			<br>
 			<input type="submit" value="Create" class="btn d-block mx-auto shadow-success font-weight-bold">
-		</form>
+
+			<% if (locals.errors) {%>
+				<div class="alert limited-width alert-danger mt-4 mb-2">
+					<h4 class="alert-heading">Oops!</h4>
+					<p>
+						We failed to create the new category. <br>
+						We have reasons -
+					</p>
+					<ol>
+						<% errors.array().forEach(function(error) { %> 
+							<li><%= error.msg %> </li>
+						<% }) %> 
+					</ol>
+				</div>
+			<% } %> 
+		</form>		
 	</div>
 
 <%- include('partials/footer') %> 
