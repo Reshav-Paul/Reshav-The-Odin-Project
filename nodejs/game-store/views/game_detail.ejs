@@ -34,7 +34,7 @@
                 <p>
                     <% if (game.category && game.category.length > 0) { %>
                         <% game.category.forEach(function(category){ %>
-                            <a href=<%= '/home' + category.url %> class="btn btn-success font-weight-bold" ><%= category.name %> </a>
+                            <a href=<%= category.url %> class="btn btn-success font-weight-bold" ><%= category.name %> </a>
                         <% }) %> 
                     <% } %> 
                 </p>                
