@@ -1,5 +1,5 @@
 let mongoose = require('mongoose');
-let { format } = require('date-fns')
+let { format } = require('date-fns');
 
 let Schema = mongoose.Schema;
 
@@ -9,7 +9,7 @@ let GameSchema = new Schema(
         description: {type: String, required: true},
         releaseDate: Date,
         price: Number,
-        imageUrl: {type: String, required: true, default: 'https://image.flaticon.com/icons/png/512/94/94733.png'},
+        imageUrl: {type: String, default: '/images/default.jpg'},
         category: [{type: [Schema.Types.ObjectId], required: true, ref: 'Category'}]
     }
 );
