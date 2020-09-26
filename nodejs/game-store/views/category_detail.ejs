@@ -6,20 +6,20 @@
 </div>
 <div class="container-lg">
     <h1 class="d-none d-lg-block display-4 font-weight-bold">
-        <%= category.name %>
+        <%- category.name %>
         <% if (category.abbreviation) { %>
-        (<%= category.abbreviation %>)
+        (<%- category.abbreviation %>)
         <% } %>
     </h1>
 
     <h1 class="d-lg-none display-5 font-weight-bold">
-        <%= category.name %>
+        <%- category.name %>
         <% if (category.abbreviation) { %>
-        (<%= category.abbreviation %>)
+        (<%- category.abbreviation %>)
         <% } %>
     </h1>
 
-    <p class="h4 mt-4"><%= category.description %> </p>
+    <p class="h4 mt-4"><%- category.description %> </p>
     <br>
     <a href="<%= category.url + '/delete' %>"  class="btn btn-danger">Delete</a>
 </div>
@@ -32,7 +32,7 @@
     </div>
 <% } else { %>
 <div class="container-lg my-5">
-    <h3 class="mb-4">Games in <%= category.abbreviation? category.abbreviation : category.name %> </h3>
+    <h3 class="mb-4">Games in <%- category.abbreviation? category.abbreviation : category.name %> </h3>
     <div class="row row-cols-1 row-cols-md-2">
         <% games.forEach(function(game) { %>
         <div class="col mb-3">
@@ -43,8 +43,8 @@
                     </div>
                     <div class="col-7 col-md-6 col-lg-8">
                         <div class="card-body">
-                            <h5 class="card-title font-weight-bold"><%= game.name %> </h5>
-                            <p class="card-text max-lines-5"><%= game.description %> </p>
+                            <h5 class="card-title font-weight-bold"><%- game.name %> </h5>
+                            <p class="card-text max-lines-5"><%- game.description %> </p>
                             <a href="<%= game.url %>"
                                 class="btn btn-outline-dark font-weight-bold">See Details</a>
                         </div>

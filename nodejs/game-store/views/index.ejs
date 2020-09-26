@@ -12,11 +12,11 @@
 
           <li class="category col mb-4">
             <div class="card shadow-sm h-100">
-              <img src=<%= category.imageUrl %>  alt="Category Image" class="card-img-top">
-              <h5 class="card-header"><%= category.name %> </h5>
+              <img src="<%= category.imageUrl %>"  alt="Category Image" class="card-img-top">
+              <h5 class="card-header"><%- category.name %> </h5>
               <div class="card-body">
-                <p class="card-text"><%= category.description %> </p>
-                <a href=<%= category.url %> class="btn btn-outline-dark font-weight-bold">See More</a>
+                <p class="card-text"><%- category.description %> </p>
+                <a href="<%= category.url %>" class="btn btn-outline-dark font-weight-bold">See More</a>
               </div>
             </div>
           </li>

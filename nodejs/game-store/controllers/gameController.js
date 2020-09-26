@@ -34,7 +34,7 @@ module.exports.game_create_post = [
     body('description', 'Description must not be empty').trim().escape().isLength({ min: 1 }),
     body('releaseDate', 'Please provide a valid release date').optional({ checkFalsy: true }).isISO8601(),
     body('price', 'Please provide a valid price').trim().escape().optional({ checkFalsy: true }).isCurrency(),
-    body('imageUrl', 'Please provide a valid image URL').optional({ checkFalsy: true }).isURL(),
+    body('imageUrl', 'Please provide a valid image URL').optional({ checkFalsy: true }).isURL().escape(),
     body('category', 'Please select atleast one category').isArray({ min: 1 }),
     body('category.*', 'We got an invalid category ID. Please select an available category.').isMongoId(),
 

@@ -37,6 +37,8 @@ module.exports.category_create_get = function(req, res, next) {
 module.exports.category_create_post = [
     body('name', 'Name must not be empty').trim().escape().isLength({min: 1}),
     body('description', 'Description must not be empty').trim().escape().isLength({min: 1}),
+    body('abbreviation', 'Something wrong with the abbreviation').optional({checkFalsy: true}).escape(),
+    body('imageUrl', 'Something wrong with the image url').optional({checkFalsy: true}).escape(),
 
     function (req, res, next) {
         const errors = validationResult(req);
@@ -48,6 +50,7 @@ module.exports.category_create_post = [
         const category = new Category(categoryData);
 
         if (!errors.isEmpty()) {
+            if (imageUrl.length == 0) category.imageUrl = '';
             res.render('category_create', {category: category, errors: errors});
             return;
         } else {

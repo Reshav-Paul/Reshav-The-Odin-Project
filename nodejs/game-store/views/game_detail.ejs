@@ -5,13 +5,13 @@
     <div class="container-md my-4 game-detail">
         <div class="row">
             <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-5 offset-lg-0">
-                <img src=<%= game.imageUrl %>  alt="Game Image">
+                <img src="<%= game.imageUrl %>"  alt="Game Image">
             </div>
             <div class="col-12 col-lg-7 offset-lg-0">
 
-                <h1 class="d-none d-xl-block display-3 font-weight-bold"><%= game.name %> </h1>
-                <h1 class="d-none d-md-block d-xl-none mt-3 display-4 font-weight-bold"><%= game.name %> </h1>
-                <h1 class="d-md-none mt-4 display-5 font-weight-bold"><%= game.name %> </h1>
+                <h1 class="d-none d-xl-block display-3 font-weight-bold"><%- game.name %> </h1>
+                <h1 class="d-none d-md-block d-xl-none mt-3 display-4 font-weight-bold"><%- game.name %> </h1>
+                <h1 class="d-md-none mt-4 display-5 font-weight-bold"><%- game.name %> </h1>
                 <a href="<%= game.url + '/delete' %>"  class="btn btn-danger">Delete</a>
 
                 <p class="mt-4 mb-3 h5">
@@ -35,11 +35,11 @@
                 <p>
                     <% if (game.category && game.category.length > 0) { %>
                         <% game.category.forEach(function(category){ %>
-                            <a href=<%= category.url %> class="btn btn-success font-weight-bold" ><%= category.name %> </a>
+                            <a href= "<%= category.url %>" class="btn btn-success font-weight-bold" ><%- category.name %> </a>
                         <% }) %> 
                     <% } %> 
                 </p>                
-                <p class="h4 my-4"><%= game.description %> </p>
+                <p class="h4 my-4"><%- game.description %> </p>
             </div>
         </div>
     </div>
