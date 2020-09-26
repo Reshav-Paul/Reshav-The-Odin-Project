@@ -2,7 +2,7 @@
 
 <% if (category) { %>
 <div class="container-fluid px-0 category-banner mb-4">
-    <img src=<%= category.imageUrl %> alt="category-image">
+    <img src="<%= category.imageUrl %>" alt="category-image">
 </div>
 <div class="container-lg">
     <h1 class="d-none d-lg-block display-4 font-weight-bold">
@@ -20,6 +20,8 @@
     </h1>
 
     <p class="h4 mt-4"><%= category.description %> </p>
+    <br>
+    <a href="<%= category.url + '/delete' %>"  class="btn btn-danger">Delete</a>
 </div>
 <% } %>
 
@@ -35,15 +37,15 @@
         <% games.forEach(function(game) { %>
         <div class="col mb-3">
             <div class="game card shadow-sm h-100">
-                <div class="row no-gutters">
+                <div class="row no-gutters h-100">
                     <div class="col-5 col-md-6 col-lg-4">
-                        <img src=<%= game.imageUrl %> alt="Category Image" class="card-img-top">
+                        <img src="<%= game.imageUrl %>" alt="Category Image" class="card-img-top">
                     </div>
                     <div class="col-7 col-md-6 col-lg-8">
                         <div class="card-body">
                             <h5 class="card-title font-weight-bold"><%= game.name %> </h5>
                             <p class="card-text max-lines-5"><%= game.description %> </p>
-                            <a href=<%= game.url %>
+                            <a href="<%= game.url %>"
                                 class="btn btn-outline-dark font-weight-bold">See Details</a>
                         </div>
                     </div>

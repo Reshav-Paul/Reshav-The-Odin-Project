@@ -1,0 +1,15 @@
+<%- include('partials/header') %> 
+
+    <div class="container my-4">
+        <h2>Are you sure you want to delete this game?</h2>
+        <br>
+        <h4><%= game.name %> </h4>
+        <p><%= game.description %> </p>
+
+        <form action="" method="post">
+            <input type="hidden" name="gameid" id="gameid" value="<%= game._id %>" required>
+            <input type="submit" value="Confirm Deletion" class="btn btn-danger">
+        </form>
+    </div>
+
+<%- include('partials/footer') %> 

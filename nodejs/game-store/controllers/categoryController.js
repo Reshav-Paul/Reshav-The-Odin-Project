@@ -1,5 +1,6 @@
 let async = require('async');
 let { body, validationResult } = require('express-validator');
+const mongoose = require('mongoose');
 
 let Category = require('../models/Category');
 let Game = require('../models/Game');
@@ -57,3 +58,50 @@ module.exports.category_create_post = [
         }
     }
 ];
+
+module.exports.category_delete_get = function(req, res, next) {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+        res.redirect('/');
+        return;
+    }
+    async.parallel({
+        category: function(callback) {
+            Category.findById(req.params.id).exec(callback);
+        },
+        games: function(callback) {
+            Game.find({category: req.params.id}).exec(callback);
+        }
+    }, function(err, results) {
+        if (err) return next(err);
+
+        if (results.category == undefined) {
+            res.redirect('/categories/');
+            return;
+        }
+
+        res.render('category_delete', {category: results.category, games: results.games});
+    });
+};
+
+module.exports.category_delete_post = function(req, res, next) {
+    async.parallel({
+        category: function(callback) {
+            Category.findById(req.params.id).exec(callback);
+        },
+        games: function(callback) {
+            Game.find({category: req.params.id}).exec(callback);
+        }
+    }, function(err, results) {
+        if (err) return next(err);
+
+        if (results.games.length > 0) {
+            res.render('category_delete', {category: results.category, games: results.games});
+            return;
+        } else {
+            Category.findByIdAndRemove(results.category._id, function(err) {
+                if (err) return next(err);
+                res.redirect('/categories/');
+            });
+        }
+    });
+};

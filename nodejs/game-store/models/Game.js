@@ -22,4 +22,8 @@ GameSchema.virtual('release_date_formatted').get(function() {
     return format(this.releaseDate, 'do MMMM, yyyy');
 });
 
+GameSchema.virtual('release_date_yyyy_mm_dd').get(function() {
+    return format(this.releaseDate, 'yyyy-MM-dd');
+});
+
 module.exports = mongoose.model('Game', GameSchema);

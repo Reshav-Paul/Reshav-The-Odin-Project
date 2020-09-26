@@ -2,26 +2,25 @@
 
 <div class="container">	
 
-	<form action="" method="post">
+	<form action="" method="post" class="centered-form">
 		<h2 class="my-4">Create a game</h2>
-
 		<div class="form-group">
 			<label for="name" class="sr-only">Name</label>
 			<div class="input-group">
 				<div class="input-group-prepend">
 					<div class="input-group-text">@</div>
 				</div>
-				<input type="text" name="name" id="name" class="form-control" placeholder="Name" required>
+				<input type="text" name="name" id="name" class="form-control" placeholder="Name" required
+					value="<%= locals.game == undefined? '':locals.game.name%>" >
 			</div>
 		</div>
 		<% if (categories) { %>
-			<br>
-			<h5>Categorries</h5>
+			<h5>Categories</h5>
 
 			<% categories.forEach(function(category) {%> 
-
 				<div class="custom-control custom-checkbox custom-control-inline pr-3">
-					<input type="checkbox" name="category" id= <%= category._id %> value= <%= category._id %> class="custom-control-input">
+					<input type="checkbox" name="category" id= <%= category._id %> value= <%= category._id %>
+				class="custom-control-input" <% if (category.checked) {%> checked <% } %>  >
 					<label for= <%= category._id %> class="custom-control-label"> <%= category.name %> </label>
 				</div>
 	
@@ -31,25 +30,44 @@
 
 		<div class="form-group">
 			<label for="releaseDate">Release Date</label>
-			<input type="date" name="releaseDate" id="releaseDate" class="form-control">
+			<input type="date" name="releaseDate" id="releaseDate" class="form-control"
+				<% if (locals.game && locals.game.releaseDate) { %> value="<%= locals.game.release_date_yyyy_mm_dd %>" <% } %>>
 		</div>
 
 		<div class="form-group">
 			<label for="description">Description</label>
-			<textarea name="description" id="description" rows="3" class="form-control" required></textarea>
+			<textarea name="description" id="description" rows="3" class="form-control" required><%= locals.game == undefined? '':locals.game.description%></textarea>
 		</div>
 
 		<div class="form-group">
 			<label for="price" class="sr-only">price</label>
-			<input type="number" min="0" name="price" id="price" class="form-control" placeholder="Price">
+			<input type="number" min="0" step="0.01" name="price" id="price" class="form-control" placeholder="Price"
+				value ="<%= locals.game == undefined || locals.game.price == undefined? '':locals.game.price%>" >
 		</div>
 
 		<div class="form-group">
 			<label for="imageUrl" class="sr-only">Image URL</label>
-			<input type="url" name="imageUrl" id="imageUrl" class="form-control" placeholder="Image URL">
+			<input type="url" name="imageUrl" id="imageUrl" class="form-control" placeholder="Image URL"
+				value="<%= locals.game == undefined || locals.game.imageUrl == undefined? '':locals.game.imageUrl%>" >
 		</div>
+
+		<% if (locals.errors) {%>
+			<div class="alert limited-width alert-danger mt-4 mb-2">
+				<h4 class="alert-heading">Oops!</h4>
+				<p>
+					We failed to create the new game. <br>
+					We have reasons -
+				</p>
+				<ol>
+					<% errors.array().forEach(function(error) { %> 
+						<li><%= error.msg %> </li>
+					<% }) %> 
+				</ol>
+			</div>
+		<% } %> 
 		<br>
 		<input type="submit" value="Create" class="btn font-weight-bold d-block mx-auto shadow-success">
+		<div class="mt-3 mb-5"></div>
 	</form>
 </div>
 
