@@ -2,7 +2,7 @@
 
 	<div class="container">
 		<form action="" method="post" class="centered-form">
-			<h2 class="my-4">Create a category</h2>
+			<h2 class="my-4"><%= title %> </h2>
 
 			<div class="form-group">
 				<label for="name" class="sr-only">Name</label>
@@ -29,17 +29,25 @@
 				<textarea name="description" id="description" rows="3" class="form-control" required><%- locals.category == undefined? '' : category.description %></textarea>
 			</div>
 			<br>
-			<input type="submit" value="Create" class="btn d-block mx-auto shadow-success font-weight-bold">
+			<input type="submit" value="<%= action %>"  class="btn d-block mx-auto shadow-success font-weight-bold">
 
 			<% if (locals.errors) {%>
 				<div class="alert limited-width alert-danger mt-4 mb-2">
 					<h4 class="alert-heading">Oops!</h4>
-					<p>
-						We failed to create the new category. <br>
-						We have reasons -
-					</p>
+					<% locals.errors = locals.errors.array() %> 
+					<% if (locals.errors.length > 0) {%> 
+						<p>
+							We failed to <%= action.toLowerCase() %>  the category. <br>
+							We have reasons -
+						</p>
+					<% } else { %>
+						<p>
+							We failed to <%= action.toLowerCase() %>  the category. <br>
+							Something went Wrong!
+						</p>
+					<% } %>
 					<ol>
-						<% errors.array().forEach(function(error) { %> 
+						<% errors.forEach(function(error) { %> 
 							<li><%= error.msg %> </li>
 						<% }) %> 
 					</ol>

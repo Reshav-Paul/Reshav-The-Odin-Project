@@ -31,14 +31,14 @@ module.exports.category_detail = function (req, res, next) {
 };
 
 module.exports.category_create_get = function(req, res, next) {
-    res.render('category_create');
+    res.render('category_create', {title: 'Create a cetgory', action: 'Create'});
 };
 
 module.exports.category_create_post = [
     body('name', 'Name must not be empty').trim().escape().isLength({min: 1}),
     body('description', 'Description must not be empty').trim().escape().isLength({min: 1}),
     body('abbreviation', 'Something wrong with the abbreviation').optional({checkFalsy: true}).escape(),
-    body('imageUrl', 'Something wrong with the image url').optional({checkFalsy: true}).escape(),
+    body('imageUrl', 'Something wrong with the image url').optional({checkFalsy: true}).isURL(),
 
     function (req, res, next) {
         const errors = validationResult(req);
@@ -51,7 +51,7 @@ module.exports.category_create_post = [
 
         if (!errors.isEmpty()) {
             if (imageUrl.length == 0) category.imageUrl = '';
-            res.render('category_create', {category: category, errors: errors});
+            res.render('category_create', {title: 'Create a cetgory', action: 'Create', category: category, errors: errors});
             return;
         } else {
             category.save(function(err) {
@@ -108,3 +108,52 @@ module.exports.category_delete_post = function(req, res, next) {
         }
     });
 };
+
+module.exports.category_update_get = function(req, res, next) {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+        res.redirect('/categories');
+        return;
+    }
+    Category.findById(req.params.id).exec(function(err, result) {
+        if (err) return next(err);
+        if (result == undefined) {
+            var error = new Error('No such category found');
+            error.status = 404;
+            return next(err);
+        }
+        if (result.imageUrl.startsWith('/images')) {
+            result.imageUrl = '';
+        }
+        res.render('category_create', {title: 'Update this Category', action: 'Update', category: result});
+    });
+};
+
+module.exports.category_update_post = [
+
+    body('name', 'Name must not be empty').trim().escape().isLength({min: 1}),
+    body('description', 'Description must not be empty').trim().escape().isLength({min: 1}),
+    body('abbreviation', 'Something wrong with the abbreviation').optional({checkFalsy: true}).escape(),
+    body('imageUrl', 'Something wrong with the image url').optional({checkFalsy: true}).isURL(),
+
+    function (req, res, next) {
+        const errors = validationResult(req);
+        const {name, abbreviation, description, imageUrl} = req.body;
+        const categoryData = {name, description};
+        if (imageUrl.length > 0) categoryData.imageUrl = imageUrl;
+        if (abbreviation.length > 0) categoryData.abbreviation = abbreviation;
+        
+        categoryData._id = req.params.id;
+        const category = new Category(categoryData);
+
+        if (!errors.isEmpty()) {
+            if (imageUrl.length == 0) category.imageUrl = '';
+            res.render('category_create', {title: 'Update this Category', action: 'Update', category: category, errors: errors});
+            return;
+        } else {
+            Category.findByIdAndUpdate(category._id, category, {}, function (err, updatedCategory) {
+                if (err) return next(err);
+                res.redirect(updatedCategory.url);
+            });
+        }
+    }
+];
