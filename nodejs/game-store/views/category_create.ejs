@@ -28,6 +28,10 @@
 				<label for="description">Description</label>
 				<textarea name="description" id="description" rows="3" class="form-control" required><%- locals.category == undefined? '' : category.description %></textarea>
 			</div>
+			<div class="form-group">
+				<label for="adminPassword" class="sr-only">Admin Password</label>
+				<input type="password" name="adminPassword" id="adminPassword" class="form-control" placeholder="Admin Password">
+			</div>
 			<br>
 			<input type="submit" value="<%= action %>"  class="btn d-block mx-auto shadow-success font-weight-bold">
 

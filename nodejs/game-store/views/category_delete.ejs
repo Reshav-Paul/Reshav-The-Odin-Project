@@ -7,6 +7,20 @@
         <p><%- category.description %> </p>
         <form action="" method="post">
             <input type="hidden" name="categoryid" id="categoryid" value="<%= category._id %>">
+            <div class="form-group">
+                <label for="adminPassword" class="sr-only">Admin Password</label>
+                <% if (locals.errors && locals.errors.length > 0) { %> 
+                    <div class="alert limited-width alert-danger my-4">
+                        <h4 class="alert-heading">Oops!</h4>
+                        <ol>
+                            <% errors.forEach(function(err) { %> 
+                                <li><%= err.msg %> </li>
+                            <% }) %> 
+                        </ol>
+                    </div>
+                <% } %> 
+				<input type="password" name="adminPassword" id="adminPassword" class="form-control" placeholder="Admin Password">
+			</div>
             <input type="submit" class="btn btn-danger" value="Delete">
         </form>        
 

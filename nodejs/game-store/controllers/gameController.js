@@ -3,7 +3,8 @@ let Category = require('../models/Category');
 const mongoose = require('mongoose');
 const { body, validationResult } = require('express-validator');
 
-var async = require('async');
+let async = require('async');
+let adminPassword = process.env.adminPassword;
 
 module.exports.game_detail = function (req, res, next) {
     Game.findById(req.params.id).populate('category')
@@ -39,6 +40,7 @@ module.exports.game_create_post = [
     body('imageUrl', 'Please provide a valid image URL').optional({ checkFalsy: true }).isURL(),
     body('category', 'Please select atleast one category').isArray({ min: 1 }),
     body('category.*', 'We got an invalid category ID. Please select an available category.').isMongoId(),
+    body('adminPassword', 'Please enter the correct admin password').equals(adminPassword),
 
     (req, res, next) => {
         const { name, description, releaseDate, category, price, imageUrl } = req.body;
@@ -93,10 +95,21 @@ module.exports.game_delete_post = function(req, res, next) {
     Game.findById(req.params.id).exec(function(err, result) {
         if (err) return next(err);
 
+        if (result == undefined) {
+            let err = new Error('No such game found');
+            err.status = 404;
+            return next(err);
+        }
+
+        if (req.body.adminPassword !== adminPassword) {
+            res.render('game_delete', {game: result, errors: [{msg: 'Please enter the correct admin password'}]});
+            return;
+        }        
+
         let redirectionUrl = '/';
         if (result.category.length > 0) {
             redirectionUrl = '/category/' + result.category[0];
-        }
+        }        
 
         Game.findByIdAndRemove(result._id, function(err) {
             if (err) return next(err);
@@ -154,6 +167,7 @@ module.exports.game_update_post = [
     body('imageUrl', 'Please provide a valid image URL').optional({ checkFalsy: true }).isURL(),
     body('category', 'Please select atleast one category').isArray({ min: 1 }),
     body('category.*', 'We got an invalid category ID. Please select an available category.').isMongoId(),
+    body('adminPassword', 'Please enter the correct admin password').equals(adminPassword),
 
     (req, res, next) => {
         const { name, description, releaseDate, category, price, imageUrl } = req.body;

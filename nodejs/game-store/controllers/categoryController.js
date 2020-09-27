@@ -1,6 +1,7 @@
 let async = require('async');
 let { body, validationResult } = require('express-validator');
 const mongoose = require('mongoose');
+let adminPassword = process.env.adminPassword;
 
 let Category = require('../models/Category');
 let Game = require('../models/Game');
@@ -39,6 +40,7 @@ module.exports.category_create_post = [
     body('description', 'Description must not be empty').trim().escape().isLength({min: 1}),
     body('abbreviation', 'Something wrong with the abbreviation').optional({checkFalsy: true}).escape(),
     body('imageUrl', 'Something wrong with the image url').optional({checkFalsy: true}).isURL(),
+    body('adminPassword', 'Please enter the correct admin password').equals(adminPassword),
 
     function (req, res, next) {
         const errors = validationResult(req);
@@ -97,6 +99,21 @@ module.exports.category_delete_post = function(req, res, next) {
     }, function(err, results) {
         if (err) return next(err);
 
+        if (results.category == undefined) {
+            let error = new Error('No such category found');
+            error.status = 404;
+            return next(error);
+        }
+
+        if (req.body.adminPassword !== adminPassword) {
+            res.render('category_delete', {
+                category: results.category,
+                games: results.games,
+                errors: [{msg: 'Please enter the correct admin password'}],
+            });
+            return;
+        }
+
         if (results.games.length > 0) {
             res.render('category_delete', {category: results.category, games: results.games});
             return;
@@ -134,6 +151,7 @@ module.exports.category_update_post = [
     body('description', 'Description must not be empty').trim().escape().isLength({min: 1}),
     body('abbreviation', 'Something wrong with the abbreviation').optional({checkFalsy: true}).escape(),
     body('imageUrl', 'Something wrong with the image url').optional({checkFalsy: true}).isURL(),
+    body('adminPassword', 'Please enter the correct admin password').equals(adminPassword),
 
     function (req, res, next) {
         const errors = validationResult(req);

@@ -6,8 +6,23 @@
         <h4><%- game.name %> </h4>
         <p><%- game.description %> </p>
 
+        <% if (locals.errors && locals.errors.length > 0) { %> 
+            <div class="alert limited-width alert-danger my-4">
+				<h4 class="alert-heading">Oops!</h4>
+				<ol>
+					<% errors.forEach(function(err) { %> 
+						<li><%= err.msg %> </li>
+					<% }) %> 
+				</ol>
+			</div>
+        <% } %> 
+
         <form action="" method="post">
             <input type="hidden" name="gameid" id="gameid" value="<%= game._id %>" required>
+            <div class="form-group">
+                <label for="adminPassword" class="sr-only">Admin Password</label>
+                <input type="password" name="adminPassword" id="adminPassword" class="form-control" placeholder="Admin Password">
+            </div>
             <input type="submit" value="Confirm Deletion" class="btn btn-danger">
         </form>
     </div>

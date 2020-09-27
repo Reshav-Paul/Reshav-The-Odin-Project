@@ -51,6 +51,11 @@
 				value="<%= locals.game == undefined || locals.game.imageUrl == undefined? '':locals.game.imageUrl%>" >
 		</div>
 
+		<div class="form-group">
+			<label for="adminPassword" class="sr-only">Admin Password</label>
+			<input type="password" name="adminPassword" id="adminPassword" class="form-control" placeholder="Admin Password">
+		</div>
+
 		<% if (locals.errors) {%>
 			<div class="alert limited-width alert-danger mt-4 mb-2">
 				<h4 class="alert-heading">Oops!</h4>
