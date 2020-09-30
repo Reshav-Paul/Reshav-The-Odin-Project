@@ -1,0 +1,44 @@
+<%- include('partials/header') %> 
+
+    <form action="" method="post" class="limited-width container">
+        <h1 class="mt-5 my-4 text-center">Signup</h1>
+        <div class="form-group">
+            <label for="username" class="sr-only">Email</label>
+            <input type="email" class="form-control" id="username" name="username" placeholder="Email"
+                value="<%= locals.username == undefined? '': username %>" required>
+        </div>
+        <div class="form-group">
+            <label for="firstName" class="sr-only">First Name</label>
+            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name"
+                value="<%= locals.firstName == undefined? '': firstName %>" required>
+        </div>
+        <div class="form-group">
+            <label for="lastName" class="sr-only">Last Name</label>
+            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name"
+                value="<%= locals.lastName == undefined? '': lastName %>">
+        </div>
+        <div class="form-group">
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword" class="sr-only">Confirm Password</label>
+            <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Confirm Password" required>
+        </div>
+        <% if (locals.errors) { %> 
+            <div class="alert alert-danger">
+                <ol>
+                    <% errors.array().forEach(function(error) { %> 
+                        <li><%= error.msg %></li>
+                    <% }) %> 
+                </ol>
+            </div>
+        <% } %>         
+        <div class="text-center mt-4">
+            <input type="submit" value="Signup" class="btn btn-dark">
+            <br>
+            <span>Already registered? </span> <a href="/login">Login</a>
+        </div>
+    </form>
+
+<%- include('partials/footer') %> 
