@@ -12,7 +12,7 @@ const bcrypt = require('bcryptjs');
 const validator = require('validator');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var messageRouter = require('./routes/message');
 const User = require('./models/user');
 
 var app = express();
@@ -76,7 +76,7 @@ app.use(function(req, res, next) {
   next();
 });
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/message', messageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

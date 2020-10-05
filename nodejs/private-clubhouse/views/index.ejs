@@ -1,10 +1,43 @@
 <%- include('partials/header') %> 
 
   <% if (!locals.currentUser) { %> 
-    <a href="/login">Please Login</a>
+    <div class="container p-3 text-center">
+      <a href="/login">Please Login</a>
+    </div>    
   <% } else { %>
+    <% let isAuthorized = currentUser.isAdmin || currentUser.isMember; %> 
     <div class="container">
-      <h3>Welcome, <%- locals.currentUser.name %> </h3>
+      <div class="row align-items-center">
+        <h3 class="col py-3">Welcome, <%- locals.currentUser.name %> </h3>
+        <a href="/message/create" class="col-auto btn btn-success">Create Message</a>
+      </div>      
+
+      <% if (locals.messages && locals.messages.length > 0) {%> 
+        <ul class="list-unstyled row row-cols-1 row-cols-md-2 row-cols-lg-3">
+          <% messages.forEach(function(message) { %> 
+
+            <div class="col">
+              <div class="card mb-3">
+                <h5 class="card-header">
+                  <% const isOwnMessage = currentUser._id.toString() === message.user._id.toString(); %> 
+                  <% if ((isAuthorized || isOwnMessage) && message.user.name) { %> 
+                    <a href="<%= message.user.url %>"><%- message.user.name %></a>
+                  <% } else { %> 
+                    Anonymous
+                  <% } %> 
+                </h5>
+                <div class="card-body">
+                  <%- message.text || '' %> 
+                </div>
+              </div>
+            </div>
+
+          <% }) %> 
+        </ul>
+
+      <% } else { %> 
+        <p>No messages found!</p>
+      <% } %> 
     </div>
   <% } %> 
 

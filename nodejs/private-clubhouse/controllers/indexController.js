@@ -1,15 +1,34 @@
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
+const passport = require('passport');
+const validator = require('validator');
 
 const User = require('../models/user');
-const passport = require('passport');
+const Message = require('../models/message');
 
 module.exports.index_get = function (req, res, next) {
     if (!req.user) {
         res.redirect('/login');
         return;
     }
-    res.render('index', { title: 'Express' });
+    let findMiddleware = Message.find();
+    if (req.user) findMiddleware.populate('user');
+    
+    findMiddleware.exec(function(err, messages) {
+        if (err) return next(err);
+        messages.forEach(function(message) {
+
+            let {username, firstName, lastName} = message.user;
+            message.user.username = validator.escape(username);
+            message.user.firstName = validator.escape(firstName);
+            if (lastName) {
+                message.user.lastName = validator.escape(lastName);
+            }
+
+            message.text = validator.escape(message.text);
+        });
+        res.render('index', { messages });
+    });    
 }
 
 module.exports.login_get = function (req, res, next) {
@@ -61,7 +80,7 @@ module.exports.signup_post = [
     body('firstName', 'First name must not be empty').trim().isLength({ min: 1 }),
     body('firstName', 'First name can only consist of alphabetic characters').isAlpha(),
     body('lastName', 'Last name is optional. But if provided, it must not be empty.')
-        .isLength({ min: 1 }).trim().isLength({ min: 1 }),
+        .optional({checkFalsy: true}).trim().isLength({ min: 1 }),
     function (req, res, next) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -73,26 +92,36 @@ module.exports.signup_post = [
             });
             return;
         }
+        
 
-        bcrypt.hash(req.body.password, parseInt(process.env.passwordHashSecret), function (err, hashedPassword) {
-
+        User.findOne({username: req.body.username}).exec(function(err, user) {
             if (err) return next(err);
-            const userData = {
-                username: req.body.username,
-                password: hashedPassword,
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
-            };
 
-            const user = new User(userData);
+            if (user) {
+                errors.errors = [...errors.errors, { msg: 'This email already exists. Try Logging in!' }];
+                res.render('signup', { errors });
+                return;
+            }
+            bcrypt.hash(req.body.password, parseInt(process.env.passwordHashSecret), function (err, hashedPassword) {
 
-            user.save(function (err) {
                 if (err) return next(err);
-                passport.authenticate('local', {
-                    successRedirect: '/',
-                    failureRedirect: '/login'
-                })(req, res, next);
+                const userData = {
+                    username: req.body.username,
+                    password: hashedPassword,
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                };
+    
+                const user = new User(userData);
+    
+                user.save(function (err) {
+                    if (err) return next(err);
+                    passport.authenticate('local', {
+                        successRedirect: '/',
+                        failureRedirect: '/login'
+                    })(req, res, next);
+                });
             });
-        });
+        });        
     }
 ];

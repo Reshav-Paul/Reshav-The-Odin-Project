@@ -1,0 +1,15 @@
+<%- include('partials/header') %> 
+
+<div class="container">
+    <% if(locals.currentUser || locals.currentUser._id === message.user) { %> 
+        <h5>Message created by <a href="<%= '/user/' + message.user %>"></a></h5>
+    <% } else { %> 
+        <h5>Message creator is anonymous</h5>
+        <p>Become a member to view the creator</p>
+    <% } %> 
+    <p>
+        <%- message.text %> 
+    </p>
+</div>
+
+<%- include('partials/footer') %> 
