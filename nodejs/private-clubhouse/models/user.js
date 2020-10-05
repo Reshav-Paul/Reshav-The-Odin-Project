@@ -16,7 +16,7 @@ UserSchema.virtual('url').get(function() {
 });
 
 UserSchema.virtual('name').get(function() {
-    return this.firstName + (this.lastName || '');
+    return this.firstName + ' ' + (this.lastName || '');
 });
 
 module.exports = mongoose.model('User', UserSchema);
