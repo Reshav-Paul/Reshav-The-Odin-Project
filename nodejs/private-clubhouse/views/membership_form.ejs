@@ -1,0 +1,30 @@
+<%- include('partials/header') %> 
+
+<% if (currentUser) { %> 
+
+    <% if (!currentUser.isMember) { %> 
+        <form action="" method="post" class="limited-width container py-3">
+            <h4>Question</h4>
+            <p><%= question %> </p>
+            <br>
+            <div class="form-group">
+                <input type="number" min="0" max="99" name="answer" id="answer" class="form-control" placeholder="Your answer..." required>
+            </div>
+            <% if (locals.error) { %> 
+                <div class="alert alert-danger"><%= error %> </div>
+            <% } %> 
+            <div class="form-group text-center">
+                <input type="submit" value="Submit" class="btn btn-success">
+            </div>
+        </form>
+    <% } else  { %> 
+        <div class="container">
+            <p>You are already a member.</p>
+        </div>
+    <% } %> 
+
+<% } else { %> 
+    <%- include('partials/login_prompt') %> 
+<% } %> 
+
+<%- include('partials/footer') %> 
