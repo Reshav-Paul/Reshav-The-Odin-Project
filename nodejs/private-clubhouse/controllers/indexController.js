@@ -42,6 +42,10 @@ module.exports.login_get = function (req, res, next) {
 module.exports.login_post = [
     body('username', 'Please enter a valid email').trim().isLength({min: 1}).isEmail(),
     function(req, res, next) {
+        if (req.user) {
+            res.redirect('/');
+            return;
+        }
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
@@ -56,12 +60,14 @@ module.exports.login_post = [
 ];
 
 module.exports.logout_get = function(req, res, next) {
-    req.logout();
+    if (req.user) {
+        req.logout();
+    }
     res.redirect('/login');
 }
 
 module.exports.signup_get = function (req, res, next) {
-    if (req.user != undefined) {
+    if (req.user) {
         res.redirect('/');
         return;
     }
@@ -82,6 +88,10 @@ module.exports.signup_post = [
     body('lastName', 'Last name is optional. But if provided, it must not be empty.')
         .optional({checkFalsy: true}).trim().isLength({ min: 1 }),
     function (req, res, next) {
+        if (req.user) {
+            res.redirect('/');
+            return;
+        }
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             res.render('signup', {

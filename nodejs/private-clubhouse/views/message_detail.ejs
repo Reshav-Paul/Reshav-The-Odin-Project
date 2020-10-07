@@ -1,6 +1,6 @@
 <%- include('partials/header') %> 
 
-<% if (currentUser) { %> 
+<% if (locals.currentUser) { %> 
 
     <% let isAuthorized = currentUser.isAdmin || currentUser.isMember; %> 
     <% const isOwnMessage = currentUser._id.toString() === message.user._id.toString(); %> 

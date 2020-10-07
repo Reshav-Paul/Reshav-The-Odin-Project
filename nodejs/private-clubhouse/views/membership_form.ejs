@@ -1,6 +1,6 @@
 <%- include('partials/header') %> 
 
-<% if (currentUser) { %> 
+<% if (locals.currentUser) { %> 
 
     <% if (!currentUser.isMember) { %> 
         <form action="" method="post" class="limited-width container py-3">

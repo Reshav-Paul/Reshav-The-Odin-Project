@@ -3,6 +3,15 @@ const validator = require('validator');
 
 const Message = require('../models/message');
 
+module.exports.message_auth_check = function(req, res, next) {
+    if (!req.user) {
+        res.redirect('/login');
+        return;
+    } else {
+        next();
+    }
+}
+
 module.exports.message_detail = function(req, res, next) {
     if (!validator.isMongoId(req.params.id)) {
         const error = new Error('No such message exists');
