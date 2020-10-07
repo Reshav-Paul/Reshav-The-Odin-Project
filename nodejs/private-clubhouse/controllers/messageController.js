@@ -53,4 +53,24 @@ module.exports.message_create_post = [
             res.redirect('/');
         });
     }
-]
+];
+
+module.exports.message_delete_get = function(req, res, next) {
+    if (!req.user.isAdmin) {
+        res.render('message_delete', {error: 'Only admins can delete messages.'});
+        return;
+    }
+    res.render('message_delete');
+}
+
+module.exports.message_delete_post = function(req, res, next) {
+    if (!validator.isMongoId(req.params.id)) {
+        let error = new Error('No such message found');
+        error.status = 404;
+        return next(error);
+    }
+    Message.findByIdAndRemove(req.params.id, function(err) {
+        if (err) return next(err);
+        res.redirect('/');
+    });
+}

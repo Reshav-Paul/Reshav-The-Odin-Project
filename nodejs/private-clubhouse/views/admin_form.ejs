@@ -2,13 +2,12 @@
 
 <% if (locals.currentUser) { %> 
 
-    <% if (!currentUser.isMember) { %> 
+    <% if (!currentUser.isAdmin) { %> 
         <form action="" method="post" class="limited-width container py-3">
-            <h4>Question</h4>
-            <p><%= question %> </p>
+            <h4>Enter the admin password</h4>
             <br>
             <div class="form-group">
-                <input type="password" name="answer" id="answer" class="form-control" placeholder="Your answer..." required>
+                <input type="password" name="answer" id="answer" class="form-control" placeholder="Password" required>
             </div>
             <% if (locals.error) { %> 
                 <div class="alert alert-danger"><%= error %> </div>
@@ -19,7 +18,7 @@
         </form>
     <% } else  { %> 
         <div class="container">
-            <p>You are already a member.</p>
+            <p class="py-3">You are already an admin.</p>
         </div>
     <% } %> 
 

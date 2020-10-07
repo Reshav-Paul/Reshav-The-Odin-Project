@@ -15,6 +15,9 @@
         <p>
             <%- message.text %> 
         </p>
+        <% if (currentUser.isAdmin) { %> 
+            <a href="<%= message.url + '/delete' %>" class="btn btn-danger">Delete</a>
+        <% } %> 
     </div>
 
 <% } else { %> 

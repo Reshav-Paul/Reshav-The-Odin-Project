@@ -11,9 +11,9 @@
         <div class="col py-3">
           <h3>Welcome, <%- locals.currentUser.name %> </h3>
 
-          <% if (!isAuthorized) { %> 
+          <% if (!currentUser.isMember) { %> 
             <p>
-              Guess the answer and become a member <a href="/membership">here.</a>
+              Enter the secret code and become a member <a href="/membership">here.</a>
             </p>
           <% } %> 
         </div>        

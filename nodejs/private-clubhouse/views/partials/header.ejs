@@ -19,6 +19,11 @@
 				<li class="nav-item">
 					<a href="<%= locals.currentUser.url %>" class="nav-link"><%- locals.currentUser.username %> </a>
 				</li>
+				<% if (!currentUser.isAdmin) { %> 
+					<li class="nav-item">
+						<a href="/admin" class="nav-link">Become Admin</a>
+					</li>
+				<% } %>
 				<li class="nav-item">
 					<a href="/logout" class="nav-link">Logout</a>
 				</li>
