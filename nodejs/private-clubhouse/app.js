@@ -13,6 +13,7 @@ const validator = require('validator');
 
 var indexRouter = require('./routes/index');
 var messageRouter = require('./routes/message');
+const usersRouter = require('./routes/users');
 const User = require('./models/user');
 
 var app = express();
@@ -77,6 +78,7 @@ app.use(function(req, res, next) {
 });
 app.use('/', indexRouter);
 app.use('/message', messageRouter);
+app.use('/user', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

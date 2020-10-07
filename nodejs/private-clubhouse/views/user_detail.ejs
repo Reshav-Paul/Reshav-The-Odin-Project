@@ -1,0 +1,38 @@
+<%- include('partials/header') %> 
+
+<% if (currentUser) { %> 
+
+    <% if (isAuthorized) { %> 
+        <div class="container py-4">
+                <h5><%- user.username %></h5>
+                <p>
+                    First Name - <%- user.firstName %> <br>
+                    <% if (user.lastName) { %> 
+                        Last Name - <%- user.lastName %> <br>
+                    <% } %>
+                </p>
+                <div>
+                    <% if (user.isMember) { %> 
+                        <div class="badge badge-success p-2">Member</div>
+                    <% } else { %> 
+                        <div class="badge badge-danger p-2">Not A Member</div>
+                    <% } %> 
+
+                    <% if (user.isAdmin) { %> 
+                        <div class="badge badge-success p-2">Admin</div>
+                    <% } else { %> 
+                        <div class="badge badge-warning p-2">Not An Admin</div>
+                    <% } %> 
+                </div>
+        </div>
+    <% } else { %> 
+        <div class="container py-4">
+            <p>You are not authorized to view user data. Please become a member <a href="/membership">here</a> to get access.</p>
+        </div>
+    <% } %> 
+
+<% } else { %> 
+    <%- include('partials/login_prompt') %> 
+<% } %> 
+
+<%- include('partials/footer') %> 

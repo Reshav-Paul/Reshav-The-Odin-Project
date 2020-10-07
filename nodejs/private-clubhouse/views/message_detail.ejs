@@ -1,15 +1,26 @@
 <%- include('partials/header') %> 
 
-<div class="container">
-    <% if(locals.currentUser || locals.currentUser._id === message.user) { %> 
-        <h5>Message created by <a href="<%= '/user/' + message.user %>"></a></h5>
-    <% } else { %> 
-        <h5>Message creator is anonymous</h5>
-        <p>Become a member to view the creator</p>
-    <% } %> 
-    <p>
-        <%- message.text %> 
-    </p>
-</div>
+<% if (currentUser) { %> 
+
+    <% let isAuthorized = currentUser.isAdmin || currentUser.isMember; %> 
+    <% const isOwnMessage = currentUser._id.toString() === message.user._id.toString(); %> 
+
+    <div class="container py-4">
+        <% if(isAuthorized || isOwnMessage) { %> 
+            <h5>Message created by <a href="<%= message.user.url %>"><%= message.user.name %></a></h5>
+        <% } else { %> 
+            <h5>Message creator is anonymous</h5>
+            <p>Become a member to view the creator</p>
+        <% } %> 
+        <p>
+            <%- message.text %> 
+        </p>
+    </div>
+
+<% } else { %> 
+
+    <%- include('partials/login_prompt') %> 
+
+<% } %> 
 
 <%- include('partials/footer') %> 

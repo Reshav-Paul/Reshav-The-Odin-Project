@@ -1,14 +1,23 @@
 <%- include('partials/header') %> 
 
   <% if (!locals.currentUser) { %> 
-    <div class="container p-3 text-center">
-      <a href="/login">Please Login</a>
-    </div>    
+    <%- include('partials/login_prompt') %> 
   <% } else { %>
+
     <% let isAuthorized = currentUser.isAdmin || currentUser.isMember; %> 
+
     <div class="container">
       <div class="row align-items-center">
-        <h3 class="col py-3">Welcome, <%- locals.currentUser.name %> </h3>
+        <div class="col py-3">
+          <h3>Welcome, <%- locals.currentUser.name %> </h3>
+
+          <% if (!isAuthorized) { %> 
+            <p>
+              Guess the answer and become a member <a href="/membership">here.</a>
+            </p>
+          <% } %> 
+        </div>        
+
         <a href="/message/create" class="col-auto btn btn-success">Create Message</a>
       </div>      
 
@@ -27,7 +36,10 @@
                   <% } %> 
                 </h5>
                 <div class="card-body">
-                  <%- message.text || '' %> 
+                  <p><%- message.text || '' %></p>
+                  <div class="text-right">
+                    <a href="<%= message.url %>" class="btn btn-secondary">See Message</a>
+                  </div>                  
                 </div>
               </div>
             </div>
@@ -39,6 +51,7 @@
         <p>No messages found!</p>
       <% } %> 
     </div>
+
   <% } %> 
 
 <%- include('partials/footer') %> 

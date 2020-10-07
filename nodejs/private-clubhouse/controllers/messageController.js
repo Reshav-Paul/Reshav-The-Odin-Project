@@ -9,8 +9,14 @@ module.exports.message_detail = function(req, res, next) {
         error.status = 404;
         return next(err);
     }
-    Message.findById(req.params.id).exec(function(err, message) {
+    Message.findById(req.params.id).populate('user').exec(function(err, message) {
         if (err) return next(err);
+        message.text = validator.escape(message.text);
+        message.user.username = validator.escape(message.user.username);
+        message.user.firstName = validator.escape(message.user.firstName);
+        if (message.user.lastName) {
+            message.user.lastName = validator.escape(message.user.lastName);
+        }
         res.render('message_detail', { message });
     });
 }
