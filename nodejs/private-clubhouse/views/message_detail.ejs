@@ -7,7 +7,7 @@
 
     <div class="container py-4">
         <% if(isAuthorized || isOwnMessage) { %> 
-            <h5>Message created by <a href="<%= message.user.url %>"><%= message.user.name %></a></h5>
+            <h5>Message created by <a href="<%= message.user.url %>"><%- message.user.name %></a></h5>
         <% } else { %> 
             <h5>Message creator is anonymous</h5>
             <p>Become a member to view the creator</p>

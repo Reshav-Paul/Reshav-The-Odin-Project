@@ -52,6 +52,11 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(id, done) {
   User.findById(id).exec(function(err, user) {
+    user.username = validator.escape(user.username);
+    user.firstName = validator.escape(user.firstName);
+    if (user.lastName) {
+      user.lastName = validator.escape(user.lastName);
+    }
     done(err, user);
   });
 });
