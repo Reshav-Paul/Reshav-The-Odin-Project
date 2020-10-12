@@ -16,7 +16,7 @@ EditorSchema.virtual('url').get(function() {
 });
 
 EditorSchema.pre('save', function(next) {
-    bcrypt.genSalt(process.env.passwordHash, function(err, salt) {
+    bcrypt.genSalt(parseInt(process.env.passwordHash), function(err, salt) {
         if (err) return next(err);
         bcrypt.hash(this.password, salt, function(err, hashedPassword) {
             if (err) return next(err);
