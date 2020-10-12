@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
-  res.json({ message: 'Use /api endpoint for accessing the api' });
+    // res.statusCode = 200;
+    res.json({ message: 'Default API response' });
 });
 
 module.exports = router;
