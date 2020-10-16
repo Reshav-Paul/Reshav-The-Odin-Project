@@ -10,8 +10,12 @@ const errorHelper = require('../helpers/errorCodes');
 const testHelpers = require('../helpers/testHelpers');
 
 const app = express();
+
+app.use(express.json());
+
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
+
 let userIds = [];
 
 beforeAll(async function() {
@@ -45,7 +49,7 @@ afterAll(async function() {
     await dbHandler.closeDatabase();
 });
 
-describe('user endpoint works', () => {
+describe('user get endpoint works', () => {
     test('returns list of users excluding their passwords', (done) => {
         request(app)
             .get('/api/users')
@@ -53,7 +57,7 @@ describe('user endpoint works', () => {
             .expect(200)
             .end(function(err, res) {
                 if (err) return done(err);
-                const data = res.body;                
+                const data = res.body;
 
                 expect(data[0].email).toBe('foo@gmail.com');
                 expect(data[0].firstName).toBe('Foo');
@@ -75,7 +79,7 @@ describe('user endpoint works', () => {
 
     test('returns a single user by id', (done) => {
         request(app)
-            .get('/api/user/' + userIds[0])
+            .get('/api/users/' + userIds[0])
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function(err, res) {
@@ -92,7 +96,7 @@ describe('user endpoint works', () => {
 
     test('returns 404 if the user is not found', (done) => {
         request(app)
-            .get('/api/user/' + testHelpers.generateMongoId(userIds[0]))
+            .get('/api/users/' + testHelpers.generateMongoId(userIds[0]))
             .expect('Content-Type', /json/)
             .expect(404)
             .end(function(err, res) {
@@ -102,4 +106,49 @@ describe('user endpoint works', () => {
             });
     });
     
+    test('returns 400 if the id is malformed', (done) => {
+        request(app)
+            .get('/api/users/' + userIds[0].slice(0, -1) + 'z')
+            .expect('Content-Type', /json/)
+            .expect(400)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.error.toString()).toBe(errorHelper.mongoIdError.toString());
+            });
+
+        request(app)
+            .get('/api/users/' + userIds[0].slice(0, -1))
+            .expect('Content-Type', /json/)
+            .expect(400)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.error.toString()).toBe(errorHelper.mongoIdError.toString());
+            });
+            
+        done();
+    });
+});
+
+describe('User creation works', () => {
+    test('user can be created when all data is available', done => {
+        request(app)
+            .post('/api/users')
+            .send({
+                email: 'bar@gmail.com',
+                password: 'barbar',
+                firstName: 'Bar',
+                lastName: 'Baz'
+            })
+            .set('Accept', 'application/json')
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                console.log(res.body);
+                expect(res.body.email).toBe('bar@gmail.com');
+                expect(res.body.password).toBeUndefined();
+                done();
+            })
+            
+    })
 });
