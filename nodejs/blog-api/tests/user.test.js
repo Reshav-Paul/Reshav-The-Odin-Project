@@ -387,14 +387,143 @@ describe('User updation works', () => {
             .put('/api/users/' + userIds[1])
             .send({ email: 'bazbuzzer@gmail.com' })
             .set('Accept', 'application/json')
-            // .expect('Content-Type', /json/)
+            .expect('Content-Type', /json/)
             .expect(200)
             .end(function(err, res) {
                 if (err) return done(err);
-                console.log(res.body);
                 expect(res.body.email).toBe('bazbuzzer@gmail.com');
                 expect(res.body.password).toBeUndefined();
                 done();
-            })
-    })
+            });
+    });
+
+    test('cannot update email if it is already in use', done => {
+        request(app)
+            .put('/api/users/' + userIds[1])
+            .send({ email: 'fred@gmail.com' })
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.error.toString()).toBe(errorHelper.duplicate_email.toString());
+                done();
+            });
+    });
+});
+
+describe('User data validation during updation works', () => {
+    test('cannot update with empty email', done => {
+        request(app)
+            .put('/api/users/' + userIds[1])
+            .send({ email: '   ' })
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.email).toBe('bazbuzzer@gmail.com');
+                done();
+            });
+    });
+
+    test('cannot update with invalid email', done => {
+        request(app)
+            .put('/api/users/' + userIds[1])
+            .send({ email: '<img>baz@gmail.com' })
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+
+                const error = res.body.error.errors[0];
+                expect(error.msg).toBe(errorHelper.validationErrors.invalid_email);
+
+                request(app)
+                    .get('/api/users/' + userIds[1])
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function(err, res) {
+                        if (err) return done(err);
+                        expect(res.body.email).toBe('bazbuzzer@gmail.com');
+                        done();
+                    });
+            });
+    });
+    
+    test('cannot update with empty firstName', done => {
+        request(app)
+            .put('/api/users/' + userIds[1])
+            .send({ firstName: '  ' })
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.firstName).toBe('Baz');
+                done();
+            });
+    });
+    test('cannot update with numeric first name', done => {
+        request(app)
+            .put('/api/users/' + userIds[1])
+            .send({ firstName: '99' })
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const error = res.body.error.errors[0];
+                expect(error.msg).toBe(errorHelper.validationErrors.numeric_first_name);
+                
+                request(app)
+                    .get('/api/users/' + userIds[1])
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function(err, res) {
+                        if (err) return done(err);
+                        expect(res.body.firstName).toBe('Baz');
+                        done();
+                    });
+            });
+    });
+
+    test('cannot update with empty last name', done => {
+        request(app)
+            .put('/api/users/' + userIds[1])
+            .send({ lastName: '  ' })
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.lastName).toBeUndefined();
+                done();
+            });
+    });
+
+    test('cannot update with numeric last name', done => {
+        request(app)
+            .put('/api/users/' + userIds[1])
+            .send({ lastName: '99' })
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const error = res.body.error.errors[0];
+                expect(error.msg).toBe(errorHelper.validationErrors.numeric_last_name);
+                
+                request(app)
+                    .get('/api/users/' + userIds[1])
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end(function(err, res) {
+                        if (err) return done(err);
+                        expect(res.body.lastName).toBeUndefined();
+                        done();
+                    });
+            });
+    });    
 });

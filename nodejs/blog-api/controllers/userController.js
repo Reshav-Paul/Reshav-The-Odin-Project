@@ -5,18 +5,17 @@ const User = require('../models/user');
 const errorHelper = require('../helpers/errorCodes');
 
 const userCreationValidationChain = [
-    body('email', errorHelper.validationErrors.invalid_email).exists().bail().isEmail(),
+    body('email', errorHelper.validationErrors.invalid_email).exists().bail().trim().isEmail(),
     body('password', errorHelper.validationErrors.no_password).exists().bail().isLength({ min: 5 }),
-    body('firstName', errorHelper.validationErrors.no_first_name).exists(),
+    body('firstName', errorHelper.validationErrors.no_first_name).exists().trim(),
     body('firstName', errorHelper.validationErrors.numeric_first_name).not().isNumeric(),
-    body('lastName', errorHelper.validationErrors.numeric_last_name).optional({ checkFalsy: true }).not().isNumeric(),
+    body('lastName', errorHelper.validationErrors.numeric_last_name).optional({ checkFalsy: true }).trim().not().isNumeric(),
 ];
 
 const userUpdationValidationChain = [
-    body('email', errorHelper.validationErrors.invalid_email).optional({ checkFalsy: true }).isEmail(),
-    body('password', errorHelper.validationErrors.no_password).optional({ checkFalsy: true }).isLength({ min: 5 }),
-    body('firstName', errorHelper.validationErrors.numeric_first_name).optional({ checkFalsy: true }).not().isNumeric(),
-    body('lastName', errorHelper.validationErrors.numeric_last_name).optional({ checkFalsy: true }).not().isNumeric(),
+    body('email', errorHelper.validationErrors.invalid_email).optional({ checkFalsy: true }).trim().isEmail(),
+    body('firstName', errorHelper.validationErrors.numeric_first_name).optional({ checkFalsy: true }).trim().not().isNumeric(),
+    body('lastName', errorHelper.validationErrors.numeric_last_name).optional({ checkFalsy: true }).trim().not().isNumeric(),
 ];
 
 module.exports.user_list = function (req, res, next) {
@@ -125,7 +124,6 @@ module.exports.user_update = [
                     }
                     return next(err);
                 }
-                console.log(user);
                 res.json(user);
             })
         }

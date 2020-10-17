@@ -11,6 +11,7 @@ var apiRouter = require('./routes/api');
 var app = express();
 
 mongoose.connect(process.env.mongoDbUrl, { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.set('returnOriginal', false);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 

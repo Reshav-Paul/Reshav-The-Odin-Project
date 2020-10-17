@@ -16,6 +16,7 @@ module.exports.connect = async () => {
         };
 
         await mongoose.connect(mongoUri, mongooseOpts);
+        mongoose.set('returnOriginal', false);
 
         mongoose.connection.on('error', (e) => {
             if (e.message.code === 'ETIMEDOUT') {
