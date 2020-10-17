@@ -16,6 +16,16 @@ app.use(express.json());
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
 
+app.use(function (err, req, res, next) {
+    // set locals, only providing error in development
+
+    res.status(err.status || 500);
+    for (const key in err) {
+        console.log(key, ': ', err[key]);
+    }
+    res.end();
+});
+
 let userIds = [];
 
 beforeAll(async function() {
@@ -114,8 +124,11 @@ describe('user get endpoint works', () => {
             .end(function(err, res) {
                 if (err) return done(err);
                 expect(res.body.error.toString()).toBe(errorHelper.mongoIdError.toString());
+                done();
             });
+    });
 
+    test('returns 400 if the id is of invalid length', done => {
         request(app)
             .get('/api/users/' + userIds[0].slice(0, -1))
             .expect('Content-Type', /json/)
@@ -123,10 +136,9 @@ describe('user get endpoint works', () => {
             .end(function(err, res) {
                 if (err) return done(err);
                 expect(res.body.error.toString()).toBe(errorHelper.mongoIdError.toString());
+                done();
             });
-            
-        done();
-    });
+    })
 });
 
 describe('User creation works', () => {
@@ -144,11 +156,245 @@ describe('User creation works', () => {
             .expect(200)
             .end(function(err, res) {
                 if (err) return done(err);
+                const data = res.body;
+                expect(data.email).toBe('bar@gmail.com');
+                expect(data.firstName).toBe('Bar');
+                expect(data.lastName).toBe('Baz');
+                expect(data.password).toBeUndefined();
+                userIds.push(data._id);
+                done();
+            });
+    });
+    test('user can be created when all data is available except lastName', done => {
+        request(app)
+            .post('/api/users')
+            .send({
+                email: 'bar2@gmail.com',
+                password: 'barbar',
+                firstName: 'Bar2',
+            })
+            .set('Accept', 'application/json')
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const data = res.body;
+                expect(data.email).toBe('bar2@gmail.com');
+                expect(data.firstName).toBe('Bar2');
+                expect(data.password).toBeUndefined();
+                userIds.push(data._id);
+                done();
+            });
+    });
+
+    test('user cannot be created with duplicate email', done => {
+        request(app)
+            .post('/api/users')
+            .send({
+                email: 'bar2@gmail.com',
+                password: 'barbar',
+                firstName: 'BarBar',
+            })
+            .set('Accept', 'application/json')
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.error.toString()).toBe(errorHelper.duplicate_email.toString());
+                done();
+            });
+    });
+});
+
+describe('User data validation during creation works', () => {
+    test('returns invalid password error for no passwords provided', done => {
+        request(app)
+            .post('/api/users')
+            .send({
+                email: 'bar@gmail.com',
+                firstName: 'Baz'
+            })
+            .set('Accept', 'application/json')
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const error = res.body.error.errors[0];
+                expect(error.msg.toString()).toBe(errorHelper.validationErrors.no_password);
+                done();
+            });
+    });
+
+    test('returns invalid password error for password of length less than 5', done => {
+        request(app)
+            .post('/api/users')
+            .send({
+                email: 'bar@gmail.com',
+                firstName: 'Baz',
+                password: 'baz'
+            })
+            .set('Accept', 'application/json')
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const error = res.body.error.errors[0];
+                expect(error.msg.toString()).toBe(errorHelper.validationErrors.no_password);
+                done();
+            });
+    });
+
+    test('returns invalid email error for invalid emails', done => {
+        request(app)
+            .post('/api/users')
+            .send({
+                password: 'bazbaz',
+                firstName: 'Baz'
+            })
+            .set('Accept', 'application/json')
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const error = res.body.error.errors[0];
+                expect(error.msg.toString()).toBe(errorHelper.validationErrors.invalid_email);
+                done();
+            });
+    });
+
+    test('returns invalid email error for email not provided', done => {
+        request(app)
+            .post('/api/users')
+            .send({
+                email: '<img>bar@gmail.com',
+                password: 'bazbaz',
+                firstName: 'Baz'
+            })
+            .set('Accept', 'application/json')
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const error = res.body.error.errors[0];
+                expect(error.msg.toString()).toBe(errorHelper.validationErrors.invalid_email);
+                done();
+            });
+    });
+
+    test('returns no first name error if not provided', done => {
+        request(app)
+            .post('/api/users')
+            .send({
+                email: 'bar@gmail.com',
+                password: 'bazbaz',
+            })
+            .set('Accept', 'application/json')
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const error = res.body.error.errors[0];
+                expect(error.msg.toString()).toBe(errorHelper.validationErrors.no_first_name);
+                done();
+            });
+    });
+
+    test('returns numeric first name error if first name is numeric', done => {
+        request(app)
+            .post('/api/users')
+            .send({
+                email: 'bar@gmail.com',
+                password: 'bazbaz',
+                firstName: '99'
+            })
+            .set('Accept', 'application/json')
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const error = res.body.error.errors[0];
+                expect(error.msg.toString()).toBe(errorHelper.validationErrors.numeric_first_name);
+                done();
+            });
+    });
+
+    test('returns numeric last name error if last name is numeric', done => {
+        request(app)
+            .post('/api/users')
+            .send({
+                email: 'bar@gmail.com',
+                password: 'bazbaz',
+                firstName: 'Baz',
+                lastName: '99'
+            })
+            .set('Accept', 'application/json')
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const error = res.body.error.errors[0];
+                expect(error.msg.toString()).toBe(errorHelper.validationErrors.numeric_last_name);
+                done();
+            });
+    });
+});
+
+describe('User deletion works', () => {
+    test('Can delete a user present in the database', (done) => {
+        request(app)
+            .delete('/api/users/' + userIds[0])
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                request(app)
+                    .get('/api/users/' + res.body._id)
+                    .expect(404)
+                    .end(function(err, res) {
+                        if (err) return done(err);
+                        expect(res.body.error.toString()).toBe(errorHelper.user_not_found.toString())
+                        done();
+                    });
+            });
+    });
+    test('Cannot delete a user twice', done => {
+        request(app)
+            .delete('/api/users/' + userIds[0])
+            .expect('Content-Type', /json/)
+            .expect(404)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.error.toString()).toBe(errorHelper.user_not_found.toString())
+                done();
+            });
+    });
+    test('Cannot delete with an invalid user id', done => {
+        request(app)
+            .delete('/api/users/' + userIds[0].slice(0, -1) + 'z')
+            .expect('Content-Type', /json/)
+            .expect(400)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.error.toString()).toBe(errorHelper.mongoIdError.toString())
+                done();
+            });
+    });
+});
+
+describe('User updation works', () => {
+    test('can update only user email', done => {
+        request(app)
+            .put('/api/users/' + userIds[1])
+            .send({ email: 'bazbuzzer@gmail.com' })
+            .set('Accept', 'application/json')
+            // .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
                 console.log(res.body);
-                expect(res.body.email).toBe('bar@gmail.com');
+                expect(res.body.email).toBe('bazbuzzer@gmail.com');
                 expect(res.body.password).toBeUndefined();
                 done();
             })
-            
     })
 });

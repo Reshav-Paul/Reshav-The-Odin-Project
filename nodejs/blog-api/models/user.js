@@ -11,15 +11,16 @@ let UserSchema = new Schema({
 });
 
 UserSchema.virtual('url').get(function() {
-    return '/user/' + this._id;
+    return '/user' + this._id;
 });
 
 UserSchema.pre('save', function(next) {
+    let doc = this;
     bcrypt.genSalt(parseInt(process.env.passwordHash), function(err, salt) {
-        if (err) return next(err);
-        bcrypt.hash(this.password, salt, function(err, hashedPassword) {
+        if (err) return next(err);        
+        bcrypt.hash(doc.password, salt, function(err, hashedPassword) {
             if (err) return next(err);
-            this.password = hashedPassword;
+            doc.password = hashedPassword;
             next();
         });
     })    
