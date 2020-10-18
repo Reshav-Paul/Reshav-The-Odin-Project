@@ -111,7 +111,7 @@ describe('user get endpoint works', () => {
             .expect(404)
             .end(function(err, res) {
                 if (err) return done(err);
-                expect(res.body.error.toString()).toBe(errorHelper.user_not_found.toString());
+                expect(res.body.error.message).toBe(errorHelper.user_not_found.message);
                 done();
             });
     });
@@ -123,7 +123,7 @@ describe('user get endpoint works', () => {
             .expect(400)
             .end(function(err, res) {
                 if (err) return done(err);
-                expect(res.body.error.toString()).toBe(errorHelper.mongoIdError.toString());
+                expect(res.body.error.message).toBe(errorHelper.mongoIdParameterError.message);
                 done();
             });
     });
@@ -135,7 +135,7 @@ describe('user get endpoint works', () => {
             .expect(400)
             .end(function(err, res) {
                 if (err) return done(err);
-                expect(res.body.error.toString()).toBe(errorHelper.mongoIdError.toString());
+                expect(res.body.error.message).toBe(errorHelper.mongoIdParameterError.message);
                 done();
             });
     })
@@ -200,7 +200,7 @@ describe('User creation works', () => {
             .expect(200)
             .end(function(err, res) {
                 if (err) return done(err);
-                expect(res.body.error.toString()).toBe(errorHelper.duplicate_email.toString());
+                expect(res.body.error.message).toBe(errorHelper.duplicate_email.message);
                 done();
             });
     });
@@ -239,7 +239,7 @@ describe('User data validation during creation works', () => {
             .end(function(err, res) {
                 if (err) return done(err);
                 const error = res.body.error.errors[0];
-                expect(error.msg.toString()).toBe(errorHelper.validationErrors.no_password);
+                expect(error.msg).toBe(errorHelper.validationErrors.no_password);
                 done();
             });
     });
@@ -257,7 +257,7 @@ describe('User data validation during creation works', () => {
             .end(function(err, res) {
                 if (err) return done(err);
                 const error = res.body.error.errors[0];
-                expect(error.msg.toString()).toBe(errorHelper.validationErrors.invalid_email);
+                expect(error.msg).toBe(errorHelper.validationErrors.invalid_email);
                 done();
             });
     });
@@ -294,7 +294,7 @@ describe('User data validation during creation works', () => {
             .end(function(err, res) {
                 if (err) return done(err);
                 const error = res.body.error.errors[0];
-                expect(error.msg.toString()).toBe(errorHelper.validationErrors.no_first_name);
+                expect(error.msg).toBe(errorHelper.validationErrors.no_first_name);
                 done();
             });
     });
@@ -313,7 +313,7 @@ describe('User data validation during creation works', () => {
             .end(function(err, res) {
                 if (err) return done(err);
                 const error = res.body.error.errors[0];
-                expect(error.msg.toString()).toBe(errorHelper.validationErrors.numeric_first_name);
+                expect(error.msg).toBe(errorHelper.validationErrors.numeric_first_name);
                 done();
             });
     });
@@ -333,7 +333,7 @@ describe('User data validation during creation works', () => {
             .end(function(err, res) {
                 if (err) return done(err);
                 const error = res.body.error.errors[0];
-                expect(error.msg.toString()).toBe(errorHelper.validationErrors.numeric_last_name);
+                expect(error.msg).toBe(errorHelper.validationErrors.numeric_last_name);
                 done();
             });
     });
@@ -352,7 +352,7 @@ describe('User deletion works', () => {
                     .expect(404)
                     .end(function(err, res) {
                         if (err) return done(err);
-                        expect(res.body.error.toString()).toBe(errorHelper.user_not_found.toString())
+                        expect(res.body.error.message).toBe(errorHelper.user_not_found.message)
                         done();
                     });
             });
@@ -364,7 +364,7 @@ describe('User deletion works', () => {
             .expect(404)
             .end(function(err, res) {
                 if (err) return done(err);
-                expect(res.body.error.toString()).toBe(errorHelper.user_not_found.toString())
+                expect(res.body.error.message).toBe(errorHelper.user_not_found.message)
                 done();
             });
     });
@@ -375,7 +375,7 @@ describe('User deletion works', () => {
             .expect(400)
             .end(function(err, res) {
                 if (err) return done(err);
-                expect(res.body.error.toString()).toBe(errorHelper.mongoIdError.toString())
+                expect(res.body.error.message).toBe(errorHelper.mongoIdParameterError.message)
                 done();
             });
     });
@@ -406,7 +406,7 @@ describe('User updation works', () => {
             .expect(200)
             .end(function(err, res) {
                 if (err) return done(err);
-                expect(res.body.error.toString()).toBe(errorHelper.duplicate_email.toString());
+                expect(res.body.error.message).toBe(errorHelper.duplicate_email.message);
                 done();
             });
     });
