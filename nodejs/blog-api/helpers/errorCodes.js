@@ -30,8 +30,10 @@ module.exports.duplicate_email = {
 
 module.exports.validationErrors = {
 
-    // for user model
+    // for user and editor model
     no_first_name: 'First name cannot be empty',
+    no_last_name: 'Last name cannot be empty',
+    no_username: 'Username cannot be empty',
     numeric_first_name: 'First name cannot be numeric',
     invalid_email: 'Invalid Email',
     no_password: 'Passwords should have a minimum length of 5',

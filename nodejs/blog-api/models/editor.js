@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 let EditorSchema = new Schema({
     email: {type: String, required: true, unique: true},
-    password: {type: String, required: true},
+    password: {type: String, required: true, select: false},
     username: {type: String, required: true},
     firstName: {type: String, required: true},
     lastName: {type: String, required: true}
@@ -16,11 +16,12 @@ EditorSchema.virtual('url').get(function() {
 });
 
 EditorSchema.pre('save', function(next) {
+    let doc = this;
     bcrypt.genSalt(parseInt(process.env.passwordHash), function(err, salt) {
         if (err) return next(err);
-        bcrypt.hash(this.password, salt, function(err, hashedPassword) {
+        bcrypt.hash(doc.password, salt, function(err, hashedPassword) {
             if (err) return next(err);
-            this.password = hashedPassword;
+            doc.password = hashedPassword;
             next();
         });
     })    
