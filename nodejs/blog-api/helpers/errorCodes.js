@@ -23,6 +23,11 @@ module.exports.editor_not_found = {
     message: 'No editor was found for the requested ID'
 }
 
+module.exports.comment_not_found = {
+    status: 'Comment_Not_Found',
+    message: 'No comment was found for the requested ID'
+}
+
 module.exports.duplicate_email = {
     status: 'Duplicate_Email',
     message: 'This email address already belongs to a registered user'
@@ -43,5 +48,8 @@ module.exports.validationErrors = {
     no_title: 'Posts must have a title',
     no_body_text: 'Post must have some text',
     published_flag_wrong_format: 'isPublished can only be true or false',
-    date_wrong_format: 'Invalid date'
+    date_wrong_format: 'Invalid date',
+
+    // for comment model
+    no_comment_text: 'Comment must have non-empty text'
 }
