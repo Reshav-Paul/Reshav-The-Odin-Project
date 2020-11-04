@@ -4,6 +4,7 @@ const validator = require('validator');
 const errorHelper = require('../helpers/errorCodes');
 const Post = require('../models/post');
 const Editor = require('../models/editor');
+const Comment = require('../models/comment');
 
 function checkPublishFlagExistence(value) {
     if (value == undefined) return false;
@@ -171,3 +172,36 @@ module.exports.post_update = [
         }
     }
 ];
+
+module.exports.post_editor = function (req, res, next) {
+    if (!validator.isMongoId(req.params.id)) {
+        res.status(400).json({ error: errorHelper.mongoIdParameterError });
+        return;
+    }
+    Post.findById(req.params.id, 'editor').exec(function (err, post) {
+        if (err) return next(err);
+        if (!post) {
+            res.status(404).json(errorHelper.post_not_found);
+            return;
+        }
+        Editor.findById(post.editor).exec(function (err, editor) {
+            if (err) return next(err);
+            if (!editor) {
+                res.status(404).json(errorHelper.editor_not_found);
+                return;
+            }
+            res.json(editor);
+        });
+    });
+}
+
+module.exports.post_comments = function (req, res, next) {
+    if (!validator.isMongoId(req.params.id)) {
+        res.status(400).json({ error: errorHelper.mongoIdParameterError });
+        return;
+    }
+    Comment.find({ post: req.params.id }).exec(function (err, comments) {
+        if (err) return next(err);
+        res.json(comments);
+    });
+}

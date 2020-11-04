@@ -11,4 +11,7 @@ router.get('/:id', postController.post_detail);
 router.put('/:id', postController.post_update);
 router.delete('/:id', postController.post_delete);
 
+router.get('/:id/comments', postController.post_comments);
+router.get('/:id/editor', postController.post_editor);
+
 module.exports = router;

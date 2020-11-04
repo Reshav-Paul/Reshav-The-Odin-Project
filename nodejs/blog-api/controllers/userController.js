@@ -2,6 +2,7 @@ const validator = require('validator');
 const { body, validationResult } = require('express-validator');
 
 const User = require('../models/user');
+const Comment = require('../models/comment');
 const errorHelper = require('../helpers/errorCodes');
 
 const userCreationValidationChain = [
@@ -115,12 +116,12 @@ module.exports.user_update = [
         if (data.lastName) userData.lastName = data.lastName;
 
         if (Object.keys(userData).length === 0) {
-            User.findById(req.params.id, function(err, user) {
+            User.findById(req.params.id, function (err, user) {
                 if (err) return next(err);
                 res.json(user);
             });
         } else {
-            User.findByIdAndUpdate(req.params.id, userData, function(err, user) {
+            User.findByIdAndUpdate(req.params.id, userData, function (err, user) {
                 if (err) {
                     if (err.code == 11000) {
                         res.json({ error: errorHelper.duplicate_email });
@@ -133,3 +134,14 @@ module.exports.user_update = [
         }
     }
 ];
+
+module.exports.user_comments = function (req, res, next) {
+    if (!validator.isMongoId(req.params.id)) {
+        res.status(400).json({ error: errorHelper.mongoIdParameterError });
+        return;
+    }
+    Comment.find({ user: req.params.id }).exec(function (err, comments) {
+        if (err) return next(err);
+        res.json(comments);
+    });
+}
