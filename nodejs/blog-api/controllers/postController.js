@@ -101,7 +101,10 @@ module.exports.post_delete = [
 
             post.remove(function (err, removedPost) {
                 if (err) return next(err);
-                res.json(removedPost);
+                Comment.deleteMany({ post: post._id }, function(err, deleteRes) {
+                    if (err) return next(err);
+                    res.json(removedPost);
+                });                
             });
         });
     }

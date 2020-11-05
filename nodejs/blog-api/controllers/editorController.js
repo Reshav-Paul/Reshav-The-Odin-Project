@@ -84,9 +84,13 @@ module.exports.editor_delete = function (req, res, next) {
             res.status(404).json({ error: errorHelper.editor_not_found });
             return;
         }
+        const editorId = editor._id;
         editor.remove(function (err, deletedEditor) {
             if (err) return next(err);
-            res.json(deletedEditor);
+            Post.updateMany({ editor: editorId }, { editor: undefined }, function(err, updateRes) {
+                if (err) return next(err);
+                res.json(deletedEditor);
+            });            
         });
     });
 }

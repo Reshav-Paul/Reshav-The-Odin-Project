@@ -88,7 +88,10 @@ module.exports.user_delete = function (req, res, next) {
         }
         user.remove(function (err, deletedUser) {
             if (err) return next(err);
-            res.json(deletedUser);
+            Comment.updateMany({ user: user._id }, { user: undefined }, function(err, updateRes) {
+                if (err) return next(err);
+                res.json(deletedUser);
+            });            
         })
     });
 }
