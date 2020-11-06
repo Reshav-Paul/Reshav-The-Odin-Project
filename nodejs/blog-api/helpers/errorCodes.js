@@ -33,6 +33,16 @@ module.exports.duplicate_email = {
     message: 'This email address already belongs to a registered user'
 }
 
+module.exports.login_user_not_found = {
+    status: 'Login_Failed',
+    message: 'Email is not registered'
+}
+
+module.exports.login_wrong_password = {
+    status: 'Login_Failed',
+    message: 'Wrong password'
+}
+
 module.exports.validationErrors = {
 
     // for user and editor model
