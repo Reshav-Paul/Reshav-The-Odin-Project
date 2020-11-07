@@ -7,6 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('../routes/index');
 var apiRouter = require('../routes/api');
 var dbHandler = require('./mongoTestConfig');
+require('../auth/auth');
 
 var app = express();
 dbHandler.connect();
