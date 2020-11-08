@@ -47,6 +47,10 @@ module.exports.editor_create = [
     ...editorCreationValidationChain,
     function (req, res, next) {
         const errors = validationResult(req);
+        if (req.body.admin != process.env.admin) {
+            res.status(401).json({ error: errorHelper.admin_auth_failed });
+            return;
+        }
         if (!errors.isEmpty()) {
             res.json({
                 error: { status: 'Validation_Error', errors: errors.array() }

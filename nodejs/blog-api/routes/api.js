@@ -12,9 +12,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.use('/users', userRouter);
-router.use('/posts', authController.auth_jwt, postsRouter);
-router.use('/editors', authController.auth_jwt, editorRouter);
-router.use('/comments', authController.auth_jwt, commentsRouter);
-router.post('/login', authController.login);
+router.use('/posts', postsRouter);
+router.use('/editors', editorRouter);
+router.post('/editors/login', authController.editor_login);
+router.use('/comments', authController.jwt_auth, commentsRouter);
 
 module.exports = router;

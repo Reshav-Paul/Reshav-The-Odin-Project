@@ -43,6 +43,11 @@ module.exports.login_wrong_password = {
     message: 'Wrong password'
 }
 
+module.exports.admin_auth_failed = {
+    status: 'Admin_Auth_Failed',
+    message: 'Provide admin field with admin password'
+}
+
 module.exports.validationErrors = {
 
     // for user and editor model
