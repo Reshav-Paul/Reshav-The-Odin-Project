@@ -48,6 +48,11 @@ module.exports.admin_auth_failed = {
     message: 'Provide admin field with admin password'
 }
 
+module.exports.unauth_user = {
+    status: 'Unauthorized_User',
+    message: 'You are not authorized to use this resource.'
+}
+
 module.exports.validationErrors = {
 
     // for user and editor model
