@@ -178,7 +178,7 @@ describe('comment creation', () => {
                 done();
             });
     });
-    test('user cannot create comment if unauthorized', done => {
+    test('user cannot create comment for a different user', done => {
         request(app)
             .post('/api/comments')
             .set('Authorization', `Bearer ${userAuthToken2}`)
@@ -186,12 +186,135 @@ describe('comment creation', () => {
             .accept('Content-Type', /json/)
             .expect(401, done);            
     });
-    test('user cannot create comment if unauthorized', done => {
+    test('editor cannot create comment for a different user', done => {
         request(app)
             .post('/api/comments')
             .set('Authorization', `Bearer ${editorAuthToken}`)
             .send({ text: 'good', user: user._id, post: post._id })
             .accept('Content-Type', /json/)
             .expect(401, done);            
+    });
+    test('user cannot create comment without jwt token', done => {
+        request(app)
+            .post('/api/comments')
+            .send({ text: 'good', user: user._id, post: post._id })
+            .accept('Content-Type', /json/)
+            .expect(401, done);
+    });
+    test('user cannot create empty comment', done => {
+        request(app)
+            .post('/api/comments')
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .send({ text: '   ', user: user._id, post: post._id })
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const data = res.body;
+                expect(data.error.status).toBe('Validation_Error');
+                expect(data.error.errors[0].msg).toBe(errorHelper.validationErrors.no_comment_text);
+                done();
+            });
+    });
+    test('user cannot create comment with post id of non existent post', done => {
+        request(app)
+            .post('/api/comments')
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .send({ text: 'good', user: user._id, post: testHelpers.generateMongoId(post._id) })
+            .accept('Content-Type', /json/)
+            .expect(404)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.error.toString()).toBe(errorHelper.post_not_found.toString());
+                done();
+            });
+    });
+    test('user cannot create comment with invalid post id', done => {
+        request(app)
+            .post('/api/comments')
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .send({ text: 'good', user: user._id, post: post._id.slice(0, -1) + 'z' })
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const error = res.body.error;
+                expect(error.status).toBe('Validation_Error');
+                expect(error.errors[0].msg).toBe(errorHelper.mongoIdError.message);
+                done();
+            });
+    });
+    test('user cannot create comment with user id of non existent user', done => {
+        request(app)
+            .post('/api/comments')
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .send({ text: 'good', post: post._id, user: testHelpers.generateMongoId(user._id, 6) })
+            .accept('Content-Type', /json/)
+            .expect(401, done);
+    });
+    test('user cannot create comment with invalid user id', done => {
+        request(app)
+            .post('/api/comments')
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .send({ text: 'good', post: post._id, user: user._id.slice(0, -1) + 'z' })
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const error = res.body.error;
+                expect(error.status).toBe('Validation_Error');
+                expect(error.errors[0].msg).toBe(errorHelper.mongoIdError.message);
+                expect(error.errors[0].param).toBe('user');
+                done();
+            });
+    });
+    test('user cannot create comment with invalid date', done => {
+        request(app)
+            .post('/api/comments')
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .send({ text: 'good', post: post._id, user: user._id, dateCreated: 'Someday' })
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const error = res.body.error;
+                expect(error.status).toBe('Validation_Error');
+                expect(error.errors[0].msg).toBe(errorHelper.validationErrors.date_wrong_format);
+                done();
+            });
+    });
+
+    test('user cannot create comment without post id', done => {
+        request(app)
+            .post('/api/comments')
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .send({ text: 'good', user: user._id })
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const error = res.body.error;
+                expect(error.status).toBe('Validation_Error');
+                expect(error.errors[0].msg).toBe(errorHelper.mongoIdError.message);
+                expect(error.errors[0].param).toBe('post');
+                done();
+            });
+    });
+
+    test('user cannot create comment without user id', done => {
+        request(app)
+            .post('/api/comments')
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .send({ text: 'good', post: post._id })
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const error = res.body.error;
+                expect(error.status).toBe('Validation_Error');
+                expect(error.errors[0].msg).toBe(errorHelper.mongoIdError.message);
+                expect(error.errors[0].param).toBe('user');
+                done();
+            });
     });
 });

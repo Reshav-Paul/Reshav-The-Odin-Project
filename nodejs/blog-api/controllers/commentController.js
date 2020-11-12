@@ -29,10 +29,10 @@ module.exports.comment_detail = function (req, res, next) {
 }
 
 module.exports.comment_create = [
-    body('text', errorHelper.validationErrors.no_comment_text).exists().bail().trim().isLength({ min: 1 }),
+    body('text', errorHelper.validationErrors.no_comment_text).exists({ checkFalsy: true, checkNull: true }).bail().trim().isLength({ min: 1 }),
     body('dateCreated', errorHelper.validationErrors.date_wrong_format).optional({ checkFalsy: true }).isISO8601(),
-    body('user', errorHelper.mongoIdError.message).exists().isMongoId(),
-    body('post', errorHelper.mongoIdError.message).exists().isMongoId(),
+    body('user', errorHelper.mongoIdError.message).exists().bail().isMongoId(),
+    body('post', errorHelper.mongoIdError.message).exists().bail().isMongoId(),
     function (req, res, next) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
