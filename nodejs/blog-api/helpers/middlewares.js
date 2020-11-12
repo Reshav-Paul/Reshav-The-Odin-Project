@@ -14,8 +14,22 @@ module.exports.validateUserIdInParam = function (req, res, next) {
 }
 
 module.exports.validateUserIdInBody = function (req, res, next) {
+    if (req.body.user == undefined) {
+        res.json({
+            error: {
+                status: 'Validation_Error',
+                errors: [{ msg: mongoIdError.message, param: 'user', location: 'body' }]
+            } 
+        });
+        return;
+    }
     if (!validator.isMongoId(req.body.user)) {
-        res.status(400).json({ error: mongoIdError });
+        res.json({
+            error: {
+                status: 'Validation_Error',
+                errors: [{ msg: mongoIdError.message, param: 'user', location: 'body' }]
+            } 
+        });
         return;
     }
     if (req.user._id.toString() === req.body.user) {
