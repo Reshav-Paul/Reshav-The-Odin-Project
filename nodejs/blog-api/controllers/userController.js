@@ -28,14 +28,12 @@ module.exports.user_list = function (req, res, next) {
 
 module.exports.user_details = function (req, res, next) {
     if (!validator.isMongoId(req.params.id)) {
-        res.status(400);
         res.json({ error: errorHelper.mongoIdParameterError });
         return;
     }
     User.findById(req.params.id, function (err, user) {
         if (err) return next(err);
         if (!user) {
-            res.status(404);
             res.json({ error: errorHelper.user_not_found });
             return;
         }
@@ -75,14 +73,12 @@ module.exports.user_create = [
 
 module.exports.user_delete = function (req, res, next) {
     if (!validator.isMongoId(req.params.id)) {
-        res.status(400);
         res.json({ error: errorHelper.mongoIdParameterError });
         return;
     }
     User.findById(req.params.id, function (err, user) {
         if (err) return next(err);
         if (!user) {
-            res.status(404);
             res.json({ error: errorHelper.user_not_found });
             return;
         }
@@ -101,7 +97,7 @@ module.exports.user_update = [
     ...userUpdationValidationChain,
     function (req, res, next) {
         if (!validator.isMongoId(req.params.id)) {
-            res.status(400).json({ error: errorHelper.mongoIdParameterError });
+            res.json({ error: errorHelper.mongoIdParameterError });
             return;
         }
         const errors = validationResult(req);
@@ -140,7 +136,7 @@ module.exports.user_update = [
 
 module.exports.user_comments = function (req, res, next) {
     if (!validator.isMongoId(req.params.id)) {
-        res.status(400).json({ error: errorHelper.mongoIdParameterError });
+        res.json({ error: errorHelper.mongoIdParameterError });
         return;
     }
     Comment.find({ user: req.params.id }).exec(function (err, comments) {

@@ -15,13 +15,13 @@ module.exports.comment_list = function (req, res, next) {
 
 module.exports.comment_detail = function (req, res, next) {
     if (!validator.isMongoId(req.params.id)) {
-        res.status(404).json({error: errorHelper.mongoIdParameterError});
+        res.json({error: errorHelper.mongoIdParameterError});
         return;
     }
     Comment.findById(req.params.id).exec(function (err, comment) {
         if (err) return next(err);
         if (!comment) {
-            res.status(404).json({error: errorHelper.comment_not_found});
+            res.json({error: errorHelper.comment_not_found});
             return;
         }
         res.json(comment);
@@ -48,13 +48,13 @@ module.exports.comment_create = [
         User.findById(user, function (err, fetchedUser) {
             if (err) return next(err);
             if (!fetchedUser) {
-                res.status(404).json({error: errorHelper.user_not_found});
+                res.json({error: errorHelper.user_not_found});
                 return;
             }
             Post.findById(post, function (err, fetchedPost) {
                 if (err) return next(err);
                 if (!fetchedPost) {
-                    res.status(404).json({error: errorHelper.post_not_found});
+                    res.json({error: errorHelper.post_not_found});
                     return;
                 }
 
@@ -72,7 +72,7 @@ module.exports.comment_update = [
     body('text', errorHelper.validationErrors.no_comment_text).exists({ checkFalsy: true }).trim().isLength({ min: 1 }),
     function (req, res, next) {
         if (!validator.isMongoId(req.params.id)) {
-            res.status(400).json({ error: errorHelper.mongoIdParameterError });
+            res.json({ error: errorHelper.mongoIdParameterError });
             return;
         }
         const errors = validationResult(req);
@@ -87,7 +87,7 @@ module.exports.comment_update = [
         Comment.findById(req.params.id, function (err, comment) {
             if (err) return next(err);
             if (!comment) {
-                res.status(404).json({error: errorHelper.comment_not_found});
+                res.json({error: errorHelper.comment_not_found});
                 return;
             }
             if (comment.text === text) {
@@ -105,13 +105,13 @@ module.exports.comment_update = [
 
 module.exports.comment_delete = function(req, res, next) {
     if (!validator.isMongoId(req.params.id)) {
-        res.status(400).json({ error: errorHelper.mongoIdParameterError });
+        res.json({ error: errorHelper.mongoIdParameterError });
         return;
     }
     Comment.findByIdAndRemove(req.params.id, function(err, deletedComment) {
         if (err) return next(err);
         if (!deletedComment) {
-            res.status(404).json({error: errorHelper.comment_not_found});
+            res.json({error: errorHelper.comment_not_found});
             return;
         }
         res.json(deletedComment);
@@ -120,19 +120,19 @@ module.exports.comment_delete = function(req, res, next) {
 
 module.exports.comment_user = function(req, res, next) {
     if (!validator.isMongoId(req.params.id)) {
-        res.status(400).json({ error: errorHelper.mongoIdParameterError });
+        res.json({ error: errorHelper.mongoIdParameterError });
         return;
     }
     Comment.findById(req.params.id, 'user').exec(function(err, comment) {
         if (err) return next(err);
         if (!comment) {
-            res.status(404).json({error: errorHelper.comment_not_found});
+            res.json({error: errorHelper.comment_not_found});
             return;
         }
         User.findById(comment.user).exec(function(err, user) {
             if (err) return next(err);
             if (!user) {
-                res.status(404).json({error: errorHelper.user_not_found});
+                res.json({error: errorHelper.user_not_found});
                 return;
             }
             res.json(user);
@@ -142,19 +142,19 @@ module.exports.comment_user = function(req, res, next) {
 
 module.exports.comment_post = function(req, res, next) {
     if (!validator.isMongoId(req.params.id)) {
-        res.status(400).json({ error: errorHelper.mongoIdParameterError });
+        res.json({ error: errorHelper.mongoIdParameterError });
         return;
     }
     Comment.findById(req.params.id, 'post').exec(function(err, comment) {
         if (err) return next(err);
         if (!comment) {
-            res.status(404).json({error: errorHelper.comment_not_found});
+            res.json({error: errorHelper.comment_not_found});
             return;
         }
         Post.findById(comment.post).exec(function(err, post) {
             if (err) return next(err);
             if (!post) {
-                res.status(404).json({error: errorHelper.post_not_found});
+                res.json({error: errorHelper.post_not_found});
                 return;
             }
             res.json(post);

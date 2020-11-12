@@ -30,13 +30,13 @@ module.exports.editor_list = function (req, res, next) {
 
 module.exports.editor_details = function (req, res, next) {
     if (!validator.isMongoId(req.params.id)) {
-        res.status(400).json({ error: errorHelper.mongoIdParameterError });
+        res.json({ error: errorHelper.mongoIdParameterError });
         return;
     }
     Editor.findById(req.params.id, function (err, editor) {
         if (err) return next(err);
         if (!editor) {
-            res.status(404).json({ error: errorHelper.editor_not_found });
+            res.json({ error: errorHelper.editor_not_found });
             return;
         }
         res.json(editor);
@@ -48,7 +48,7 @@ module.exports.editor_create = [
     function (req, res, next) {
         const errors = validationResult(req);
         if (req.body.admin != process.env.admin) {
-            res.status(401).json({ error: errorHelper.admin_auth_failed });
+            res.json({ error: errorHelper.admin_auth_failed });
             return;
         }
         if (!errors.isEmpty()) {
@@ -78,14 +78,13 @@ module.exports.editor_create = [
 
 module.exports.editor_delete = function (req, res, next) {
     if (!validator.isMongoId(req.params.id)) {
-        res.status(400);
         res.json({ error: errorHelper.mongoIdParameterError });
         return;
     }
     Editor.findById(req.params.id, function (err, editor) {
         if (err) return next(err);
         if (!editor) {
-            res.status(404).json({ error: errorHelper.editor_not_found });
+            res.json({ error: errorHelper.editor_not_found });
             return;
         }
         const editorId = editor._id;
@@ -104,7 +103,7 @@ module.exports.editor_update = [
     ...editorUpdationValidationChain,
     function (req, res, next) {
         if (!validator.isMongoId(req.params.id)) {
-            res.status(400).json({ error: errorHelper.mongoIdParameterError });
+            res.json({ error: errorHelper.mongoIdParameterError });
             return;
         }
         const errors = validationResult(req);
@@ -144,7 +143,7 @@ module.exports.editor_update = [
 
 module.exports.editor_posts = function (req, res, next) {
     if (!validator.isMongoId(req.params.id)) {
-        res.status(400).json({ error: errorHelper.mongoIdParameterError });
+        res.json({ error: errorHelper.mongoIdParameterError });
         return;
     }
     Post.find({ editor: req.params.id }).exec(function(err, posts) {

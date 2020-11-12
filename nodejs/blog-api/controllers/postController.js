@@ -27,13 +27,13 @@ module.exports.all_posts_list = function (req, res, next) {
 
 module.exports.post_detail = function (req, res, next) {
     if (!validator.isMongoId(req.params.id)) {
-        res.status(400).json({ error: errorHelper.mongoIdParameterError });
+        res.json({ error: errorHelper.mongoIdParameterError });
         return;
     }
     Post.findById(req.params.id).exec(function (err, post) {
         if (err) return next(err);
         if (!post) {
-            res.status(404).json({error: errorHelper.post_not_found});
+            res.json({error: errorHelper.post_not_found});
             return;
         }
         res.json(post);
@@ -68,7 +68,7 @@ module.exports.post_create = [
         try {
             let fetchedEditor = await Editor.findById(editor);
             if (!fetchedEditor) {
-                res.status(404).json({error: errorHelper.editor_not_found});
+                res.json({error: errorHelper.editor_not_found});
                 return;
             }
 
@@ -88,14 +88,14 @@ module.exports.post_delete = [
     function (req, res, next) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            res.status(400).json({ error: errorHelper.mongoIdParameterError });
+            res.json({ error: errorHelper.mongoIdParameterError });
             return;
         }
 
         Post.findById(req.params.id).exec(function (err, post) {
             if (err) return next(err);
             if (!post) {
-                res.status(404).json({error: errorHelper.post_not_found});
+                res.json({error: errorHelper.post_not_found});
                 return;
             }
 
@@ -125,7 +125,7 @@ module.exports.post_update = [
 
     async function (req, res, next) {
         if (!validator.isMongoId(req.params.id)) {
-            res.status(400).json({ error: errorHelper.mongoIdParameterError });
+            res.json({ error: errorHelper.mongoIdParameterError });
             return;
         }
         const errors = validationResult(req);
@@ -143,14 +143,14 @@ module.exports.post_update = [
             if (data.editor) {
                 const newEditor = await Editor.findById(data.editor);
                 if (!newEditor) {
-                    res.status(404).json({ error: errorHelper.editor_not_found });
+                    res.json({ error: errorHelper.editor_not_found });
                     return;
                 }
             }
             Post.findById(req.params.id).exec(function (err, post) {
                 if (err) return next(err);
                 if (!post) {
-                    res.status(404).json({ error: errorHelper.post_not_found });
+                    res.json({ error: errorHelper.post_not_found });
                     return;
                 }
 
@@ -178,19 +178,19 @@ module.exports.post_update = [
 
 module.exports.post_editor = function (req, res, next) {
     if (!validator.isMongoId(req.params.id)) {
-        res.status(400).json({ error: errorHelper.mongoIdParameterError });
+        res.json({ error: errorHelper.mongoIdParameterError });
         return;
     }
     Post.findById(req.params.id, 'editor').exec(function (err, post) {
         if (err) return next(err);
         if (!post) {
-            res.status(404).json({ error: errorHelper.post_not_found });
+            res.json({ error: errorHelper.post_not_found });
             return;
         }
         Editor.findById(post.editor).exec(function (err, editor) {
             if (err) return next(err);
             if (!editor) {
-                res.status(404).json({ error: errorHelper.editor_not_found });
+                res.json({ error: errorHelper.editor_not_found });
                 return;
             }
             res.json(editor);
@@ -200,7 +200,7 @@ module.exports.post_editor = function (req, res, next) {
 
 module.exports.post_comments = function (req, res, next) {
     if (!validator.isMongoId(req.params.id)) {
-        res.status(400).json({ error: errorHelper.mongoIdParameterError });
+        res.json({ error: errorHelper.mongoIdParameterError });
         return;
     }
     Comment.find({ post: req.params.id }).exec(function (err, comments) {

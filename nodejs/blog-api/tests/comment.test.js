@@ -222,7 +222,7 @@ describe('comment creation', () => {
             .set('Authorization', `Bearer ${userAuthToken}`)
             .send({ text: 'good', user: user._id, post: testHelpers.generateMongoId(post._id) })
             .accept('Content-Type', /json/)
-            .expect(404)
+            .expect(200)
             .end(function(err, res) {
                 if (err) return done(err);
                 expect(res.body.error.toString()).toBe(errorHelper.post_not_found.toString());

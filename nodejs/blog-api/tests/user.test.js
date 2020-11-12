@@ -211,7 +211,7 @@ describe('user get endpoint works', () => {
             .get('/api/users/' + testHelpers.generateMongoId(userIds[0]))
             .set('Authorization', 'Bearer ' + authToken0)
             .expect('Content-Type', /json/)
-            .expect(404)
+            .expect(200)
             .end(function(err, res) {
                 if (err) return done(err);
                 expect(res.body.error.message).toBe(errorHelper.user_not_found.message);
@@ -224,7 +224,7 @@ describe('user get endpoint works', () => {
             .get('/api/users/' + userIds[0].slice(0, -1) + 'z')
             .set('Authorization', 'Bearer ' + authToken0)
             .expect('Content-Type', /json/)
-            .expect(400)
+            .expect(200)
             .end(function(err, res) {
                 if (err) return done(err);
                 expect(res.body.error.message).toBe(errorHelper.mongoIdParameterError.message);
@@ -237,7 +237,7 @@ describe('user get endpoint works', () => {
             .get('/api/users/' + userIds[0].slice(0, -1))
             .set('Authorization', 'Bearer ' + authToken0)
             .expect('Content-Type', /json/)
-            .expect(400)
+            .expect(200)
             .end(function(err, res) {
                 if (err) return done(err);
                 expect(res.body.error.message).toBe(errorHelper.mongoIdParameterError.message);
