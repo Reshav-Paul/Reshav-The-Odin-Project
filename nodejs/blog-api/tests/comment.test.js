@@ -33,6 +33,7 @@ afterAll(async function() {
 });
 
 let userId = '';
+let commentIds = [];
 let userAuthToken = '';
 let userAuthToken2 = '';
 let editorId = '';
@@ -175,6 +176,39 @@ describe('comment creation', () => {
                 expect(data.text).toBe('good');
                 expect(data.user.toString()).toBe(user._id.toString());
                 expect(data.post.toString()).toBe(post._id.toString());
+                commentIds.push(data._id);
+                done();
+            });
+    });
+    test('user can create comment with date', done => {
+        request(app)
+            .post('/api/comments')
+            .set('Authorization', `Bearer ${userAuthToken2}`)
+            .send({ text: 'very good', user: user2._id, post: post._id, dateCreated: '2020-11-12' })
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const data = res.body;
+                expect(data.text).toBe('very good');
+                expect(data.user.toString()).toBe(user2._id.toString());
+                expect(data.post.toString()).toBe(post._id.toString());
+                expect(data.dateCreated).toMatch(/2020-11-12/);
+                commentIds.push(data._id);
+                done();
+            });
+    });
+    test('editors cannot create comment', done => {
+        request(app)
+            .post('/api/comments')
+            .set('Authorization', `Bearer ${editorAuthToken}`)
+            .send({ text: 'good', user: editor._id, post: post._id })
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const data = res.body;
+                expect(data.error.toString()).toBe(errorHelper.user_not_found.toString());
                 done();
             });
     });
@@ -314,6 +348,152 @@ describe('comment creation', () => {
                 expect(error.status).toBe('Validation_Error');
                 expect(error.errors[0].msg).toBe(errorHelper.mongoIdError.message);
                 expect(error.errors[0].param).toBe('user');
+                done();
+            });
+    });
+});
+
+describe('comment get endpoint works', () => {
+    test('can get all comments', done => {
+        request(app)
+            .get('/api/comments')
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const comments = res.body;
+                expect(comments.length).toBe(2);
+                const [ comment1, comment2 ] = comments;
+
+                expect(comment1._id).toEqual(commentIds[0]);
+                expect(comment1.text).toBe('good');
+                expect(comment1.user).toBe(user._id);
+                expect(comment1.post).toBe(post._id);
+
+                expect(comment2._id).toEqual(commentIds[1]);
+                expect(comment2.text).toBe('very good');
+                expect(comment2.user).toBe(user2._id);
+                expect(comment2.post).toBe(post._id);
+                done();
+            });
+    });
+
+    test('user can get a comment by id', done => {
+        request(app)
+            .get('/api/comments/' + commentIds[0])
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const comment = res.body;
+
+                expect(comment._id).toEqual(commentIds[0]);
+                expect(comment.text).toBe('good');
+                expect(comment.user).toBe(user._id);
+                expect(comment.post).toBe(post._id);
+                done();
+            });
+    });
+
+    test('user can get a different user\'s comment by id', done => {
+        request(app)
+            .get('/api/comments/' + commentIds[1])
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const comment = res.body;
+
+                expect(comment._id).toEqual(commentIds[1]);
+                expect(comment.text).toBe('very good');
+                expect(comment.user).toBe(user2._id);
+                expect(comment.post).toBe(post._id);
+                done();
+            });
+    });
+
+    test('editor can get all comments', done => {
+        request(app)
+            .get('/api/comments')
+            .set('Authorization', `Bearer ${editorAuthToken}`)
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const comments = res.body;
+                expect(comments.length).toBe(2);
+                const [ comment1, comment2 ] = comments;
+
+                expect(comment1._id).toEqual(commentIds[0]);
+                expect(comment1.text).toBe('good');
+                expect(comment1.user).toBe(user._id);
+                expect(comment1.post).toBe(post._id);
+
+                expect(comment2._id).toEqual(commentIds[1]);
+                expect(comment2.text).toBe('very good');
+                expect(comment2.user).toBe(user2._id);
+                expect(comment2.post).toBe(post._id);
+                done();
+            });
+    });
+
+    test('editor can get a comment by id', done => {
+        request(app)
+            .get('/api/comments/' + commentIds[0])
+            .set('Authorization', `Bearer ${editorAuthToken}`)
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const comment = res.body;
+
+                expect(comment._id).toEqual(commentIds[0]);
+                expect(comment.text).toBe('good');
+                expect(comment.user).toBe(user._id);
+                expect(comment.post).toBe(post._id);
+                done();
+            });
+    });
+
+    test('cannot get comments without jwt token', done => {
+        request(app)
+            .get('/api/comments')
+            .accept('Content-Type', /json/)
+            .expect(401, done);
+    });
+
+    test('cannot get a comment by id without jwt token', done => {
+        request(app)
+            .get('/api/comments/' + commentIds[0])
+            .accept('Content-Type', /json/)
+            .expect(401, done);
+    });
+
+    test('trying to access a non-existent comment returns error message', done => {
+        request(app)
+            .get('/api/comments/' + testHelpers.generateMongoId(commentIds[0]))
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.error).toEqual(errorHelper.comment_not_found);
+                done();
+            });
+    });
+
+    test('trying to use a malformed comment id returns error message', done => {
+        request(app)
+            .get('/api/comments/' + commentIds[0].slice(0, -1) + 'z')
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.error).toEqual(errorHelper.mongoIdParameterError);
                 done();
             });
     });
