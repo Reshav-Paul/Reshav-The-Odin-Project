@@ -90,6 +90,10 @@ module.exports.comment_update = [
                 res.json({error: errorHelper.comment_not_found});
                 return;
             }
+            if (comment.user.toString() !== req.user._id.toString()) {
+                res.status(401).send('Unauthorized');
+                return;
+            }
             if (comment.text === text) {
                 res.json(comment);
                 return;
@@ -108,14 +112,29 @@ module.exports.comment_delete = function(req, res, next) {
         res.json({ error: errorHelper.mongoIdParameterError });
         return;
     }
-    Comment.findByIdAndRemove(req.params.id, function(err, deletedComment) {
+    if (req.user.isEditor) {
+        res.status(401).send('Unauthorized');
+        return;
+    }
+    Comment.findById(req.params.id, function(err, comment) {
         if (err) return next(err);
-        if (!deletedComment) {
+        if (!comment) {
             res.json({error: errorHelper.comment_not_found});
             return;
         }
-        res.json(deletedComment);
-    });
+        if (comment.user.toString() !== req.user._id.toString()) {
+            res.status(401).send('Unauthorized');
+            return;
+        }
+        Comment.findByIdAndRemove(req.params.id, function(err, deletedComment) {
+            if (err) return next(err);
+            if (!deletedComment) {
+                res.json({error: errorHelper.comment_not_found});
+                return;
+            }
+            res.json(deletedComment);
+        });
+    });    
 }
 
 module.exports.comment_user = function(req, res, next) {
