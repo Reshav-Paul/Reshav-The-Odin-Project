@@ -498,3 +498,187 @@ describe('comment get endpoint works', () => {
             });
     });
 });
+
+describe('comment update works', () => {
+    test('user can update his own comment text', done => {
+        request(app)
+            .put('/api/comments/' + commentIds[0])
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .send({ text: 'great' })
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.text).toBe('great');
+                expect(res.body.user).toBe(user._id);
+                expect(res.body.post).toBe(post._id);
+                done();
+            });
+    });
+
+    test('user cannot update other user\'s comment text', done => {
+        request(app)
+            .put('/api/comments/' + commentIds[1])
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .send({ text: 'great' })
+            .accept('Content-Type', /json/)
+            .expect(401, done);
+    });
+
+    test('user cannot update without auth token', done => {
+        request(app)
+            .put('/api/comments/' + commentIds[0])
+            .send({ text: 'good' })
+            .accept('Content-Type', /json/)
+            .expect(401, done);
+    });
+
+    test('editor cannot update any user\'s comment text', done => {
+        request(app)
+            .put('/api/comments/' + commentIds[0])
+            .set('Authorization', `Bearer ${editorAuthToken}`)
+            .send({ text: 'good' })
+            .accept('Content-Type', /json/)
+            .expect(401, done);
+    });
+
+    test('user cannot update anything other than comment text', done => {
+        request(app)
+            .put('/api/comments/' + commentIds[1])
+            .set('Authorization', `Bearer ${userAuthToken2}`)
+            .send({ text: 'excellent', dateCreated: '2020-11-13', post: user._id, user: user._id })
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.text).toBe('excellent');
+                expect(res.body.user).toBe(user2._id);
+                expect(res.body.post).toBe(post._id);
+                expect(res.body.dateCreated).toMatch(/2020-11-12/);
+                done();
+            });
+    });
+
+    test('user cannot update with empty text', done => {
+        request(app)
+            .put('/api/comments/' + commentIds[1])
+            .set('Authorization', `Bearer ${userAuthToken2}`)
+            .send({ text: ''})
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.error.errors[0].msg).toBe(errorHelper.validationErrors.no_comment_text);
+                done();
+            });
+    });
+
+    test('user cannot update with undefined text', done => {
+        request(app)
+            .put('/api/comments/' + commentIds[0])
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .send({ })
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.error.errors[0].msg).toBe(errorHelper.validationErrors.no_comment_text);
+                done();
+            });
+    });
+
+    test('user cannot update non-existent comment', done => {
+        request(app)
+            .put('/api/comments/' + testHelpers.generateMongoId(commentIds[0]))
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .send({ text: 'excellent' })
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.error).toEqual(errorHelper.comment_not_found);
+                done();
+            });
+    });
+
+    test('user cannot update comment with invalid id', done => {
+        request(app)
+            .put('/api/comments/' + commentIds[0].slice(0, -1) + 'z')
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .send({ text: 'excellent' })
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.error).toEqual(errorHelper.mongoIdParameterError);
+                done();
+            });
+    });
+});
+
+describe('comment deletion works', () => {
+    test('user can delete his comment', done => {
+        request(app)
+            .delete('/api/comments/' + commentIds[0])
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const deletedComment = res.body;
+                expect(deletedComment.text).toBe('great');
+                expect(deletedComment.user).toEqual(user._id);
+                expect(deletedComment.post).toEqual(post._id);
+                done();
+            });
+    });
+
+    test('user cannot delete other user\'s comment', done => {
+        request(app)
+            .delete('/api/comments/' + commentIds[1])
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .accept('Content-Type', /json/)
+            .expect(401, done);
+    });
+
+    test('editor cannot delete any user\'s comment', done => {
+        request(app)
+            .delete('/api/comments/' + commentIds[1])
+            .set('Authorization', `Bearer ${editorAuthToken}`)
+            .accept('Content-Type', /json/)
+            .expect(401, done);
+    });
+
+    test('user cannot delete comment without auth token', done => {
+        request(app)
+            .delete('/api/comments/' + commentIds[1])
+            .accept('Content-Type', /json/)
+            .expect(401, done);
+    });
+
+    test('user cannot delete non-existent comment', done => {
+        request(app)
+            .delete('/api/comments/' + commentIds[0])
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.error).toEqual(errorHelper.comment_not_found);
+                done();
+            });
+    });
+
+    test('user cannot delete comment with invalid id', done => {
+        request(app)
+            .delete('/api/comments/' + commentIds[1].slice(0, -1) + 'z')
+            .set('Authorization', `Bearer ${userAuthToken2}`)
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                expect(res.body.error).toEqual(errorHelper.mongoIdParameterError);
+                done();
+            });
+    });
+});
