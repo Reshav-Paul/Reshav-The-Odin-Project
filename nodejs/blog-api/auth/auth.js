@@ -24,7 +24,7 @@ passport.use('user-login', new LocalStrategy(
                 if (success) {
                     return done(null, user);
                 } else {
-                    return done(null, false, errorHelper.login_wrong_password);
+                    return done(null, false, { error: errorHelper.login_wrong_password });
                 }
             })
         });
@@ -48,7 +48,7 @@ passport.use('editor-login', new LocalStrategy(
                 if (success) {
                     return done(null, editor);
                 } else {
-                    return done(null, false, errorHelper.login_wrong_password);
+                    return done(null, false, { error: errorHelper.login_wrong_password });
                 }
             })
         });
