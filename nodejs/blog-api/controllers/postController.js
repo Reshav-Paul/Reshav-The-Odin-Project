@@ -98,6 +98,10 @@ module.exports.post_delete = [
                 res.json({error: errorHelper.post_not_found});
                 return;
             }
+            if (post.editor.toString() !== req.user._id.toString()) {
+                res.status(401).send('Unauthorized');
+                return;
+            }
 
             post.remove(function (err, removedPost) {
                 if (err) return next(err);
@@ -111,8 +115,10 @@ module.exports.post_delete = [
 ];
 
 module.exports.post_update = [
-    body('title').optional({ checkFalsy: true }).trim(),
-    body('text').optional({ checkFalsy: true }).trim(),
+    body('title', errorHelper.validationErrors.no_title)
+        .optional().trim().isLength({ min: 1 }),
+    body('text', errorHelper.validationErrors.no_body_text)
+        .optional().trim().isLength({ min: 1 }),
 
     body('isPublished', errorHelper.validationErrors.published_flag_wrong_format).
         if(checkPublishFlagExistence).isBoolean(),
@@ -135,22 +141,25 @@ module.exports.post_update = [
             });
             return;
         }
+        if (req.body.editor) {
+            if (req.user._id.toString() !== req.body.editor) {
+                res.status(401).send('Unauthorized');
+                return;
+            }
+        }
 
         let data = req.body;
         const { title, text, isPublished, datePublished } = data;
 
         try {
-            if (data.editor) {
-                const newEditor = await Editor.findById(data.editor);
-                if (!newEditor) {
-                    res.json({ error: errorHelper.editor_not_found });
-                    return;
-                }
-            }
             Post.findById(req.params.id).exec(function (err, post) {
                 if (err) return next(err);
                 if (!post) {
                     res.json({ error: errorHelper.post_not_found });
+                    return;
+                }
+                if (post.editor.toString() !== req.user._id.toString()) {
+                    res.status(401).send('Unauthorized');
                     return;
                 }
 
@@ -161,7 +170,7 @@ module.exports.post_update = [
 
                 if (post.isPublished) {
                     if (datePublished) post.datePublished = datePublished;
-                    if (!datePublished) post.datePublished = post.datePublished || Date.now();
+                    else post.datePublished = post.datePublished || Date.now();
                 }
                 if (!post.isPublished && post.datePublished) post.datePublished = undefined;
 
