@@ -287,7 +287,7 @@ describe('post creation works', () => {
             });
     });
     test('editor cannot create posts with non-boolean isPublished flag', done => {
-        const post = {...post0};
+        const post = { ...post0 };
         post.isPublished = 'yes';
         request(app)
             .post('/api/posts')
@@ -302,7 +302,7 @@ describe('post creation works', () => {
             });
     });
     test('editor cannot create posts with wrong date format', done => {
-        const post = {...post0};
+        const post = { ...post0 };
         post.isPublished = true;
         post.datePublished = '2020-Aug-06';
         request(app)
@@ -318,7 +318,7 @@ describe('post creation works', () => {
             });
     });
     test('editor cannot create posts with wrong mongoId format', done => {
-        let post = {...post0};
+        let post = { ...post0 };
         post.isPublished = true;
         post.datePublished = '2020-Aug-06';
         post.editor = post.editor.slice(0, -1) + 'z';
@@ -467,3 +467,180 @@ describe('post read works', () => {
     });
 });
 
+describe('post update works', () => {
+    test('editor can update own post', done => {
+        request(app)
+            .put('/api/posts/' + post0._id)
+            .send({ title: 'First Post Updated', text: 'Hello Updated World!', datePublished: '2020-10-10', isPublished: true })
+            .set('Authorization', `Bearer ${authToken0}`)
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) return done(err);
+                const data = res.body;
+                expect(data.title).toBe('First Post Updated');
+                expect(data.text).toBe('Hello Updated World!');
+                expect(data.datePublished).toMatch(/2020-10-10/);
+                expect(data.isPublished).toBe(true);
+                expect(data._id).toBe(post0._id);
+                post0 = data;
+                done();
+            });
+    });
+    test('editor cannot update other editor\'s post', done => {
+        request(app)
+            .put('/api/posts/' + post0._id)
+            .send({ datePublished: '2020-11-11' })
+            .set('Authorization', `Bearer ${authToken1}`)
+            .accept('Content-Type', /json/)
+            .expect(401, done);
+    });
+    test('users cannot update post', done => {
+        request(app)
+            .put('/api/posts/' + post0._id)
+            .send({ datePublished: '2020-11-11' })
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .accept('Content-Type', /json/)
+            .expect(401, done);
+    });
+    test('editor cannot update the editor of his post to a different editor', done => {
+        request(app)
+            .put('/api/posts/' + post0._id)
+            .send({ datePublished: '2020-11-11', editor: editorIds[1].toString() })
+            .set('Authorization', `Bearer ${authToken1}`)
+            .accept('Content-Type', /json/)
+            .expect(401, done);
+    });
+    test('editor cannot update posts with blank title', done => {
+        request(app)
+            .put('/api/posts/' + post0._id)
+            .send({ title: '  ' })
+            .set('Authorization', 'Bearer ' + authToken0)
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) return done(err);
+                expect(res.body.error.errors[0].msg).toBe(errorHelper.validationErrors.no_title);
+                done();
+            });
+    });
+    test('editor cannot update posts with blank text', done => {
+        request(app)
+            .put('/api/posts/' + post0._id)
+            .send({ text: '   ' })
+            .set('Authorization', 'Bearer ' + authToken0)
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) return done(err);
+                expect(res.body.error.errors[0].msg).toBe(errorHelper.validationErrors.no_body_text);
+                done();
+            });
+    });
+    test('editor cannot update posts with non-boolean isPublished flag', done => {
+        request(app)
+            .put('/api/posts/' + post0._id)
+            .send({ isPublished: 'yes' })
+            .set('Authorization', 'Bearer ' + authToken0)
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) return done(err);
+                expect(res.body.error.errors[0].msg).toBe(errorHelper.validationErrors.published_flag_wrong_format);
+                done();
+            });
+    });
+    test('editor cannot update posts with wrong date format', done => {
+        request(app)
+            .put('/api/posts/' + post0._id)
+            .send({ datePublished: '2020-Aug-06' })
+            .set('Authorization', 'Bearer ' + authToken0)
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) return done(err);
+                expect(res.body.error.errors[0].msg).toBe(errorHelper.validationErrors.date_wrong_format);
+                done();
+            });
+    });
+    test('editor cannot update posts with wrong mongoId format', done => {
+        request(app)
+            .put('/api/posts/' + post0._id)
+            .send({ editor: post0.editor.slice(0, -1) + 'z' })
+            .set('Authorization', 'Bearer ' + authToken0)
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) return done(err);
+                expect(res.body.error.errors[0].msg).toBe(errorHelper.mongoIdError.message);
+                done();
+            });
+    });
+});
+
+describe('post delete works', () => {
+    test('editor can delete own posts', done => {
+        request(app)
+            .delete('/api/posts/' + post1._id)
+            .set('Authorization', `Bearer ${authToken1}`)
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) return done(err);
+                expect(res.body).toEqual(post1);
+                done();
+            });
+    });
+    test('editor cannot delete posts twice', done => {
+        request(app)
+            .delete('/api/posts/' + post1._id)
+            .set('Authorization', `Bearer ${authToken1}`)
+            .accept('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                if (err) return done(err);
+                expect(res.body.error).toEqual(errorHelper.post_not_found);
+                done();
+            });
+    });
+    test('editor cannot delete other editor\'s posts', done => {
+        request(app)
+            .delete('/api/posts/' + post0._id)
+            .set('Authorization', `Bearer ${authToken1}`)
+            .accept('Content-Type', /json/)
+            .expect(401)
+            .end(function (err, res) {
+                if (err) return done(err);
+                request(app)
+                    .get('/api/posts/' + post0._id)
+                    .set('Authorization', `Bearer ${authToken1}`)
+                    .accept('Content-Type', /json/)
+                    .expect(200)
+                    .end(function(err, res) {
+                        if (err) return done(err);
+                        expect(res.body).toEqual(post0);
+                        done();
+                    });
+            });
+    });
+    test('users cannot delete posts', done => {
+        request(app)
+            .delete('/api/posts/' + post0._id)
+            .set('Authorization', `Bearer ${userAuthToken}`)
+            .accept('Content-Type', /json/)
+            .expect(401)
+            .end(function (err, res) {
+                if (err) return done(err);
+                request(app)
+                    .get('/api/posts/' + post0._id)
+                    .set('Authorization', `Bearer ${userAuthToken}`)
+                    .accept('Content-Type', /json/)
+                    .expect(200)
+                    .end(function(err, res) {
+                        if (err) return done(err);
+                        expect(res.body).toEqual(post0);
+                        done();
+                    });
+            });
+    });
+});
