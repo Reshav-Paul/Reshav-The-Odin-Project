@@ -1,0 +1,53 @@
+input[type='text'] {
+  /* display: block; */
+  border: 1px solid #ccc;
+  padding: 0.3rem 0.4rem;
+}
+ul {
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+button {
+  padding: 0.6rem 1.5rem;
+  border-radius: 0.4rem;
+  border: none;
+  margin: 0.2rem 0.6rem;
+  box-sizing: border-box;
+  background-color: #0d5abe;
+  box-shadow: 0 0 10px 0px #174786;
+  color: white;
+  font-weight: bold;
+}
+
+.App .form {
+  text-align: center;
+  width: 100%;
+  padding: 2rem;
+  background-color: #f6faff;
+  box-sizing: border-box;
+}
+.App .form input {
+  margin: 1rem;
+}
+.App .form label {
+  margin: 1rem;
+}
+.row {
+  display: flex;
+  justify-content: center;
+}
+.App .overview {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.App .overview .task {
+  background-color: #f6faff;
+  padding: 1.5rem 1rem;
+  margin: 2rem auto;
+  max-width: 400px;
+  box-shadow: 0 0 0.5rem #d6d9db;
+  border-radius: 0.5rem;
+}
