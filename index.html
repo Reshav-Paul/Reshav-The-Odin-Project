@@ -1,67 +1,496 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contents</title>
-    <style>
-        :root {
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-        main {
-            padding: 0 1rem;
-        }
-        ul {
-            padding-left: 1rem;
-        }
-        li {
-            margin-bottom: 0.5rem;
-            list-style: none;
-        }
-        a {
-            color: #3159a5;
-            text-decoration: none;
-            transition: color 200ms;
-        }
-        a:hover {
-            color: #1f3d74;
-        }
-    </style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+		crossorigin="anonymous"></script>
+	<style>
+		/* li {
+			list-style: none;
+		} */
+		.font-small {
+			font-size: 0.8rem;
+		}
+		.card-header a:first-child {
+			text-decoration: none;
+			color: #444;
+			transition: filter 0.2s;
+		}
+		.card-header a:nth-child(2) {
+			color: #999;
+			transition: filter 0.2s;
+		}
+		.card-header a:hover {
+			text-decoration: underline;
+			filter: brightness(0.9);
+		}
+		.card-header.bg-dark a.source-code {
+			color: #197b8f;
+		}
+	</style>
+	<title>Contents</title>
 </head>
+
 <body>
-    <main>
-        <h3>My Projects</h3>
+	<nav>
+		<div class="navbar navbar-dark bg-dark px-3">
+			<a href="#" class="navbar-brand">The Odin Project</a>
+		</div>
+		<div class="container-lg my-3">
+			<ul class="nav nav-pills" id="myTab" role="tablist">
+				<li class="nav-link text-secondary h5">Tracks...</li>
+				<li class="nav-item" role="presentation">
+					<a class="nav-link active" id="web-tab" data-bs-toggle="tab" href="#web" role="tab" aria-controls="web"
+						aria-selected="true">Web Development 101</a>
+				</li>
+				<li class="nav-item" role="presentation">
+					<a class="nav-link" id="html-css-tab" data-bs-toggle="tab" href="#html-css" role="tab"
+						aria-controls="html-css" aria-selected="false">HTML and CSS</a>
+				</li>
+				<li class="nav-item" role="presentation">
+					<a class="nav-link" id="js-tab" data-bs-toggle="tab" href="#js" role="tab" aria-controls="js"
+						aria-selected="false">JavaScript</a>
+				</li>
+				<li class="nav-item" role="presentation">
+					<a class="nav-link" id="node-tab" data-bs-toggle="tab" href="#node" role="tab" aria-controls="node"
+						aria-selected="false">Node JS</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<main>
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active p-3" id="web" role="tabpanel" aria-labelledby="web-tab">
+				<div class="container">
+					<div class="row align-items-stretch">
+
+						<div class="col-lg-4 col-md-6 col-sm-12 my-2">
+							<div class="card h-100">
+								<div class="card-header">
+									<h5 class="card-title mb-0 py-2">
+										<a href="web-development-101/etch-a-sketch/index.html">Etch-a-Sketch</a>
+										<a href="https://github.com/Reshav-Paul/Reshav-The-Odin-Project/tree/master/web-development-101/etch-a-sketch"
+											class="h6 font-small source-code text-decoration-none">Source code</a>
+									</h5>
+								</div>
+								<div class="card-body">
+									
+									<div class="card-text">
+										A browser sketchpad with features like mono-colour brush,
+										random color brush, simple shading and canvas density selection.
+									</div>
+									<br>
+									<h6 class="card-subtitle text-muted">Learning Challenges</h6>
+									<div class="card-text px-3">
+										<ul class="p-0">
+											<li>DOM manipulation</li>
+											<li>Implementation of logic for colouring and shading</li>
+											<li>Responsive design using media queries</li>
+										</ul>
+									</div>
+									<div class="card-text">
+										<span class="badge bg-primary">html</span>
+										<span class="badge bg-success">css</span>
+										<span class="badge bg-warning">JavaScript</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-6 col-sm-12 my-2">
+							<div class="card h-100">
+								<div class="card-header">
+									<h5 class="card-title mb-0 py-2">
+										<a href="web-development-101/js-calculator/index.html">Calculator</a>
+										<a href="https://github.com/Reshav-Paul/Reshav-The-Odin-Project/tree/master/web-development-101/js-calculator"
+											class="h6 font-small source-code text-decoration-none">Source code</a>
+									</h5>
+								</div>
+								<div class="card-body">
+									
+									<div class="card-text">
+										A calculator that supports basic arithmetic operations and shows
+										a history of all calculations for that session.
+									</div>
+									<br>
+									<h6 class="card-subtitle text-muted">Learning Challenges</h6>
+									<div class="card-text px-3">
+										<ul class="p-0">
+											<li>Calculator logic implementation</li>
+											<li>CSS animations and transforms</li>
+											<li>Responsive design using media queries</li>
+										</ul>
+									</div>
+									<div class="card-text">
+										<span class="badge bg-primary">html</span>
+										<span class="badge bg-success">css</span>
+										<span class="badge bg-warning">JavaScript</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-6 col-sm-12 my-2">
+							<div class="card h-100">
+								<div class="card-header">
+									<h5 class="card-title mb-0 py-2">
+										<a href="web-development-101/pomodoro-clock/index.html">Pomodoro Clock</a>
+										<a href="https://github.com/Reshav-Paul/Reshav-The-Odin-Project/tree/master/web-development-101/pomodoro-clock"
+											class="h6 font-small source-code text-decoration-none">Source code</a>
+									</h5>
+								</div>
+								<div class="card-body">
+									
+									<div class="card-text">
+										A simple pomodoro clock implementation for the browser with some advanced
+										UI features including dark and light theme toggling.
+									</div>
+									<br>
+									<h6 class="card-subtitle text-muted">Learning Challenges</h6>
+									<div class="card-text px-3">
+										<ul class="p-0">
+											<li>Timers in JavaScript</li>
+											<li>Theme toggling using css variables</li>
+											<li>CSS-only dropdown menu</li>
+											<li>local storage of theme preference</li>
+											<li>Responsive design using media queries</li>
+										</ul>
+									</div>
+									<div class="card-text">
+										<span class="badge bg-primary">html</span>
+										<span class="badge bg-success">css</span>
+										<span class="badge bg-warning">JavaScript</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-6 col-sm-12 my-2">
+							<div class="card h-100">
+								<div class="card-header">
+									<h5 class="card-title mb-0 py-2">
+										<a href="web-development-101/rock-paper-scissors-js-game/">Rock, Papers, Scissors</a>
+										<a href="https://github.com/Reshav-Paul/Reshav-The-Odin-Project/tree/master/web-development-101/rock-paper-scissors-js-game/"
+											class="h6 font-small source-code text-decoration-none">Source code</a>
+									</h5>
+								</div>
+								<div class="card-body">
+									
+									<div class="card-text">
+										A rock paper scissors game made with JavaScript.
+									</div>
+									<br>
+									<h6 class="card-subtitle text-muted">Learning Challenges</h6>
+									<div class="card-text px-3">
+										<ul class="p-0">
+											<li>Simple game loop and logic implementation</li>
+											<li>Responsive design using media queries</li>
+										</ul>
+									</div>
+									<div class="card-text">
+										<span class="badge bg-primary">html</span>
+										<span class="badge bg-success">css</span>
+										<span class="badge bg-warning">JavaScript</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-6 col-sm-12 my-2">
+							<div class="card h-100">
+								<div class="card-header">
+									<h5 class="card-title mb-0 py-2">
+										<a href="web-development-101/google-home-page/index.html">Google Home Page</a>
+										<a href="https://github.com/Reshav-Paul/Reshav-The-Odin-Project/tree/master/web-development-101/google-home-page/"
+											class="h6 font-small source-code text-decoration-none">Source code</a>
+									</h5>
+								</div>
+								<div class="card-body">
+									
+									<div class="card-text">
+										A mockup of the Google Search home page.
+									</div>
+									<br>
+									<h6 class="card-subtitle text-muted">Learning Challenges</h6>
+									<div class="card-text px-3">
+										<ul class="p-0">
+											<li>UI Design</li>
+										</ul>
+									</div>
+									<div class="card-text">
+										<span class="badge bg-primary">html</span>
+										<span class="badge bg-success">css</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-6 col-sm-12 my-2">
+							<div class="card h-100">
+								<div class="card-header">
+									<h5 class="card-title mb-0 py-2">
+										<a href="web-development-101/google-search-results-page/index.html">Google Search Results</a>
+										<a href="https://github.com/Reshav-Paul/Reshav-The-Odin-Project/tree/master/web-development-101/google-search-results-page/"
+											class="h6 font-small source-code text-decoration-none">Source code</a>
+									</h5>
+								</div>
+								<div class="card-body">
+									
+									<div class="card-text">
+										A mockup of the Google Search results page.
+									</div>
+									<br>
+									<h6 class="card-subtitle text-muted">Learning Challenges</h6>
+									<div class="card-text px-3">
+										<ul class="p-0">
+											<li>UI Design</li>
+										</ul>
+									</div>
+									<div class="card-text">
+										<span class="badge bg-primary">html</span>
+										<span class="badge bg-success">css</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade p-3" id="html-css" role="tabpanel" aria-labelledby="html-css-tab">
+				<div class="container">
+					<div class="row align-items-stretch">
+
+						<div class="col-lg-4 col-md-6 col-sm-12 my-2">
+							<div class="card h-100">
+								<div class="card-header">
+									<h5 class="card-title mb-0 py-2">
+										<a target="_blank" href="html-css/bootstrap-newsweek/index.html">Newsweek Mockup</a>
+										<a target="_blank"
+											href="https://github.com/Reshav-Paul/Reshav-The-Odin-Project/tree/master/html-css/bootstrap-newsweek/"
+											class="h6 font-small source-code text-decoration-none">Source code</a>
+									</h5>
+								</div>
+								<div class="card-body">
+									<div class="card-text">
+										A mockup of the site <a target="_blank" href="https://www.newsweek.com/">Newsweek</a> using Bootstrap.
+									</div>
+									<br>
+									<h6 class="card-subtitle text-muted">Learning Challenges</h6>
+									<div class="card-text px-3">
+										<ul class="p-0">
+											<li>Complex UI design</li>
+											<li>Bootstrap</li>
+										</ul>
+									</div>
+									<div class="card-text">
+										<span class="badge bg-primary">html</span>
+										<span class="badge bg-success">css</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-6 col-sm-12 my-2">
+							<div class="card h-100">
+								<div class="card-header">
+									<h5 class="card-title mb-0 py-2">
+										<a target="_blank" href="html-css/the-next-web-responsive-design/index.html">TheNextWeb Mockup</a>
+										<a target="_blank"
+											href="https://github.com/Reshav-Paul/Reshav-The-Odin-Project/tree/master/html-css/the-next-web-responsive-design/"
+											class="h6 font-small source-code text-decoration-none">Source code</a>
+									</h5>
+								</div>
+								<div class="card-body">
+									<div class="card-text">
+										A mockup of the website <a target="_blank" href="https://thenextweb.com/">TheNextWeb</a>
+										with complex ui and responsive design.
+									</div>
+									<br>
+									<h6 class="card-subtitle text-muted">Learning Challenges</h6>
+									<div class="card-text px-3">
+										<ul class="p-0">
+											<li>Complex UI design</li>
+											<li>Responsive Design using media queries</li>
+											<li>CSS grid</li>
+										</ul>
+									</div>
+									<div class="card-text">
+										<span class="badge bg-primary">html</span>
+										<span class="badge bg-success">css</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-6 col-sm-12 my-2">
+							<div class="card h-100">
+								<div class="card-header">
+									<h5 class="card-title mb-0 py-2">
+										<a target="_blank" href="html-css/design-teardown/index.html">Smashing Magazine - Design Teardown</a>
+										<a target="_blank"
+											href="https://github.com/Reshav-Paul/Reshav-The-Odin-Project/tree/master/html-css/design-teardown/"
+											class="h6 font-small source-code text-decoration-none">Source code</a>
+									</h5>
+								</div>
+								<div class="card-body">
+									<div class="card-text">
+										A grayscale mockup of the website <a target="_blank" href="https://smashingmagazine.com" target="_blank">Smashing Magazine</a>
+										that highlights the visual hierarchy they have created in their UI design.
+									</div>
+									<br>
+									<h6 class="card-subtitle text-muted">Learning Challenges</h6>
+									<div class="card-text px-3">
+										<ul class="p-0">
+											<li>Study of visual hierarchy in UI</li>
+											<li>Complex UI Design</li>
+											<li>CSS transforms</li>
+											<li>CSS grid</li>
+											<li>CSS pseudo elements</li>
+											<li>Responsive Design using media queries</li>
+										</ul>
+									</div>
+									<div class="card-text">
+										<span class="badge bg-primary">html</span>
+										<span class="badge bg-success">css</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-6 col-sm-12 my-2">
+							<div class="card h-100">
+								<div class="card-header">
+									<h5 class="card-title mb-0 py-2">
+										<a target="_blank" href="html-css/grid-framework/dist/index.html">Custom Grid Framework - The Odin
+											Project Clone</a>
+										<a target="_blank"
+											href="https://github.com/Reshav-Paul/Reshav-The-Odin-Project/tree/master/html-css/grid-framework/"
+											class="h6 font-small source-code text-decoration-none">Source code</a>
+										</h5>
+								</div>
+								<div class="card-body">
+									<div class="card-text">
+										Created a custom grid framework using SCSS and created a clone of the website of TheOdinProject
+										using that framework.
+										<br><br>
+										In a different project I have completely recreated Bootstrap's grid framework but in a desktop first
+										approach. It can be found
+										<a target="_blank" href="https://github.com/Reshav-Paul/Recurve-CSS/">here</a>.
+									</div>
+									<br>
+									<h6 class="card-subtitle text-muted">Learning Challenges</h6>
+									<div class="card-text px-3">
+										<ul class="p-0">
+											<li>SCSS</li>
+											<li>CSS media queries</li>
+											<li>CSS flexbox</li>
+										</ul>
+									</div>
+									<div class="card-text">
+										<span class="badge bg-primary">html</span>
+										<span class="badge bg-success">css</span>
+										<span class="badge bg-dark">scss</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-6 col-sm-12 my-2">
+							<div class="card h-100">
+								<div class="card-header">
+									<h5 class="card-title mb-0 py-2">
+										<a target="_blank" href="html-css/embed-youtube-video/index.html">Video Embedding - YouTube Mockup</a>
+										<a target="_blank"
+											href="https://github.com/Reshav-Paul/Reshav-The-Odin-Project/tree/master/html-css/embed-youtube-video/"
+											class="h6 font-small source-code text-decoration-none">Source code</a>
+									</h5>
+								</div>
+								<div class="card-body">
+									<div class="card-text">
+										YouTube Mockup with embedded video and Responsive Design
+									</div>
+									<br>
+									<h6 class="card-subtitle text-muted">Learning Challenges</h6>
+									<div class="card-text px-3">
+										<ul class="p-0">
+											<li>Video Embedding</li>
+											<li>Responsive Design using media queries</li>
+										</ul>
+									</div>
+									<div class="card-text">
+										<span class="badge bg-primary">html</span>
+										<span class="badge bg-success">css</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-6 col-sm-12 my-2">
+							<div class="card h-100">
+								<div class="card-header">
+									<h5 class="card-title mb-0 py-2">
+										<a target="_blank" href="html-css/nyt-mockup/index.html">New York Times Mockup</a>
+										<a target="_blank"
+											href="https://github.com/Reshav-Paul/Reshav-The-Odin-Project/tree/master/html-css/nyt-mockup/"
+											class="h6 font-small source-code text-decoration-none">Source code</a>
+									</h5>
+								</div>
+								<div class="card-body">
+									<div class="card-text">
+										A mockup of a New York Times article.
+									</div>
+									<br>
+									<h6 class="card-subtitle text-muted">Learning Challenges</h6>
+									<div class="card-text px-3">
+										<ul class="p-0">
+											<li>Complex UI design</li>
+											<li>Responsive Design using media queries</li>
+											<li>CSS grid</li>
+										</ul>
+									</div>
+									<div class="card-text">
+										<span class="badge bg-primary">html</span>
+										<span class="badge bg-success">css</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade p-3" id="js" role="tabpanel" aria-labelledby="js-tab">
+				Lorem, ipsum dolor
+			</div>
+			<div class="tab-pane fade p-3" id="node" role="tabpanel" aria-labelledby="node-tab">
+				Lorem, ipsum
+			</div>
+		</div>
+	</main>
+</body>
+
+</html>
+
+<!-- <h3>My Projects</h3>
         <p>
             Well yes the styling on this page is pretty bad.<br>
             I am postponing the styling of this page until after I finish everything from the course. <br>
             Take a look at my works. I am quite hopeful that you will like them.
-        </p>
-        <ul>
+        </p> -->
+<!-- <ul>
             <li><a href="http://mdn-express-local-library.herokuapp.com" target="_blank">MDN Local Library using Express</a></li>
             <li><a href="JavaScript/todo-list/dist/index.html" target="_blank">Got Todo</a></li>
-            <li><a href="html-css/bootstrap-newsweek/index.html" target="_blank">Newsweek clone - Bootstrap</a></li>
-            <li><a href="html-css/nyt-mockup/index.html" target="_blank">New York Times Article Mockup</a></li>
-            <li><a href="html-css/the-next-web-responsive-design/index.html" target="_blank">The Next Web - Responsive Design</a></li>
-            <li><a href="html-css/grid-framework/dist/index.html" target="_blank">Custom Grid Framework - The Odin Project Clone</a></li>
-            <li><a href="html-css/embed-youtube-video/index.html" target="_blank">Video Embedding - YouTube Mockup</a></li>
-            <li><a href="html-css/design-teardown/index.html" target="_blank">Smashing Magazine - Design Teardown</a></li>
+            
             <li><a href="JavaScript/restaurant-page/dist/index.html" target="_blank">Food Tales</a></li>
             <li><a href="JavaScript/battleship/dist/index.html" target="_blank">Battleship Game</a></li>
             <li><a href="JavaScript/tic-tac-toe/game-board.html" target="_blank">Tic-Tac-Toe game</a></li>
-            <li><a href="web-development-101/etch-a-sketch/index.html" target="_blank">Etch-a-Sketch</a></li>
-            <li><a href="web-development-101/js-calculator/index.html" target="_blank">Calculator</a></li>
-            <li><a href="web-development-101/pomodoro-clock/index.html" target="_blank">Pomodoro Clock</a></li>
+            
             <li><a href="JavaScript/library/index.html" target="_blank">Odin's Library</a></li>
-            <li><a href="html-css/old-apple-site-mockup/index.html" target="_blank">Old Apple Site Home Page Mockup</a></li>
-            <li><a href="web-development-101/google-home-page/index.html" target="_blank">Google Home Page Mock-up</a></li>
-            <li><a href="web-development-101/google-search-results-page/index.html" target="_blank">Google Search results Page Mock-up</a></li>
-            <li><a href="web-development-101/rock-paper-scissors-js-game/index.html" target="_blank">Rock Paper Scissors game</a></li>
-            <li><a href="html-css/signup-form/index.html" target="_blank">Simple Form Design</a></li>
+            
             <li>The <strong>React Framework Library app</strong> is not hosted for requiring a stand-alone repository</li>
-        </ul>
-    </main>
-    
-</body>
-</html>
+        </ul> -->
