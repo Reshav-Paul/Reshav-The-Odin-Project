@@ -1,38 +1,83 @@
 .App {
-  text-align: center;
+  text-align: left;
+  display: flex;
+  align-items: stretch;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.sidebar {
+  max-width: 200px;
+  text-align: left;
+  flex-grow: 2;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.sidebar a {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0.3rem 0;
+  padding: 0.5rem 0.7rem;
+  color: #bec3cc;
+  font-size: 0.9rem;
+  border-radius: 0 15px 15px 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.sidebar a.active {
+  background-color: #98bcffaa;
+  color: #173670;
+  font-weight: bold;
+}
+
+.sidebar > .heading {
+  padding: 0 1rem;
+  color: #cfdbf3;
+}
+
+.main {
+  /* width: 100%; */
+  flex-grow: 8;
+  display: flex;
+  color: #bec3cc;
+}
+
+.gen-info, .ed-info {
+  margin: 1rem auto;
+}
+
+.gen-info > form, .ed-info > form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin: 0 auto;
 }
 
-.App-link {
-  color: #61dafb;
+.gen-info > form {
+  max-width: 350px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+.gen-info > form > *, .ed-info > form > * {
+  display: inline-block;
+  margin: 0.5rem 1rem;
+}
+
+.gen-info > form > button, .ed-info > form > button {
+  align-self: center;
+}
+
+.gen-info-preview {
+  margin: 1rem auto 1rem auto;
+  background-color: #121518;
+  padding: 1rem;
+  max-width: 350px;
+  min-width: 100px;
+  border-left: 2px solid #98bcffaa;
+  align-self: flex-start;
+}
+.gen-info-preview > .heading {
+  margin: 0;
+  /* line-height: 0; */
+}
+
+@media(max-width: 1024px) {
+  .main {
+    flex-direction: column;
   }
 }
