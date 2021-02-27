@@ -6,14 +6,18 @@
 
 .sidebar {
   max-width: 200px;
+  min-width: 200px;
   text-align: left;
   flex-grow: 2;
+  display: flex;
+  flex-direction: column;
+  margin-right: 1rem;
 }
 
 .sidebar a {
-  display: block;
+  /* display: block; */
   box-sizing: border-box;
-  width: 100%;
+  /* width: 100%; */
   margin: 0.3rem 0;
   padding: 0.5rem 0.7rem;
   color: #bec3cc;
@@ -37,6 +41,7 @@
   flex-grow: 8;
   display: flex;
   color: #bec3cc;
+  padding-left: 1rem;
 }
 
 .gen-info, .ed-info {
@@ -75,9 +80,209 @@
   margin: 0;
   /* line-height: 0; */
 }
+.skills {
+  width: 100%;
+}
+.skills form {
+  display: flex;
+  flex-direction: column;
+  max-width: 350px;
+}
+.skills form > button {
+  margin-top: 1rem;
+  align-self: center;
+}
+
+.skills form.skill-form {
+  display: inline-block;
+  margin: 0 1rem;
+}
+.skills form.skill-form > input {
+  padding: 0.5rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+.skills form.skill-form > button {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.45rem 1rem;
+}
+ul.skill-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+.skills-list {
+  margin-top: 1rem;
+  padding-left: 0;
+}
+.skills-list li {
+  border-left: 1px solid #98bcffaa;
+  list-style: none;
+  padding: 0.3rem 1.2rem;
+  position: relative;
+}
+
+.skills-list li::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  content: '';
+  height: 1px;
+  width: 0.5rem;
+  background-color: #98bcffaa;
+}
+
+#preview {
+  background-color: white;
+  color: black;
+  background: white;
+  width: 21cm;
+  min-width: 21cm;
+  height: 29.7cm;
+  min-height: 29.7cm;
+  display: block;
+  margin: 0 auto;
+  margin: 0.5cm auto;
+  /* width: calc((100vh - 2rem) / 1.41); */
+  /* width: 100%;
+  max-width: 600px;
+  margin: 1rem auto; */
+  /* aspect-ratio: 1 / 1.414; */
+  /* min-height: calc(100vh - 2rem);
+  max-height: calc(600px * 1.41); */
+  box-sizing: border-box;
+
+  padding: 0 1rem 1rem 1rem;
+  display: grid;
+  /* gap: 1rem; */
+  grid-template-areas: 
+  "personal personal personal personal personal personal skills skills skills skills"
+  "prf prf prf prf prf prf skills skills skills skills"
+  "prf prf prf prf prf prf skills skills skills skills"
+  "prf prf prf prf prf prf edu edu edu edu"
+  "prf prf prf prf prf prf edu edu edu edu"
+  "prf prf prf prf prf prf edu edu edu edu"
+  "prf prf prf prf prf prf edu edu edu edu"
+  "cert cert cert cert cert cert edu edu edu edu"
+  "cert cert cert cert cert cert edu edu edu edu"
+  "cert cert cert cert cert cert edu edu edu edu"; 
+}
+
+#preview > .personal, #preview > .professional {
+  padding-right: 0.5rem;
+}
+
+.personal {
+  grid-area: personal;
+}
+.professional {
+  grid-area: prf;
+}
+.educational {
+  grid-area: edu;
+}
+
+#preview .name {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+#preview .contact {
+  font-size: 1rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0;
+  line-height: 1rem;
+  border-left: 3px solid green;
+  padding: 0 0 0.3rem 0.3rem;
+}
+
+.m-0 {
+  margin: 0;
+}
+
+ul.prof-exp, ul.education {
+  padding-left: 0;
+  margin-top: 0.3rem;
+}
+ul.prof-exp > .company, ul.education > .degree {
+  position: relative;
+  list-style: none;
+  padding-bottom: 0.5rem;
+  border-left: 2px solid grey;
+  padding-left: 0.5rem;
+}
+
+ul.prof-exp > .company::before, ul.education > .degree::before {
+  position: absolute;
+  left: -3.5px;
+  top: 0;
+  display: block;
+  content: '';
+  height: 5px;
+  width: 5px;
+  background-color: #333333;
+  border-radius: 50%;
+}
+
+.company .job-type{
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+.skillset {
+  grid-area: skills;
+  margin-top: 2rem;
+}
+.company p, .degree p {
+  font-size: 0.9rem;
+}
+
+.skillset ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+.skillset p, .skillset .heading  {
+  margin: 0;
+}
 
 @media(max-width: 1024px) {
   .main {
     flex-direction: column;
   }
 }
+
+@media(max-width: 768px) {
+  .App {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .sidebar a {
+    align-self: center;
+    border-radius: 10px 10px;
+    margin: 0 0.5rem;
+  }
+
+  /* #preview {
+    align-self: center;
+    margin: 1rem;
+    width: calc(100vw - 3rem);
+    height: calc((100vw - 3rem) * 1.41);
+    min-height: 565px;
+    max-height: calc((600px) * 1.41);
+  } */
+}
+/* @media(max-width: 580px) {
+  #preview {
+    align-self: flex-start;
+    margin: 1rem;
+    width: 500px;
+    height: calc(500px * 1.41);
+    min-height: 565px;
+    max-height: calc((500px) * 1.41);
+  }
+} */

@@ -1,5 +1,5 @@
 enum sections {
-    General, Education, Professional
+    General, Education, Professional, Skills, Certifications, Preview
 }
 
 enum jobTypes {
@@ -31,12 +31,23 @@ type profType = {
     endDate?: string,
 }
 
+type skillType = {
+    id: number,
+    name: string,
+}
+type skillGroup = {
+    id: number,
+    name: string,
+    skills: skillType[],
+}
+
 type globalState = {
     section: sections,
     general: genInfoType,
     education: educationType[],
     profession: profType[],
+    skills: skillGroup[],
 }
 
 export { sections, jobTypes };
-export type { globalState, educationType, profType, genInfoType };
+export type { globalState, educationType, profType, genInfoType, skillGroup, skillType };

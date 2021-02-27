@@ -19,12 +19,12 @@ const ProfessionalInfoPreviewCard: React.FC<{ info: profType }> = function (prop
 	return <div>
 		<h3>{companyName ?? ''}</h3>
 		<p>
-			{position && startDate ? designationStatement + position : ''}
+			{position && startDate ? designationStatement + ' ' + position : ''}
 			{position && startDate && <br />}
 			{jobTypeStatement}
 			<br />
 			{startDate ? 'From ' + startDate : ''}
-			{startDate && endDate ? ' To ' + endDate : (startDate ? ' and Ongoing' : '')}
+			{startDate && endDate ? ' To ' + endDate : (startDate ? ' - current' : '')}
 			{startDate && <br />}
 			{description}
 		</p>

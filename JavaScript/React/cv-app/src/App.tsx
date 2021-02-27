@@ -8,8 +8,10 @@ import EducationInfo from './components/EducationInfo';
 import ProfessionalInfo from './components/ProfessionalInfo';
 import EducationInfoPreview from './components/EducationInfoPreview';
 import ProfessionalInfoPreview from './components/ProfessionalInfoPreview';
+import SkillInfo from './components/SkillInfo';
 
-import {globalState, sections, jobTypes, genInfoType, educationType, profType} from './types';
+import {globalState, sections, genInfoType, educationType, profType, skillGroup} from './types';
+import Preview from './components/Preview';
 
 type propType = {};
 class App extends React.Component<propType, globalState> {
@@ -20,23 +22,20 @@ class App extends React.Component<propType, globalState> {
       general: { name:'', email: '', phone:'' },
       education: [],
       profession: [],
+      skills: [],
     };
     this.handleGeneralFormSubmit = this.handleGeneralFormSubmit.bind(this);
     this.handleEducationFormSubmit = this.handleEducationFormSubmit.bind(this);
     this.handleProfessionalFormSubmit = this.handleProfessionalFormSubmit.bind(this);
+    this.handleSkillGroupAdd = this.handleSkillGroupAdd.bind(this);
+    this.switchSidebarTab = this.switchSidebarTab.bind(this);
+    this.handleSkillAdd = this.handleSkillAdd.bind(this);
   }
 
-  switchToGeneral = () => {
-    if (this.state.section === sections.General) return;
-    this.setState({section: sections.General});
-  }
-  switchToEducation = () => {
-    if (this.state.section === sections.Education) return;
-    this.setState({section: sections.Education});
-  }
-  switchToProfessional = () => {
-    if (this.state.section === sections.Professional) return;
-    this.setState({section: sections.Professional});
+  switchSidebarTab(tabIndex: number) {
+    if (this.state.section === tabIndex) return;
+    if (!sections[tabIndex]) return;
+    this.setState({ section: tabIndex });
   }
 
   handleGeneralFormSubmit(payload: genInfoType) {
@@ -55,15 +54,37 @@ class App extends React.Component<propType, globalState> {
     });
   }
 
+  handleSkillGroupAdd(payload: skillGroup) {
+    payload.id = this.state.skills.length + 1;
+    this.setState({
+      skills: [...this.state.skills, payload]
+    });
+  }
+
+  handleSkillAdd(skillGroup: skillGroup, skillName: string) {
+    const otherSkillsBefore = this.state.skills.filter(s => s.id < skillGroup.id);
+    const otherSkillsAfter = this.state.skills.filter(s => s.id > skillGroup.id);
+    let changedSkill = this.state.skills.filter(s => s.id === skillGroup.id)[0];
+    changedSkill.skills.push({id: changedSkill.skills.length + 1, name: skillName});
+
+    this.setState({
+      skills: [...otherSkillsBefore, changedSkill, ...otherSkillsAfter]
+    });
+  }
+
   render() {
     const { section } = this.state;
     return (
       <div className="App">
-        <div className="sidebar">
-          <h3 className="heading">CV Builder</h3>
-          <SideNav text='General' cb={this.switchToGeneral} active={section === sections.General} />
-          <SideNav text='Education' cb={this.switchToEducation} active={section === sections.Education} />
-          <SideNav text='Professional' cb={this.switchToProfessional} active={section === sections.Professional} />
+        <div>
+          <h3 className="heading" style={{marginLeft: '0.5rem'}}>CV Builder</h3>
+          <div className="sidebar">
+            <SideNav text='General' cb={() => this.switchSidebarTab(sections.General)} active={section === sections.General} />
+            <SideNav text='Education' cb={() => this.switchSidebarTab(sections.Education)} active={section === sections.Education} />
+            <SideNav text='Professional' cb={() => this.switchSidebarTab(sections.Professional)} active={section === sections.Professional} />
+            <SideNav text='Skills' cb={() => this.switchSidebarTab(sections.Skills)} active={section === sections.Skills} />
+            <SideNav text='Preview' cb={() => this.switchSidebarTab(sections.Preview)} active={section === sections.Preview} />
+          </div>
         </div>
         {
           section === sections.General &&
@@ -85,6 +106,17 @@ class App extends React.Component<propType, globalState> {
             <ProfessionalInfo info={this.state.profession} cb={this.handleProfessionalFormSubmit} />
             <ProfessionalInfoPreview info={this.state.profession} />
           </div>
+        }
+        {
+          section === sections.Skills &&
+          <div className="main">
+            <SkillInfo info={this.state.skills} addGroup={this.handleSkillGroupAdd} 
+              addSkill={this.handleSkillAdd}/>
+          </div>
+        }
+        {
+          section === sections.Preview &&
+          <Preview info={this.state}/>
         }
       </div>
     );
