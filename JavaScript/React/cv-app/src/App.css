@@ -80,16 +80,22 @@
   margin: 0;
   /* line-height: 0; */
 }
-.skills {
+.skills, .proj-info {
   width: 100%;
 }
-.skills form {
+.left-aligned-small-form {
   display: flex;
   flex-direction: column;
   max-width: 350px;
+  margin: 0 auto;
 }
-.skills form > button {
-  margin-top: 1rem;
+.left-aligned-small-form > input, .left-aligned-small-form > textarea {
+  margin-bottom: 1rem;
+}
+.left-aligned-small-form > label {
+  margin-bottom: 0.5rem;
+}
+.left-aligned-small-form > button {
   align-self: center;
 }
 
@@ -132,6 +138,17 @@ ul.skill-groups {
   background-color: #98bcffaa;
 }
 
+ol.projects {
+  padding-left: 1rem;
+}
+ol.projects li > .header {
+  margin: 0;
+}
+ol.projects li > p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
 #preview {
   background-color: white;
   color: black;
@@ -163,23 +180,31 @@ ul.skill-groups {
   "prf prf prf prf prf prf edu edu edu edu"
   "prf prf prf prf prf prf edu edu edu edu"
   "prf prf prf prf prf prf edu edu edu edu"
-  "cert cert cert cert cert cert edu edu edu edu"
-  "cert cert cert cert cert cert edu edu edu edu"
-  "cert cert cert cert cert cert edu edu edu edu"; 
+  "proj proj proj proj proj proj edu edu edu edu"
+  "proj proj proj proj proj proj cert cert cert cert"
+  "proj proj proj proj proj proj cert cert cert cert"
+  "proj proj proj proj proj proj cert cert cert cert"
+  "proj proj proj proj proj proj cert cert cert cert"
 }
 
 #preview > .personal, #preview > .professional {
   padding-right: 0.5rem;
 }
 
-.personal {
+#preview .personal {
   grid-area: personal;
 }
-.professional {
+#preview .professional {
   grid-area: prf;
 }
-.educational {
+#preview .educational {
   grid-area: edu;
+}
+#preview .projects {
+  grid-area: proj;
+}
+#preview .certifications {
+  grid-area: cert;
 }
 
 #preview .name {
@@ -242,6 +267,75 @@ ul.prof-exp > .company::before, ul.education > .degree::before {
 
 .skillset p, .skillset .heading  {
   margin: 0;
+}
+
+#preview ul.projects-list {
+  padding-left: 0;
+  list-style: none;
+  margin-right: 1rem;
+}
+#preview ul.projects-list > .project {
+  padding-left: 1rem;
+  border-left: 1px solid black;
+  position: relative;
+}
+#preview ul.projects-list > .project::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: -3px;
+  height: 6px;
+  width: 6px;
+  background-color: black;
+  border-radius: 50%;
+}
+
+#preview ul.projects-list > .project::after {
+  content: '';
+  display: block;
+  position: absolute;
+  height: 1rem;
+  width: 1px;
+  left: -1px;
+  bottom: -1rem;
+  background-color: black;
+}
+
+#preview ul.projects-list > .project:last-of-type::after {
+  height: 0;
+  width: 0;
+}
+
+#preview ul.projects-list .header {
+  font-size: 1.2rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+#preview ul.projects-list .description {
+  margin-top: 0;
+}
+
+#preview ul.projects-list .tools {
+  font-size: 0.8rem;
+}
+
+.cert-info a {
+  color: #98bcffaa;
+}
+ul.certifications-list .header {
+  margin-bottom: 0rem;
+}
+#preview ul.certifications-list .header {
+  margin-top: 0.5rem;
+}
+#preview ul.certifications-list {
+  padding-left: 1rem;
+}
+ul.certifications-list .issuer {
+  margin: 0;
+  margin-bottom: 0.5rem;
 }
 
 @media(max-width: 1024px) {

@@ -9,9 +9,14 @@ import ProfessionalInfo from './components/ProfessionalInfo';
 import EducationInfoPreview from './components/EducationInfoPreview';
 import ProfessionalInfoPreview from './components/ProfessionalInfoPreview';
 import SkillInfo from './components/SkillInfo';
-
-import {globalState, sections, genInfoType, educationType, profType, skillGroup} from './types';
+import ProjectInfo from './components/ProjectInfo';
 import Preview from './components/Preview';
+
+
+import { globalState, sections, genInfoType, educationType, profType, skillGroup, project, certification } from './types';
+import ProjectInfoPreview from './components/ProjectInfoPreview';
+import CertificationInfo from './components/CertificationInfo';
+
 
 type propType = {};
 class App extends React.Component<propType, globalState> {
@@ -19,10 +24,12 @@ class App extends React.Component<propType, globalState> {
     super(props);
     this.state = {
       section: sections.General,
-      general: { name:'', email: '', phone:'' },
+      general: { name: '', email: '', phone: '' },
       education: [],
       profession: [],
       skills: [],
+      projects: [],
+      certifications: [],
     };
     this.handleGeneralFormSubmit = this.handleGeneralFormSubmit.bind(this);
     this.handleEducationFormSubmit = this.handleEducationFormSubmit.bind(this);
@@ -30,6 +37,8 @@ class App extends React.Component<propType, globalState> {
     this.handleSkillGroupAdd = this.handleSkillGroupAdd.bind(this);
     this.switchSidebarTab = this.switchSidebarTab.bind(this);
     this.handleSkillAdd = this.handleSkillAdd.bind(this);
+    this.handleProjectsFormSubmit = this.handleProjectsFormSubmit.bind(this);
+    this.handleCertificationFormSubmit = this.handleCertificationFormSubmit.bind(this);
   }
 
   switchSidebarTab(tabIndex: number) {
@@ -39,7 +48,7 @@ class App extends React.Component<propType, globalState> {
   }
 
   handleGeneralFormSubmit(payload: genInfoType) {
-    this.setState({general: payload});
+    this.setState({ general: payload });
   }
 
   handleEducationFormSubmit(payload: educationType) {
@@ -65,10 +74,24 @@ class App extends React.Component<propType, globalState> {
     const otherSkillsBefore = this.state.skills.filter(s => s.id < skillGroup.id);
     const otherSkillsAfter = this.state.skills.filter(s => s.id > skillGroup.id);
     let changedSkill = this.state.skills.filter(s => s.id === skillGroup.id)[0];
-    changedSkill.skills.push({id: changedSkill.skills.length + 1, name: skillName});
+    changedSkill.skills.push({ id: changedSkill.skills.length + 1, name: skillName });
 
     this.setState({
       skills: [...otherSkillsBefore, changedSkill, ...otherSkillsAfter]
+    });
+  }
+
+  handleProjectsFormSubmit(payload: project) {
+    payload.id = this.state.projects.length + 1;
+    this.setState({
+      projects: [...this.state.projects, payload]
+    });
+  }
+
+  handleCertificationFormSubmit(payload: certification) {
+    payload.id = this.state.certifications.length + 1;
+    this.setState({
+      certifications: [...this.state.certifications, payload]
     });
   }
 
@@ -77,12 +100,14 @@ class App extends React.Component<propType, globalState> {
     return (
       <div className="App">
         <div>
-          <h3 className="heading" style={{marginLeft: '0.5rem'}}>CV Builder</h3>
+          <h3 className="heading" style={{ marginLeft: '0.5rem' }}>CV Builder</h3>
           <div className="sidebar">
             <SideNav text='General' cb={() => this.switchSidebarTab(sections.General)} active={section === sections.General} />
             <SideNav text='Education' cb={() => this.switchSidebarTab(sections.Education)} active={section === sections.Education} />
             <SideNav text='Professional' cb={() => this.switchSidebarTab(sections.Professional)} active={section === sections.Professional} />
             <SideNav text='Skills' cb={() => this.switchSidebarTab(sections.Skills)} active={section === sections.Skills} />
+            <SideNav text='Projects' cb={() => this.switchSidebarTab(sections.Projects)} active={section === sections.Projects} />
+            <SideNav text='Certifications' cb={() => this.switchSidebarTab(sections.Certifications)} active={section === sections.Certifications} />
             <SideNav text='Preview' cb={() => this.switchSidebarTab(sections.Preview)} active={section === sections.Preview} />
           </div>
         </div>
@@ -110,13 +135,26 @@ class App extends React.Component<propType, globalState> {
         {
           section === sections.Skills &&
           <div className="main">
-            <SkillInfo info={this.state.skills} addGroup={this.handleSkillGroupAdd} 
-              addSkill={this.handleSkillAdd}/>
+            <SkillInfo info={this.state.skills} addGroup={this.handleSkillGroupAdd}
+              addSkill={this.handleSkillAdd} />
+          </div>
+        }
+        {
+          section === sections.Projects &&
+          <div className="main">
+            <ProjectInfo info={this.state.projects} cb={this.handleProjectsFormSubmit} />
+            <ProjectInfoPreview info={this.state.projects} />
+          </div>
+        }
+        {
+          section === sections.Certifications &&
+          <div className="main">
+            <CertificationInfo info={this.state.certifications} cb={this.handleCertificationFormSubmit} />
           </div>
         }
         {
           section === sections.Preview &&
-          <Preview info={this.state}/>
+          <Preview info={this.state} />
         }
       </div>
     );

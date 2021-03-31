@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { globalState, jobTypes, profType, educationType, skillGroup } from '../types';
+import { globalState, jobTypes, profType, educationType, skillGroup, project } from '../types';
 
 function getJobTypeFromCode(code: number): string {
 	let jobType = '';
@@ -36,16 +36,16 @@ const ExpCard: React.FC<{ info: profType }> = function (props) {
 	</li>;
 }
 
-const EduCard: React.FC<{info: educationType}> = function(props) {
+const EduCard: React.FC<{ info: educationType }> = function (props) {
 	const info = props.info;
 	if (!info.degreeName || !info.instituteName) return null;
 	return <li className="degree">
 		<h3 className="ins-name m-0">{info.degreeName}</h3>
 		<p className="m-0">
 			<strong>{info.instituteName}</strong>
-			<br/>
+			<br />
 			<span className="score">
-				{info.score? 'Percentage/CGPA - ' + info.score : ''}
+				{info.score ? 'Percentage/CGPA - ' + info.score : ''}
 			</span>
 		</p>
 		<p className="m-0">
@@ -57,8 +57,22 @@ const EduCard: React.FC<{info: educationType}> = function(props) {
 	</li>;
 }
 
+const ProjCard: React.FC<{ info: project }> = function (props) {
+	const { id, name, description, toolsUsed } = props.info;
+	return <li id={id.toString()} className="project">
+		<h4 className="header">{name}</h4>
+		<p className="description">
+			{description}
+			<br />
+			<strong className="tools">
+				{toolsUsed ? 'Made Using ' + toolsUsed : ''}
+			</strong>
+		</p>
+	</li>
+}
+
 const Preview: React.FC<{ info: globalState }> = function (props) {
-	const { general, education, profession, skills } = props.info;
+	const { general, education, profession, skills, projects, certifications } = props.info;
 	return <div id="preview">
 		<div className="personal">
 			<h1 className="name">{general.name}</h1>
@@ -77,7 +91,7 @@ const Preview: React.FC<{ info: globalState }> = function (props) {
 			<ul>
 				{skills.map(s => <li>
 					<h3 className="heading">{s.name}</h3>
-					{s.skills.length > 0? <p>{getSkillsFromGroup(s)}</p> : null}
+					{s.skills.length > 0 ? <p>{getSkillsFromGroup(s)}</p> : null}
 				</li>)}
 			</ul>
 		</div>
@@ -91,6 +105,26 @@ const Preview: React.FC<{ info: globalState }> = function (props) {
 			<h2 className="m-0">Professional Experience</h2>
 			<ul className="prof-exp">
 				{profession.map(p => <ExpCard info={p} />)}
+			</ul>
+		</div>
+		<div className="projects">
+			<h2 className="m-0">Projects</h2>
+			<ul className="projects-list">
+				{projects.map(p => <ProjCard info={p} />)}
+			</ul>
+		</div>
+		<div className="certifications">
+			<h2 className="m-0">Certifications</h2>
+			<ul className="certifications-list">
+				{certifications.map(c => <li>
+					<h2 className="header">{c.name}</h2>
+					<h3 className="issuer">{c.issuer}</h3>
+					{
+						c.url
+						&&
+						<a href={c.url}>Link - {c.url}</a>
+					}
+				</li>)}
 			</ul>
 		</div>
 	</div>
