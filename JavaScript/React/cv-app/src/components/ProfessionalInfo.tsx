@@ -56,6 +56,7 @@ class ProfessionalInfo extends React.Component<propType, profType> {
 		return (
 			<div className="ed-info">
 				<form action="" onSubmit={this.handleSubmit}>
+					<h1>Professional Experience</h1>
 					<input type="text" name="company-name" placeholder="Company Name" value={companyName} onChange={e => this.handleInput('companyName', e)}/>
 					<input type="text" name="designation" placeholder="Designation" value={position} onChange={e => this.handleInput('position', e)}/>
 					<select name="industry" id="industry" onChange={this.handleJobTypeChange} value={type}>
@@ -68,7 +69,7 @@ class ProfessionalInfo extends React.Component<propType, profType> {
 						<label htmlFor="ed-to-date" style={{ marginLeft: '1rem' }}>To</label>
 						<input type="date" name="ed-to-date" id="ed-to-date" value={endDate?.toString()} onChange={e => this.handleInput('endDate', e)}/>
 					</div>
-					<label htmlFor="description">Description of what you acheived there</label>
+					<label htmlFor="description">Describe what you acheived there</label>
 					<textarea value={description} name="description" id="prof-description" cols={30} rows={10} onChange={this.handleDescriptionInput}></textarea>
 					<button type="submit">Add</button>
 				</form>

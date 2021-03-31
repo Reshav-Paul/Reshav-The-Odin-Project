@@ -48,8 +48,8 @@ class SkillInfo extends React.Component<propType, skillState> {
 		const info = this.props.info;
 		const { skillGroup, skill } = this.state;
 		return <div className="skills">
-			<h1>Add Skills</h1>
-			<form action="" onSubmit={this.handleSkillGroupSubmit}>
+			<form action="" onSubmit={this.handleSkillGroupSubmit} className="left-aligned-small-form">
+				<h1>Add Skills</h1>
 				<input type="text" value={skillGroup.name} placeholder="Skill Group Name" onChange={this.handleSkillGroupInput} />
 				<button>Add Skill Group</button>
 			</form>
@@ -76,7 +76,7 @@ class SkillCard extends React.Component<skillCardPropType, { name: string }> {
 	}
 	handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		console.log(this.props.info);
+		// console.log(this.props.info);
 		this.props.onAddSkill(this.props.info, this.state.name);
 		this.setState({ name: '' });
 	}

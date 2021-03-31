@@ -48,6 +48,7 @@ class EducationInfo extends React.Component<propType, educationType> {
 		return (
 			<div className="ed-info">
 				<form action="" onSubmit={this.handleSubmit}>
+					<h1>Educational Information</h1>
 					<input type="text" placeholder="Institute Name" value={instituteName} onChange={e => this.handleInput('instituteName', e)}/>
 					<input type="text" placeholder="Degree Name" value={degreeName} onChange={e => this.handleInput('degreeName', e)}/>
 					<div>

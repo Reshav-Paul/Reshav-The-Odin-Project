@@ -41,6 +41,7 @@ class GenInfo extends React.Component<propType, genInfoType> {
         return (
             <div className='gen-info'>
                 <form action="">
+                    <h1>General Information</h1>
                     <input type="text" placeholder="Name" name="name" id="name" value={name} onChange={e => this.handleInput(e, 'name')}/>
                     <input type="email" placeholder="Email" name="email" id="email" value={email} onChange={e => this.handleInput(e, 'email')}/>
                     <div>
