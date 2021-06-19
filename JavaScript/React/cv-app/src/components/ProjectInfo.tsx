@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { project } from '../types';
+import ProjectInfoPreview from './ProjectInfoPreview';
 
 type propType = {
 	info: project[],
@@ -51,9 +52,9 @@ class ProjectInfo extends React.Component<propType, project> {
 
 		return <div className="proj-info">
 			
-			<form action="" onSubmit={this.handleSubmit} className="left-aligned-small-form">
+			<form action="" onSubmit={this.handleSubmit} className="regular-form">
 				<h1>Add Projects</h1>
-				<input value={name} type="text" name="proj-name" id="proj-name" className="name" placeholder="Project Name"
+				<input required value={name} type="text" name="proj-name" id="proj-name" className="name" placeholder="Project Name"
 					onChange={e => this.handleInput('name', e)} />
 				<label htmlFor="proj-tools">What did you use in this project?</label>
 				<input value={toolsUsed} type="text" name="proj-tools" id="proj-tools" className="tools" placeholder="Tools"
@@ -63,6 +64,7 @@ class ProjectInfo extends React.Component<propType, project> {
 
 				<button>Add Project</button>
 			</form>
+			<ProjectInfoPreview info={this.props.info} />
 		</div>;
 	}
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { educationType } from '../types';
+import EducationInfoPreview from './EducationInfoPreview';
 
 type propType = {
 	info: educationType[],
@@ -23,7 +24,6 @@ class EducationInfo extends React.Component<propType, educationType> {
 	handleInput(key: string, e: React.ChangeEvent<HTMLInputElement>) {
 		const value = e.target.value;
 		if (key in this.state) {
-			console.log(value);
 			this.setState({
 				...this.state,
 				[key]: value,
@@ -44,13 +44,12 @@ class EducationInfo extends React.Component<propType, educationType> {
 	}
 	render() {
 		const { degreeName, instituteName, score, startDate, endDate } = this.state;
-		console.log(startDate);
 		return (
 			<div className="ed-info">
-				<form action="" onSubmit={this.handleSubmit}>
+				<form action="" onSubmit={this.handleSubmit} className="regular-form">
 					<h1>Educational Information</h1>
-					<input type="text" placeholder="Institute Name" value={instituteName} onChange={e => this.handleInput('instituteName', e)}/>
-					<input type="text" placeholder="Degree Name" value={degreeName} onChange={e => this.handleInput('degreeName', e)}/>
+					<input required type="text" placeholder="Institute Name" value={instituteName} onChange={e => this.handleInput('instituteName', e)}/>
+					<input required type="text" placeholder="Degree Name" value={degreeName} onChange={e => this.handleInput('degreeName', e)}/>
 					<div>
 						<label htmlFor="ed-from-date">From</label>
 						<input type="date" name="ed-from-date" id="ed-from-date" value={startDate?.toString()} onChange={e => this.handleInput('startDate', e)}/>
@@ -59,10 +58,11 @@ class EducationInfo extends React.Component<propType, educationType> {
 					</div>
 					<div>
 						<label htmlFor="score">Percentage/GPA</label>
-						<input type="text" name="score" id="score" value={score} onChange={e => this.handleInput('score', e)}/>
+						<input required type="text" name="score" id="score" value={score} onChange={e => this.handleInput('score', e)}/>
 					</div>
 					<button type="submit">Add</button>
 				</form>
+				<EducationInfoPreview info={this.props.info} />
 			</div>
 		);
 	}

@@ -9,7 +9,7 @@ const ProjectInfoPreview: React.FC<{info: project[]}> = function(props) {
     return <div>
         <h2>{heading}</h2>
         <ol className="projects">
-        { projects.map(p => <ProjectCard info={p} />) }
+        { projects.map(p => <ProjectCard key={p.id} info={p} />) }
         </ol>
     </div>;
 }

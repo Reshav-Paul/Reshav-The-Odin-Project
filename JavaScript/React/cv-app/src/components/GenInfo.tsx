@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { genInfoType } from '../types';
+import GenInfoPreview from './GenInfoPreview';
 
 type propType = {
     info: genInfoType,
@@ -40,17 +41,18 @@ class GenInfo extends React.Component<propType, genInfoType> {
         const { name, email, phone, birthDate } = this.state;
         return (
             <div className='gen-info'>
-                <form action="">
+                <form action="" className="regular-form">
                     <h1>General Information</h1>
-                    <input type="text" placeholder="Name" name="name" id="name" value={name} onChange={e => this.handleInput(e, 'name')}/>
-                    <input type="email" placeholder="Email" name="email" id="email" value={email} onChange={e => this.handleInput(e, 'email')}/>
+                    <input type="text" placeholder="Name" required name="name" id="name" value={name} onChange={e => this.handleInput(e, 'name')}/ >
+                    <input type="email" placeholder="Email" required name="email" id="email" value={email} onChange={e => this.handleInput(e, 'email')}/>
                     <div>
                         <label htmlFor="birth-date">Date of Birth</label>
-                        <input type="date" name="birth-date" id="birth-date" value={birthDate?.toString()} onChange={e => this.handleInput(e, 'birthDate')}/>
+                        <input type="date" required name="birth-date" id="birth-date" value={birthDate?.toString()} onChange={e => this.handleInput(e, 'birthDate')}/>
                     </div>
                     <input type="text" placeholder="Phone Number" name="phone" id="phone" value={phone} onChange={e => this.handleInput(e, 'phone')}/>
                     <button onClick={ this.handleSubmit }>Edit</button>
                 </form>
+                <GenInfoPreview info={this.props.info} />
             </div>
         );
     }

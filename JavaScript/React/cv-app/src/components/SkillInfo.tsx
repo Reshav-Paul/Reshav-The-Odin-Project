@@ -57,7 +57,7 @@ class SkillInfo extends React.Component<propType, skillState> {
 			{
 				info.length > 0 &&
 				<ul className="skill-groups">
-					{info.map(i => <SkillCard info={i} onAddSkill={this.props.addSkill} />)}
+					{info.map(i => <SkillCard key={i.id} info={i} onAddSkill={this.props.addSkill} />)}
 				</ul>
 			}
 		</div>;
@@ -91,7 +91,7 @@ class SkillCard extends React.Component<skillCardPropType, { name: string }> {
 				<button>Add</button>
 			</form>
 			<ul className="skills-list">
-				{skillGroup.skills.map(s => <li>{s.name}</li>)}
+				{skillGroup.skills.map(s => <li key={s.id}>{s.name}</li>)}
 			</ul>
 		</li>;
 	}

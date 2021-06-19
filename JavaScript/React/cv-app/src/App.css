@@ -2,6 +2,7 @@
   text-align: left;
   display: flex;
   align-items: stretch;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .sidebar {
@@ -40,17 +41,23 @@
   /* width: 100%; */
   flex-grow: 8;
   display: flex;
+  /* flex-direction: column; */
+  /* align-items: center; */
   color: #bec3cc;
   padding-left: 1rem;
 }
-
-.gen-info, .ed-info {
+.main > div {
+  max-width: 600px;
+  min-width: 400px;
+}
+.gen-info, .ed-info, .prof-info, .proj-info, .cert-info {
   margin: 1rem auto;
 }
 
-.gen-info > form, .ed-info > form {
+.regular-form {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
   margin: 0 auto;
 }
 
@@ -58,27 +65,34 @@
   max-width: 350px;
 }
 
-.gen-info > form > *, .ed-info > form > * {
+.regular-form > * {
   display: inline-block;
   margin: 0.5rem 1rem;
 }
 
-.gen-info > form > button, .ed-info > form > button {
+.regular-form > button {
   align-self: center;
 }
 
 .gen-info-preview {
   margin: 1rem auto 1rem auto;
-  background-color: #121518;
+  background-color: #242830;
   padding: 1rem;
   max-width: 350px;
   min-width: 100px;
   border-left: 2px solid #98bcffaa;
   align-self: flex-start;
+  min-width: 300px;
 }
 .gen-info-preview > .heading {
   margin: 0;
   /* line-height: 0; */
+}
+.ed-info .header {
+  margin-bottom: 0rem;
+}
+.ed-info p {
+  margin-top: 0;
 }
 .skills, .proj-info {
   width: 100%;
@@ -98,7 +112,9 @@
 .left-aligned-small-form > button {
   align-self: center;
 }
-
+.skills {
+  max-width: 100% !important;
+}
 .skills form.skill-form {
   display: inline-block;
   margin: 0 1rem;
@@ -118,23 +134,35 @@ ul.skill-groups {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 .skills-list {
-  margin-top: 1rem;
+  margin: 1rem 0;
   padding-left: 0;
 }
 .skills-list li {
-  border-left: 1px solid #98bcffaa;
+  border-left: 2px solid #98bcffaa;
   list-style: none;
   padding: 0.3rem 1.2rem;
   position: relative;
+  font-weight: bold;
 }
-
+.skills-list li:last-of-type {
+  border-left: none;
+}
 .skills-list li::before {
   position: absolute;
   top: 50%;
   left: 0;
   content: '';
-  height: 1px;
+  height: 2px;
   width: 0.5rem;
+  background-color: #98bcffaa;
+}
+.skills-list li:last-of-type::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+  height: 50%;
+  width: 2px;
   background-color: #98bcffaa;
 }
 
@@ -158,53 +186,16 @@ ol.projects li > p {
   height: 29.7cm;
   min-height: 29.7cm;
   display: block;
-  margin: 0 auto;
   margin: 0.5cm auto;
-  /* width: calc((100vh - 2rem) / 1.41); */
-  /* width: 100%;
-  max-width: 600px;
-  margin: 1rem auto; */
-  /* aspect-ratio: 1 / 1.414; */
-  /* min-height: calc(100vh - 2rem);
-  max-height: calc(600px * 1.41); */
   box-sizing: border-box;
-
-  padding: 0 1rem 1rem 1rem;
+  padding: 1rem;
   display: grid;
-  /* gap: 1rem; */
-  grid-template-areas: 
-  "personal personal personal personal personal personal skills skills skills skills"
-  "prf prf prf prf prf prf skills skills skills skills"
-  "prf prf prf prf prf prf skills skills skills skills"
-  "prf prf prf prf prf prf edu edu edu edu"
-  "prf prf prf prf prf prf edu edu edu edu"
-  "prf prf prf prf prf prf edu edu edu edu"
-  "prf prf prf prf prf prf edu edu edu edu"
-  "proj proj proj proj proj proj edu edu edu edu"
-  "proj proj proj proj proj proj cert cert cert cert"
-  "proj proj proj proj proj proj cert cert cert cert"
-  "proj proj proj proj proj proj cert cert cert cert"
-  "proj proj proj proj proj proj cert cert cert cert"
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
 }
 
 #preview > .personal, #preview > .professional {
   padding-right: 0.5rem;
-}
-
-#preview .personal {
-  grid-area: personal;
-}
-#preview .professional {
-  grid-area: prf;
-}
-#preview .educational {
-  grid-area: edu;
-}
-#preview .projects {
-  grid-area: proj;
-}
-#preview .certifications {
-  grid-area: cert;
 }
 
 #preview .name {
@@ -214,7 +205,7 @@ ol.projects li > p {
 #preview .contact {
   font-size: 1rem;
   margin-top: 0.2rem;
-  margin-bottom: 0;
+  margin-bottom: 1rem;
   line-height: 1rem;
   border-left: 3px solid green;
   padding: 0 0 0.3rem 0.3rem;
@@ -252,19 +243,13 @@ ul.prof-exp > .company::before, ul.education > .degree::before {
   display: inline-block;
   margin-left: 0.5rem;
 }
-.skillset {
-  grid-area: skills;
-  margin-top: 2rem;
-}
 .company p, .degree p {
   font-size: 0.9rem;
 }
-
 .skillset ul {
   padding-left: 0;
   list-style: none;
 }
-
 .skillset p, .skillset .heading  {
   margin: 0;
 }
@@ -360,23 +345,4 @@ ul.certifications-list .issuer {
     border-radius: 10px 10px;
     margin: 0 0.5rem;
   }
-
-  /* #preview {
-    align-self: center;
-    margin: 1rem;
-    width: calc(100vw - 3rem);
-    height: calc((100vw - 3rem) * 1.41);
-    min-height: 565px;
-    max-height: calc((600px) * 1.41);
-  } */
 }
-/* @media(max-width: 580px) {
-  #preview {
-    align-self: flex-start;
-    margin: 1rem;
-    width: 500px;
-    height: calc(500px * 1.41);
-    min-height: 565px;
-    max-height: calc((500px) * 1.41);
-  }
-} */

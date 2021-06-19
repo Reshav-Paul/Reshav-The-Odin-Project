@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { profType, jobTypes } from '../types';
+import ProfessionalInfoPreview from './ProfessionalInfoPreview';
 
 type propType = {
 	info: profType[],
@@ -54,11 +55,11 @@ class ProfessionalInfo extends React.Component<propType, profType> {
 	render() {
 		const { companyName, description, position, type, startDate, endDate } = this.state;
 		return (
-			<div className="ed-info">
-				<form action="" onSubmit={this.handleSubmit}>
+			<div className="prof-info">
+				<form action="" onSubmit={this.handleSubmit} className="regular-form">
 					<h1>Professional Experience</h1>
-					<input type="text" name="company-name" placeholder="Company Name" value={companyName} onChange={e => this.handleInput('companyName', e)}/>
-					<input type="text" name="designation" placeholder="Designation" value={position} onChange={e => this.handleInput('position', e)}/>
+					<input required type="text" name="company-name" placeholder="Company Name" value={companyName} onChange={e => this.handleInput('companyName', e)}/>
+					<input required type="text" name="designation" placeholder="Designation" value={position} onChange={e => this.handleInput('position', e)}/>
 					<select name="industry" id="industry" onChange={this.handleJobTypeChange} value={type}>
 						<option value={jobTypes.fulltime}>Fulltime</option>
 						<option value={jobTypes.internship}>Internship</option>
@@ -73,6 +74,7 @@ class ProfessionalInfo extends React.Component<propType, profType> {
 					<textarea value={description} name="description" id="prof-description" cols={30} rows={10} onChange={this.handleDescriptionInput}></textarea>
 					<button type="submit">Add</button>
 				</form>
+				<ProfessionalInfoPreview info={this.props.info} />
 			</div>
 		);
 	}

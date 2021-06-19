@@ -9,7 +9,6 @@ const ProfessionalInfoPreviewCard: React.FC<{ info: profType }> = function (prop
 	}
 	let jobTypeStatement: string = '';
 	let designationStatement: string = '';
-	console.log(type);
 	if (type == jobTypes.fulltime) jobTypeStatement = 'In a Fulltime Role';
 	if (type == jobTypes.internship) jobTypeStatement = 'In an Internship Position';
 	if (position) {
@@ -33,7 +32,7 @@ const ProfessionalInfoPreviewCard: React.FC<{ info: profType }> = function (prop
 
 const ProfessionalInfoPreview: React.FC<{ info: profType[] }> = function (props) {
 	return <div>
-			{props.info.map(i => <ProfessionalInfoPreviewCard info={i} />)}
+		{props.info.map(i => <ProfessionalInfoPreviewCard info={i} />)}
 	</div>;
 }
 

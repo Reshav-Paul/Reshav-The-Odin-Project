@@ -3,10 +3,9 @@ import React from 'react';
 import { educationType } from '../types';
 
 const EducationPreviewCard: React.FC<{ info: educationType }> = function (props) {
-    console.log(props);
     const {degreeName,instituteName,score,startDate,endDate} = props.info;
     return <div>
-        <h3>{degreeName ?? ''}</h3>
+        <h3 className="header">{degreeName ?? ''}</h3>
         <p>
             {instituteName? 'Recieved From ' + instituteName : ''}
             <br/>
@@ -19,7 +18,7 @@ const EducationPreviewCard: React.FC<{ info: educationType }> = function (props)
 }
 
 const EducationInfoPreview: React.FC<{ info: educationType[] }> = function (props) {
-    return <div>
+    return <div className="ed-info-preview">
         {props.info.map(i => <EducationPreviewCard info={i} />)}
     </div>;
 }

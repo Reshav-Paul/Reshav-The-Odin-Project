@@ -41,15 +41,15 @@ class CertificationInfo extends React.Component<propType, certification> {
     render() {
         const {name, issuer, url} = this.state;
         return <div className="cert-info">
-            <form action="" onSubmit={this.handleSubmit} className="left-aligned-small-form">
+            <form action="" onSubmit={this.handleSubmit} className="regular-form">
                 <h1>Certifications</h1>
-                <input value={name} onChange={e => this.handleInput('name', e)} type="text" name="name" placeholder="Title" />
-                <input value={issuer} onChange={e => this.handleInput('issuer', e)} type="text" name="issuer" placeholder="Issuing Organization" />
+                <input required value={name} onChange={e => this.handleInput('name', e)} type="text" name="name" placeholder="Title" />
+                <input required value={issuer} onChange={e => this.handleInput('issuer', e)} type="text" name="issuer" placeholder="Issuing Organization" />
                 <input value={url} onChange={e => this.handleInput('url', e)} type="text" name="url" placeholder="Certificate URL" />
                 <button>Submit</button>
             </form>
             <ul className="certifications-list">
-                {this.props.info.map(c => <li id={c.id.toString()}>
+                {this.props.info.map(c => <li key={c.id.toString()}>
                     <h2 className="header">{c.name}</h2>
                     <h3 className="issuer">{c.issuer}</h3>
                     {

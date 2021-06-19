@@ -115,21 +115,18 @@ class App extends React.Component<propType, globalState> {
           section === sections.General &&
           <div className="main">
             <GenInfo info={this.state.general} cb={this.handleGeneralFormSubmit} />
-            <GenInfoPreview info={this.state.general} />
           </div>
         }
         {
           section === sections.Education &&
           <div className="main">
             <EducationInfo info={this.state.education} cb={this.handleEducationFormSubmit} />
-            <EducationInfoPreview info={this.state.education} />
           </div>
         }
         {
           section === sections.Professional &&
           <div className="main">
             <ProfessionalInfo info={this.state.profession} cb={this.handleProfessionalFormSubmit} />
-            <ProfessionalInfoPreview info={this.state.profession} />
           </div>
         }
         {
@@ -143,7 +140,6 @@ class App extends React.Component<propType, globalState> {
           section === sections.Projects &&
           <div className="main">
             <ProjectInfo info={this.state.projects} cb={this.handleProjectsFormSubmit} />
-            <ProjectInfoPreview info={this.state.projects} />
           </div>
         }
         {

@@ -74,58 +74,74 @@ const ProjCard: React.FC<{ info: project }> = function (props) {
 const Preview: React.FC<{ info: globalState }> = function (props) {
 	const { general, education, profession, skills, projects, certifications } = props.info;
 	return <div id="preview">
-		<div className="personal">
-			<h1 className="name">{general.name}</h1>
-			<h2 className="m-0">Contact</h2>
-			<p className="contact">
-				{general.email ? 'Email - ' + general.email : ''}
-				{general.email && <br />}
-				{general.phone ? 'Phone - ' + general.phone : ''}
-				{general.phone && <br />}
-				{general.birthDate ? 'Date of Birth - ' + general.birthDate : ''}
-				{/* {general.birthDate && <br />} */}
-			</p>
+		<div className="col1">
+			{general.name || general.email || general.phone ?
+				<div className="personal">
+					<h1 className="name">{general.name}</h1>
+					<h2 className="m-0">Contact</h2>
+					<p className="contact">
+						{general.email ? 'Email - ' + general.email : ''}
+						{general.email && <br />}
+						{general.phone ? 'Phone - ' + general.phone : ''}
+						{general.phone && <br />}
+						{general.birthDate ? 'Date of Birth - ' + general.birthDate : ''}
+						{/* {general.birthDate && <br />} */}
+					</p>
+				</div>
+				: null}
+			{education.length !== 0 ?
+				<div className="educational">
+					<h2 className="m-0">Educational Background</h2>
+					<ul className="education">
+						{education.map(p => <EduCard key={p.degreeName} info={p} />)}
+					</ul>
+				</div>
+				: null}
+			{projects.length !== 0 ?
+				<div className="projects">
+					<h2 className="m-0">Projects</h2>
+					<ul className="projects-list">
+						{projects.map(p => <ProjCard key={p.id} info={p} />)}
+					</ul>
+				</div>
+				: null}
 		</div>
-		<div className="skillset">
-			<h2 className="m-0">Skills</h2>
-			<ul>
-				{skills.map(s => <li>
-					<h3 className="heading">{s.name}</h3>
-					{s.skills.length > 0 ? <p>{getSkillsFromGroup(s)}</p> : null}
-				</li>)}
-			</ul>
-		</div>
-		<div className="educational">
-			<h2 className="m-0">Educational Background</h2>
-			<ul className="education">
-				{education.map(p => <EduCard info={p} />)}
-			</ul>
-		</div>
-		<div className="professional">
-			<h2 className="m-0">Professional Experience</h2>
-			<ul className="prof-exp">
-				{profession.map(p => <ExpCard info={p} />)}
-			</ul>
-		</div>
-		<div className="projects">
-			<h2 className="m-0">Projects</h2>
-			<ul className="projects-list">
-				{projects.map(p => <ProjCard info={p} />)}
-			</ul>
-		</div>
-		<div className="certifications">
-			<h2 className="m-0">Certifications</h2>
-			<ul className="certifications-list">
-				{certifications.map(c => <li>
-					<h2 className="header">{c.name}</h2>
-					<h3 className="issuer">{c.issuer}</h3>
-					{
-						c.url
-						&&
-						<a href={c.url}>Link - {c.url}</a>
-					}
-				</li>)}
-			</ul>
+		<div className="col2">
+			{skills.length !== 0 ?
+				<div className="skillset">
+					<h2 className="m-0">Skills</h2>
+					<ul>
+						{skills.map(s => <li key={s.id}>
+							<h3 className="heading">{s.name}</h3>
+							{s.skills.length > 0 ? <p>{getSkillsFromGroup(s)}</p> : null}
+						</li>)}
+					</ul>
+				</div>
+				: null}
+			{profession.length !== 0 ?
+				<div className="professional">
+					<h2 className="m-0">Professional Experience</h2>
+					<ul className="prof-exp">
+						{profession.map(p => <ExpCard key={p.companyName + p.startDate} info={p} />)}
+					</ul>
+				</div>
+				: null}
+			{certifications.length !== 0 ?
+				<div className="certifications">
+					<h2 className="m-0">Certifications</h2>
+					<ul className="certifications-list">
+						{certifications.map(c => <li key={c.id}>
+							<h3 className="header">{c.name}</h3>
+							<h4 className="issuer">{c.issuer}</h4>
+							{
+								c.url
+								&&
+								<a href={c.url}>Link - {c.url}</a>
+							}
+						</li>)}
+					</ul>
+				</div>
+				: null}
 		</div>
 	</div>
 }
